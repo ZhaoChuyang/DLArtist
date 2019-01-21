@@ -12,5 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/shop', function(){
+	return view('layouts.shop');
+});
+
+Route::get('/index', function(){
+    return view('index');
 });

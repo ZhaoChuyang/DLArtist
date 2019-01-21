@@ -1,0 +1,34 @@
+.isotope {
+	margin-top: 10px;
+}
+
+.folio-inner {
+	overflow:hidden;
+	background:#fff;
+
+}
+.folio-filter {
+	position: relative;
+	display:table;
+}
+	
+.folio-filter li {
+	display: inline-block;
+	width:100%;
+}
+
+	
+
+/* Isotope Transitions
+------------------------------- */
+.isotope, .isotope .folio-item {-webkit-transition-duration: 0.8s;-moz-transition-duration:0.8s;-ms-transition-duration:0.8s;-o-transition-duration:0.8s;transition-duration:0.8s;}
+.isotope {
+  -webkit-transition-property: height;
+  -moz-transition-property: height;
+  -ms-transition-property: height;
+  -o-transition-property: height;
+  transition-property: height;
+}
+
+.isotope .item {-webkit-transition-property: -webkit-transform,opacity;-moz-transition-property:-moz-transform,opacity;-ms-transition-property:-ms-transform,opacity;-o-transition-property:top,left,opacity;transition-property:transform, opacity;}
+

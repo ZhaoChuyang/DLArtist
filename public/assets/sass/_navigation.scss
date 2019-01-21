@@ -1,0 +1,1225 @@
+/*-------------------------------------------------*/
+/* =  4.Main Navigation
+/*-------------------------------------------------*/
+header {
+    position: relative;
+    z-index: 3;
+    padding: 10px 0px;
+    background-color: white;
+    
+    &.border {
+        border-bottom: 1px solid rgba(117,117,117,0.05);
+        box-shadow: 0 0 28px 0 rgba(0, 0, 0, 0.05);
+    }
+    
+    > .container {
+        padding: 0 50px;
+        
+        @media screen and (max-width: $small) {
+            padding: 0 30px;
+        }
+    }
+    
+    &.fixed {
+        .container {
+            padding: 0 50px;
+        }   
+    }
+    &.fixed {
+        height: 80px;
+        width: 100%;
+        max-width: 1500px;
+        margin: 0 auto;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        margin-left: -750px;
+        z-index: 100;
+        background-color: white;
+
+        &.full-width {
+            max-width: 100%;
+            margin-left: 0px;
+            left: 0;
+            right: 0;
+        }
+            
+        @media screen and (max-width:1500px) {
+            max-width: 100%;
+            margin: 0;
+            left: 0;
+            margin-left: 0;
+        }
+        @media screen and (max-width:$small) {
+            height: 60px;
+        }
+    }
+    nav {
+        &.navbar {
+            height: 80px;
+            box-shadow: none;
+            border-radius: 0;
+            background-image: none;
+            background-color: transparent;
+            border: none;
+            margin-bottom: 0;
+
+            @media screen and (max-width:$small) {
+                height: 60px;
+            }
+
+            #logo {
+                width: 150px;
+                position: relative;
+                float: left;
+
+                @media screen and (max-width:$small) {
+                    width: 180px;
+                }
+                a {
+                    &.navbar-brand {
+                        height:80px;
+                        line-height:80px;
+                        padding: 15px 0;
+
+                        @media screen and (max-width:$small) {
+                            height: 60px;
+                            line-height: 60px;
+                            padding: 10px 0;
+                        }
+
+
+                        img {
+                            max-height: 50px;
+                            width: auto;
+
+                            @media screen and (max-width:$small) {
+                                max-height: 40px;
+                                max-width: 180px;
+                            }
+                        }
+                    }
+                }
+            }
+            #menu, #sidemenu, #menu-classic {
+                position: relative;
+                float: right;
+                margin: 25px 0;
+                width: 80%;
+                width: calc(100% - 150px);
+
+                @media screen and (max-width:$large) {
+                    width: auto;
+                }
+                .menu-holder {
+                    text-align: right;
+                    float: right;
+
+                    @media screen and (max-width:$large) {
+                        display: none;
+                    }
+
+                    ul {
+
+                        > li {
+                            &:last-of-type {
+                                &.submenu {
+                                    ul {
+                                        &.sub-menu {
+                                            left: inherit;
+                                            right: -18px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        li {
+                            display: inline-block;
+
+                            a {
+                                margin-left: 30px;
+                                font-size: 16px;
+                                line-height: 26px;
+                                font-family: $paragraph-font;
+                                font-weight: 400;
+                                color: $paragraph-color;
+                                padding: 10px 0;
+                                
+                                @media screen and (min-width: $large) and (max-width: $full) {
+                                    margin-left: 24px;
+                                }
+
+                                &:hover {
+                                    color: $secondary-color !important;
+                                }
+
+                                &.active, &.active-item {
+                                    color: $primary-color;
+                                }
+                            }
+
+                            &.submenu {
+                                position:relative;
+
+                                > a  {
+                                    padding: 33px 0;
+                                }
+
+                                ul {
+                                    &.sub-menu {
+                                        display: block;
+                                        visibility: hidden;
+                                        z-index: 90;
+                                        position: absolute;
+                                        top: 88px;
+                                        opacity: 0;
+                                        left: 18px;
+                                        min-width: 177px;
+                                        width: auto;
+                                        text-align: left;
+                                        background-color: $dark-background;
+                                        padding: 16px;
+                                        transition: all .4s ease;
+                                        
+                                        @media screen and (min-width: 992px) {
+                                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                                            border-radius: 4px;
+                                        }
+
+                                        li {
+                                            display: block;
+                                            text-align: left;
+                                            margin: 10px 0;
+
+                                            &:first-child {
+                                                margin: 0 0 5px 0;
+                                            }
+                                            &:last-child {
+                                                margin: 5px 0 0 0;
+                                            }
+
+                                            a {
+                                                color: white;
+                                                margin-left: 0;
+                                                font-size: 14px;
+                                                line-height: 30px;
+                                                font-weight: 400;
+                                                text-transform: none;
+                                                font-family: $paragraph-font;
+                                                transition: padding-left .4s ease;
+
+                                                &:hover {
+                                                    color: $secondary-color !important;
+                                                    
+                                                    @media screen and (min-width:$large) {
+                                                        padding-left: 10px;
+                                                        transition: padding-left .4s ease;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        &.mega-sub-menu {
+                                            @include background-cover;
+                                            &.mega-lg {
+                                                width: 70%;
+                                                right: 0;
+                                                left: inherit;
+                                                top:59px;
+
+                                                @media screen and (max-width:1450px) {
+                                                    width: 85%;
+                                                }
+                                                @media screen and (max-width: 1250px) {
+                                                    width: 100%;
+                                                }
+                                            }
+                                            &.mega-md {
+                                                width: 50%;
+                                                right: 0;
+                                                top:55px;
+                                                left: inherit;
+                                                
+                                                @media screen and (max-width: 1500px) {
+                                                    width: 70%;
+                                                }
+                                                @media screen and (max-width: 1250px) {
+                                                    width: 100%;
+                                                }
+                                            }
+                                            li {
+                                                div {
+                                                    ul {
+                                                        li {
+                                                            a {
+                                                                color: white;
+                                                                margin-left: 0;
+                                                                font-size: 14px;
+                                                                line-height: 30px;
+                                                                text-transform: none;
+                                                                font-family: $primary-font;
+                                                                transition: padding-left .4s ease;
+
+                                                                i {
+                                                                    color: $paragraph-color;
+                                                                    padding-right: 16px;
+                                                                    transition: color .4s ease;
+                                                                }
+                                                            }
+                                                            &:hover {
+                                                                a {
+                                                                    @media screen and (min-width:$large) {
+                                                                        padding-left: 10px;
+                                                                        transition: padding-left .4s ease;
+                                                                    }
+                                                                    i {
+                                                                        color: white;
+                                                                        transition: color .4s ease;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                &.icon-list {
+                                                    overflow: hidden;
+                                                    margin-top: -10px;
+                                                }
+                                            }
+                                            span {
+                                                &.header {
+                                                    display: block;
+                                                    color: $paragraph-color-light;
+                                                    font-size: 12px;
+                                                    line-height: 22px;
+                                                    letter-spacing: 2px;
+                                                    margin-bottom: 8px;
+                                                    text-transform: uppercase;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                &:hover {
+                                    ul {
+                                        &.sub-menu {
+                                            visibility: visible;
+                                            top: 46px;
+                                            opacity: 1;
+                                            transition: all .4s ease;
+                                        }
+                                    }
+                                }
+                                &.megasubmenu {
+                                    position: static;
+                                }
+                            }
+                            &.search {
+                                cursor: pointer;
+
+                                @media screen and (max-width: $large) {
+                                    display: none !important;
+                                }
+
+                                i {
+                                    margin-left: 30px;
+                                    font-size: 20px;
+                                    line-height: 16px;
+                                    padding: 10px 0;
+                                }
+                            }
+                            &.lang {
+                                cursor: pointer;
+                                position: relative;
+                                
+                                span {
+                                    display: block;
+                                    
+                                    @media screen and (max-width:$large) {
+                                        display: inline-block;
+                                    }
+                                    
+                                    &.current {
+                                        a {
+                                            font-family: $primary-font;
+                                            font-size: 14px;
+                                            letter-spacing: 2px;
+                                            padding: 25px 0;
+                                            
+                                            @media screen and (max-width:$large) {
+                                                padding: 10px 0;
+                                                margin-right: 16px;
+                                                color: $secondary-color;
+                                                
+                                                &:hover {
+                                                    color: $secondary-color;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                ul {
+                                    display: block;
+                                    visibility: hidden;
+                                    z-index: 90;
+                                    position: absolute;
+                                    top: 88px;
+                                    opacity: 0;
+                                    right: -16px;
+                                    width: 55px;
+                                    text-align: center;
+                                    background-color: $dark-background;
+                                    padding: 16px;
+                                    transition: all .4s ease;
+                                    
+                                    @media screen and (min-width: 992px) {
+                                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                                        border-radius: 4px;
+                                    }
+                                    
+                                    @media screen and (max-width:$large) {
+                                        visibility: visible;
+                                        position: relative;
+                                        top:inherit;
+                                        opacity: 1;
+                                        right: inherit;
+                                        width: auto;
+                                        text-align: left;
+                                        background-color: transparent;
+                                        display: inline-block;
+                                        padding: 0;
+                                    }
+                                    
+                                    li {
+                                        a {
+                                            margin-left: 0;
+                                            font-family: $primary-font;
+                                            font-size: 14px;
+                                            letter-spacing: 2px;
+                                            color: white;
+                                            
+                                            &:hover {
+                                                color: $primary-color;
+                                            }
+                                            
+                                            @media screen and (max-width:$large) {
+                                                margin-right: 16px;
+                                                
+                                                &:hover {
+                                                    color: $paragraph-color;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                &:hover {
+                                    ul {
+                                        visibility: visible;
+                                        top: 46px;
+                                        opacity: 1;
+                                        transition: all .4s ease;   
+                                        
+                                        @media screen and (max-width:$large) {
+                                             top: inherit;
+                                        }
+                                    }
+                                }
+                            }
+                            &.shop {
+                                margin-right: 15px;
+                                
+                                @media screen and (max-width: $large) {
+                                    display: none !important;
+                                }
+                                
+                                a {
+                                    &.cart {
+                                        position: relative;
+                                        color: $primary-color;
+                                        
+                                        i {
+                                            font-size: 23px;
+                                        }
+                                        span {
+                                            background-color: $color-background;
+                                            border-radius: 50%;
+                                            background-clip: padding-box;
+                                            width: 20px;
+                                            height: 20px;
+                                            line-height: 20px;
+                                            position: absolute;
+                                            top: 11px;
+                                            right: -12px;
+                                            font-size: 12px;
+                                            font-weight: 500;
+                                            color: #fff;
+                                            text-align: center;
+                                        }
+                                    }
+                                }
+                                ul {
+                                    &.cart-wrap {
+                                        display: block;
+                                        visibility: hidden;
+                                        z-index: 90;
+                                        position: absolute;
+                                        top: 88px;
+                                        opacity: 0;
+                                        right: -16px;
+                                        width: 320px;
+                                        text-align: center;
+                                        background-color: white;
+                                        transition: all .4s ease;
+
+                                        @media screen and (min-width: 992px) {
+                                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+                                            border-radius: 4px;
+                                        }
+
+                                        @media screen and (max-width:$large) {
+                                            display: none;
+                                        }
+                                        
+                                        .shopping-cart {
+                                            ul {
+                                                &.list-cart {
+                                                    li {                       
+                                                        &.item {
+                                                            display: block;
+                                                            overflow: hidden;
+                                                            padding: 16px;
+                                                            
+                                                            img {
+                                                                width: 66px;
+                                                                height: auto;
+                                                                float: left;
+                                                                border-radius: 2px;
+                                                            }
+                                                            .content {
+                                                                padding-left: 100px;
+                                                                text-align: left;
+                                                                
+                                                                h5 {
+                                                                    font-weight: 400;
+                                                                    font-size: 14px;
+                                                                    margin-bottom: 2px;
+                                                                }
+                                                                span {
+                                                                    &.quantity {
+                                                                        font-size: 14px;
+                                                                        color: $paragraph-color;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            p {
+                                                display: block;
+                                                text-align: left;
+                                                border-top: 1px solid rgba(117, 117, 117, 0.05);
+                                                padding: 8px 16px;
+                                                margin: 0;
+                                                overflow: hidden;
+                                                font-size: 14px;
+                                                
+                                                &.total {                                                
+                                                    span {
+                                                        float: right;
+                                                        color: $secondary-color;
+                                                        font-weight: 400;
+                                                    }
+                                                }
+                                                
+                                                &.buttons {
+                                                    
+                                                    a {
+                                                        margin-left: 0;
+                                                        padding: 0;
+                                                        font-size: 14px;
+                                                        font-weight: 400;
+                                                        color: $primary-color;
+                                                        
+                                                        &.my-cart {
+                                                            float: left;
+                                                        }
+                                                        &.checkout {
+                                                            float: right;
+                                                        }
+                                                    }   
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                &:hover {
+                                    @media screen and (min-width: 991px) {
+                                        ul {                                        
+                                            &.cart-wrap {
+                                                visibility: visible;
+                                                top: 46px;
+                                                opacity: 1;
+                                                transition: all .4s ease;   
+
+                                                @media screen and (max-width:$large) {
+                                                    top: inherit;
+                                                }   
+                                            }
+                                        }   
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    button {
+                        &.close-menu {
+                            display: none;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            margin: 0 auto;
+                            font-size:100px;
+                            font-weight: 100;
+                            color: $secondary-color;
+                            width: 50px;
+                            height: 120px;
+                        }
+                    }
+                }
+                &.open {
+
+                    @media screen and (max-width: $large) {
+
+                        display: block;
+                        position: fixed;
+                        left:0;
+                        top:0;
+                        background-color: rgba(255, 255, 255, 0.95);
+                        width:100%;
+                        height:100%;
+                        z-index:998;
+                        visibility: visible;
+                        opacity:1;
+                        margin: 0;
+                        overflow-y: auto;
+
+                        .menu-holder {
+                            padding: 120px 100px 50px 100px;
+                            width:100%;
+                            text-align: center;
+
+                            @media screen and (max-width:1350px) {
+                                display: block;
+                            }
+                            @media screen and (max-width:$small) {
+                                padding: 120px 50px;
+                            }
+
+
+                            ul {
+                                li {
+                                    display: block;
+                                    padding: 6px 0;
+
+                                    a {
+                                        color: $primary-color;
+                                        padding: 0;
+                                        font-size: 35px;
+                                        line-height: 55px;
+
+                                        &:hover {
+                                            color: $secondary-color;
+                                        }
+                                    }
+
+                                    &.submenu {
+                                        display: block;
+
+                                        >a {
+                                            padding: 0;
+                                        }
+
+                                        ul {
+                                            &.sub-menu {
+                                                position: relative;
+                                                background-color: transparent;
+                                                top: 0;
+                                                left: inherit;
+                                                right: inherit;
+                                                text-align: center;
+                                                max-height: 0;
+                                                transition: max-height .8s ease;
+                                                visibility: hidden;
+                                                display: block;
+                                                padding: 0;
+                                                border: none;
+
+                                                li {
+                                                    display: inline-block;
+                                                    margin: 0 16px;
+                                                    text-align: center;
+                                                    opacity: 0;
+                                                    transition: opacity .4s ease;
+
+                                                    a {
+                                                        color: $secondary-color;
+                                                        font-size: 12px;
+                                                        line-height: 22px;
+                                                        text-transform: uppercase;
+                                                        font-family: $primary-font;
+                                                        
+                                                        @media screen and (max-width:$large) {
+                                                            color: white;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    a {
+                                        &:focus {
+                                            text-decoration: none;
+                                            outline: none;
+                                        }
+                                    }
+                                    &:hover {
+                                        ul {
+                                            &.sub-menu {
+                                                max-height:800px;
+                                                transition: max-height .8s ease;
+                                                visibility: visible;
+
+                                                li {
+                                                    opacity: 1;
+                                                    transition: opacity .4s ease;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                a {
+                                    font-size: 20px;
+                                    line-height: 30px;
+                                    font-family: $secondary-font;
+                                    color:white;
+                                    margin-left: 0;
+                                }
+                            }
+                            button {
+                                &.close-menu {
+                                    display: block;
+                                }
+                            }
+                        }
+
+                    }
+                }
+                &.sidemenu {
+
+                    @media screen and (max-width: $large) {
+
+                        display: block;
+                        position: fixed;
+                        width:320px;
+                        right:-320px;
+                        top:0;
+                        left: inherit;
+                        background-color: $dark-background;
+                        height:100%;
+                        z-index:998;
+
+                        .menu-holder {
+                            padding: 0px 50px;
+                            width:100%;
+                            text-align: right;
+                            position: absolute;
+                            top: 80px;
+                            height: 60%;
+                            height: calc(100% - 80px);
+                            overflow-y: auto;
+
+                            ul {
+                                li {
+                                    margin: 15px 0;
+                                    a {
+                                        color: white;
+                                        font-size: 20px;
+                                        line-height: 30px;
+                                    }
+                                    &:hover {
+                                        a {
+                                            color: $paragraph-color;
+                                        }
+                                    }
+                                    &.submenu {
+                                        ul {
+                                            &.sub-menu {
+                                                text-align: right;
+                                                li {
+                                                    margin: 0 0 0 16px;
+
+                                                    a {
+                                                        color: $paragraph-color-light;
+                                                        &:hover {
+                                                            color: $secondary-color !important;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                    
+                    .menu-holder {
+                        @media screen and (max-width:$small) {
+                            padding: 0px 30px 50px 30px;
+                        }
+                    }
+                    &.open {
+
+                        @media screen and (max-width: $large) {
+                            overflow-y: visible;
+                            right: 0;
+
+                        }
+                    }
+                }
+            }
+            #menu-classic {
+
+                margin: 28px 0;
+
+                &.open {
+
+                    @media screen and (max-width: $large) {
+
+                        position: fixed;
+                        height: auto;
+                        max-height: 350px;
+                        top: 78px;
+                        background-color: $dark-background;
+
+                        @media screen and (max-width: $small) {
+                            top: 60px;
+                        }
+
+                        .menu-holder {
+                            padding: 10px 50px 10px 50px;
+                            text-align: left;
+
+                            ul{
+                                li {
+                                    a {
+                                        font-size: 14px;
+                                        line-height: 24px;
+                                        font-family: $paragraph-font;
+                                        font-weight: 100;
+                                    }
+
+                                    &.submenu {
+                                        position: relative;
+
+                                        ul {
+                                            &.sub-menu {
+                                                display: none;
+                                                text-align: left;
+                                                padding-left: 15px;
+
+                                                li {
+                                                    margin: 0 16px 0 0;
+
+                                                    &.icon-list {
+                                                        margin-top: 0;
+                                                    }
+                                                }
+
+                                                &.mega-sub-menu {
+                                                    background-image: none !important;
+
+                                                    &.mega-md, &.mega-lg {
+                                                        top: 0;
+                                                        width: 100%;
+                                                    }
+                                                    
+                                                    li {
+                                                        a {
+                                                            font-size: 12px;
+                                                            line-height: 28px;
+                                                            text-transform: uppercase;
+                                                            font-weight: 300;
+                                                            font-family: $primary-font;
+                                                        }
+                                                        div {
+                                                            text-align: left;
+                                                            padding-left: 0;
+                                                            
+                                                            span {
+                                                                &.header {
+                                                                    margin-top: 16px;
+                                                                    color: $paragraph-color;
+                                                                }
+                                                            }
+
+                                                            &.col-sm-6 {
+                                                                width: 100%;
+
+                                                                .row {
+                                                                    padding-left: 15px;
+
+                                                                    .col-md-12, .col-sm-12 {
+                                                                        margin-bottom: 0;
+                                                                    }
+                                                                }
+                                                            }
+                                                            
+                                                            &:first-child {
+                                                                span {
+                                                                    &.header {
+                                                                        margin-top: 0px;
+                                                                    }
+                                                                }
+                                                            }
+                                                            &:last-child {
+                                                                margin-bottom: 0px;
+                                                            }
+                                                            ul {
+                                                                margin-top: 0;
+                                                                li {
+                                                                    padding: 0;
+                                                                    a {
+                                                                        color: $secondary-color;
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        &:after {
+                                            content: "\f3d6";
+                                            font-family: "Ionicons";
+                                            position: absolute;
+                                            display: block;
+                                            position: absolute;
+                                            right: 0px;
+                                            top: 6px;
+                                            font-size: 20px;
+                                            line-height: 30px;
+                                            color: $paragraph-color-light;
+                                            transition: all .4s ease;
+                                        }
+                                        &.open {
+                                            > a {
+                                                color: $secondary-color;
+                                            }
+                                            &:after {
+                                                transform: rotate(90deg);
+                                                transition: all .4s ease;
+                                                color: $secondary-color;
+                                            }
+                                            ul {
+                                                &.sub-menu {
+                                                    display: block;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+            }
+            #menu-responsive, #menu-responsive-sidemenu, #menu-responsive-classic {
+                float: right;
+                display: none;
+
+                @media screen and (max-width:$large) {
+                    display: block;
+                }
+
+                .menu-button {
+                    float: right;
+                    display: block;
+                    width: 30px;
+                    height:20px;
+                    margin: 26px 0;
+                    cursor: pointer;
+
+                    @media screen and (max-width:$small) {
+                        margin: 16px 0;
+                    }
+
+                    .bar {
+                        background-color: $primary-color;
+                        height: 2px;
+                        width:30px;
+                        display: block;
+                        right: 0;
+                        margin:5px 0;
+                    }
+                    .bar-1 {
+                        transition: margin .4s ease;
+                    }
+                    .bar-2 {
+                        transition: all .4s ease;
+                        width: 24px !important;
+                        margin-left: 3px !important;
+                    }
+                    .bar-3 {
+                        transition: margin .4s ease;
+                    }
+
+                    &:hover {
+                        .bar-2 {
+                            width: 30px !important;
+                            margin-left: 0 !important;
+                            transition: all .4s ease;
+                        }
+                    }
+                }
+                &.minimal {
+                    display: block;
+                }
+            }
+            #menu-responsive-sidemenu, #menu-responsive-classic {
+                &.open {
+                    @media screen and (max-width: $large) {
+
+                        .menu-button {
+                            position: relative;
+                            z-index: 998;
+                            .bar {
+                                background-color: $paragraph-color;
+                            }
+                            .bar-1{
+                                margin-top:10px;
+                                -webkit-transform: rotate3d(0,0,1,-45deg);
+                                transform: rotate3d(0,0,1,-45deg);
+                                transition: margin .15s ease-out,opacity .15s ease-out,transform .15s ease-out .25s;
+                            }
+                            .bar-2{
+                                opacity:0;
+                            }
+                            .bar.bar-3{
+                                margin-top:-14px;
+                                -webkit-transform: rotate3d(0,0,1,45deg);
+                                transform: rotate3d(0,0,1,45deg);
+                                transition: margin .15s ease-out,opacity .15s ease-out,transform .15s ease-out .25s;
+                            }
+                        }
+
+                    }
+                }
+            }
+            #menu-responsive-classic {
+                &.open {
+                    @media screen and (max-width: $medium) {
+                        .menu-button {
+                            .bar {
+                                background-color: $primary-color;
+                            }
+                        }
+                    }
+                }
+            }
+            .shop-mobile {
+                display: block;
+                float: right;
+                width: 50px;
+                margin: 26px 0;
+                
+                @media screen and (min-width: 992px) {
+                    display: none;
+                }
+                
+                @media screen and (max-width: $small) {
+                    margin: 16px 0;
+                }
+                
+                ul {
+                    li {
+                        &.shop {
+                            margin-right: 15px;
+                            
+                            a {
+                                &.cart {
+                                    position: relative;
+                                    color: $primary-color;
+                                    
+                                    &:hover {
+                                        color: $secondary-color;
+                                    }
+
+                                    i {
+                                        font-size: 23px;
+                                    }
+                                    span {
+                                        background-color: $color-background;
+                                        border-radius: 50%;
+                                        background-clip: padding-box;
+                                        width: 20px;
+                                        height: 20px;
+                                        line-height: 20px;
+                                        position: absolute;
+                                        top: 1px;
+                                        right: -12px;
+                                        font-size: 12px;
+                                        font-weight: 500;
+                                        color: #fff;
+                                        text-align: center;
+                                    }
+                                }
+                            }
+                        }   
+                    }
+                }
+            }
+            #search-box {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: white;
+                max-width: 1500px;
+                margin: 0 auto;
+                padding: 0 60px;
+                
+                &.full-width {
+                    max-width: inherit;
+                }
+
+                &.active {
+                    display: block;
+                }
+
+                button {
+                    &.close-search-box {
+                        display: block;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        margin: 0 auto;
+                        font-size:100px;
+                        font-weight: 100;
+                        color: $secondary-color;
+                        width: 50px;
+                        height: 120px;
+                    }
+                }
+
+                .form-input {
+                    .form-field {
+                        border-bottom-color: $primary-color;
+                    }
+                }
+            }
+            &.white {
+                #logo {
+                    img {
+                        &:not(.white-logo) {
+                            display: none;
+                        }
+                    }
+                }
+                #menu, #sidemenu, #menu-classic {
+                    .menu-holder {
+                        ul {
+                            li {
+                                > a {
+                                    color: white;
+                                    font-weight: 100;
+
+                                    &.active-item {
+                                        color: $secondary-color;
+                                        font-weight: 400;
+                                    }
+                                }
+                                
+                                &.lang {
+                                    span {
+                                        &.current {
+                                            a {
+                                                color: white;
+                                                
+                                                @media screen and (max-width: $large) {
+                                                    color: $secondary-color;
+                                                }
+                                            }
+                                        }
+                                    } 
+                                }
+                            }
+                        }
+                    }
+                    &.open {
+                        .menu-holder {
+                            ul {
+                                li {
+                                    > a {
+                                        color: white;
+
+                                        &.active-item {
+                                            color: $secondary-color;
+                                            font-weight: 400;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                #sidemenu {
+                    &.open {
+                        .menu-holder {
+                            ul {
+                                li {
+                                    margin: 8px 0;
+                                    > a {
+                                        color: white;
+                                        font-family: $paragraph-font;
+                                        font-size: 14px;
+                                        line-height: 26px;
+                                        font-weight: 100;
+
+                                        &.active-item {
+                                            color: $secondary-color;
+                                            font-weight: 400;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                #menu-responsive, #menu-responsive-sidemenu, #menu-responsive-classic {
+                    .menu-button {
+                        .bar {
+                            background-color: white;
+                        }
+                    }
+                }
+                #search-box{
+                    .form-input {
+                        i {
+                            color: $primary-color;
+                        }   
+                    }
+                }
+            }
+        }
+    }
+}
