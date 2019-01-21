@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace DLArtist\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
