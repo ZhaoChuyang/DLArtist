@@ -11,4 +11,3 @@
 * Run `php artisan migrate`
 * Run `php artisan serve`
 * Go to localhost:8000
-
