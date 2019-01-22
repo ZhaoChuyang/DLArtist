@@ -12,5 +12,3 @@
 * Run `php artisan serve`
 * Go to localhost:8000
 
-
-a
