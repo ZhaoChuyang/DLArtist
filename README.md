@@ -1,6 +1,5 @@
 # DLArtist
-1. 图标库
-https://ionicons.com/
+1. [图标库](https://ionicons.com/)
 2. 本地使用方法
 * Clone your project
 * Go to the folder application using cd command on your cmd or terminal
