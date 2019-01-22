@@ -1,6 +1,7 @@
 # DLArtist
-1. [图标库](https://ionicons.com/)
-2. 本地使用方法
+1. [图标库](https://ionicons.com/)  
+使用ios style的
+2. 本地使用方法  
 * Clone your project
 * Go to the folder application using cd command on your cmd or terminal
 * Run `composer install` on your cmd or terminal
