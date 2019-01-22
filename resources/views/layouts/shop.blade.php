@@ -75,14 +75,8 @@
                                     <li>
                                         <a href="index">Home</a>
                                     </li>
-                                    <li class="submenu">
-                                        <a href="javascript:void(0)">Pages</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="about.html">About</a></li>
-                                            <li><a href="page-image-header.html">Page Image Header</a></li>
-                                            <li><a href="services.html">Services</a></li>
-                                            <li><a href="404.html">404</a></li>
-                                        </ul>
+                                    <li>
+                                        <a href="blog">Blog</a>
                                     </li>
                                     <li class="submenu">
                                         <a href="javascript:void(0)">Portfolio</a>
@@ -200,7 +194,9 @@
             </div>
         </footer>
         <!--  END Footer. Class fixed for fixed footer  -->
-        
+
+        <!-- icons-->
+        <script src="https://unpkg.com/ionicons@4.5.1/dist/ionicons.js"></script>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="assets/js/jquery.min.js"></script>
         <!-- All js library -->

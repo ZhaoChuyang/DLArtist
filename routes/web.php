@@ -19,10 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/shop', function(){
-	return view('layouts.shop');
-});
-
 Route::get('/index', function(){
     return view('index');
+});
+
+Route::get('/blog', function(){
+    return view('blog');
 });
