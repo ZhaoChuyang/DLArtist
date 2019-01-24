@@ -80,11 +80,11 @@
                                     <!-- Authentication Links -->
                                     @guest
                                         <li>
-                                            <a class="nav-link" href="{{ route('login') }}">注册</a>
+                                            <a class="nav-link" href="{{ route('login') }}">登录</a>
                                         </li>
                                         @if (Route::has('register'))
                                             <li>
-                                                <a class="nav-link" href="{{ route('register') }}">登录</a>
+                                                <a class="nav-link" href="{{ route('register') }}">注册</a>
                                             </li>
                                         @endif
                                     @else
