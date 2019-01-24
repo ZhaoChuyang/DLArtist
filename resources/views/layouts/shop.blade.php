@@ -72,7 +72,7 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="elements.html">发表看法</a>
+                                        <a href="/edit">发表看法</a>
                                     </li>
                                     <li>
                                         <a href="contacts.html">消息</a>

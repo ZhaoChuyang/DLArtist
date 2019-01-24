@@ -51,3 +51,7 @@ Route::any('/article',function (){
     ////////////传参
     return view('article');
 });
+
+Route::get('/edit', function(){
+    return view('edit');
+});
