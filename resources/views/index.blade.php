@@ -31,6 +31,7 @@
             <div class="container">
                 <div class="row no-margin padding-lg text-center">
                     <!-- Single Services -->
+
                     <div class="col-md-4 padding-leftright-null">
                         <div class="text padding-topbottom-null padding-md-bottom">
                             <i class="icon ion-ios-paper-outline color service margin-bottom-extrasmall"></i>
@@ -203,5 +204,4 @@
     <!--  END Page Content -->
     </div>
     <!--  Main Wrap  -->
-
 @endsection

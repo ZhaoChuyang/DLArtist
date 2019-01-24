@@ -81,20 +81,13 @@
                                     <li>
                                         <a href="blog">Blog</a>
                                     </li>
-                                    <li class="submenu">
-                                        <a href="javascript:void(0)">Portfolio</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="portfolio-two-columns.html">Two Columns</a></li>
-                                            <li><a href="portfolio-three-columns.html">Three Columns</a></li>
-                                            <li><a href="portfolio-four-columns.html">Four Columns</a></li>
-                                            <li><a href="project-1.html">Project 1</a></li>
-                                            <li><a href="project-2.html">Project 2</a></li>
-                                        </ul>
+                                    <li>
+                                        <a href="#">Gallery</a>
                                     </li>
                                     <li class="submenu">
-                                        <a href="javascript:void(0)">Journal</a>
+                                        <a href="javascript:void(0)">Edit</a>
                                         <ul class="sub-menu">
-                                            <li><a href="blog.html">Journal Classic</a></li>
+                                            <li><a href="editor">自动排版</a></li>
                                             <li><a href="blog-minimal.html">Journal Minimal</a></li>
                                             <li><a href="single-post.html">Post</a></li>
                                             <li><a href="single-post-slider.html">Post Slider</a></li>

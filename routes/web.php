@@ -26,3 +26,7 @@ Route::get('/index', function(){
 Route::get('/blog', function(){
     return view('blog');
 });
+
+Route::get('/editor', function(){
+    return view('editor');
+});
