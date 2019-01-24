@@ -6,33 +6,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>{{ config('app.name', 'Laravel') }}</title>
-
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
         <!-- Bootstrap -->
         <link rel="stylesheet" href="assets/css/bootstrap/bootstrap.min.css">
-
         <!-- Optional theme -->
         <link rel="stylesheet" href="assets/css/bootstrap/bootstrap-theme.min.css">
-
         <!-- Custom css -->
         <link rel="stylesheet" href="assets/css/style.css">
-        
         <!-- Font Awesome -->
         <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-        
         <link rel="stylesheet" href="assets/css/ionicons.min.css">
-        
         <!-- Flexslider -->
         <link rel="stylesheet" href="assets/css/flexslider.css">
-        
         <!-- Owl -->
         <link rel="stylesheet" href="assets/css/owl.carousel.css">
-        
         <!-- Magnific Popup -->
         <link rel="stylesheet" href="assets/css/magnific-popup.css">
-
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -40,23 +30,15 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+
         @yield('head')
+
+
+        <script src="assets/js/jquery-3.2.1.min.js"></script>
 
     </head>
     <body>
-      
-        <!--  Loader  -->
-        <div id="myloader">
-            <div class="loader">
-                <div class="spinner">
-                    <div class="double-bounce1"></div>
-                    <div class="double-bounce2"></div>
-                </div>
-            </div>
-        </div>
         <!--  END Loader  -->
-        
-
         <!--  Main Wrap  -->
         <div id="main-wrap">
             <!--  Header & Menu  -->
@@ -76,69 +58,49 @@
                             <div class="menu-holder">
                                 <ul>
                                     <li>
-                                        <a href="index">Home</a>
+                                        <a id="index" href="index">主页</a>
                                     </li>
                                     <li>
-                                        <a href="blog">Blog</a>
-                                    </li>
                                     <li class="submenu">
-                                        <a href="javascript:void(0)">Portfolio</a>
+                                        <a id="categories" href="categories">发现想法</a>
                                         <ul class="sub-menu">
-                                            <li><a href="portfolio-two-columns.html">Two Columns</a></li>
-                                            <li><a href="portfolio-three-columns.html">Three Columns</a></li>
-                                            <li><a href="portfolio-four-columns.html">Four Columns</a></li>
-                                            <li><a href="project-1.html">Project 1</a></li>
-                                            <li><a href="project-2.html">Project 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="submenu">
-                                        <a href="javascript:void(0)">Journal</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="blog.html">Journal Classic</a></li>
-                                            <li><a href="blog-minimal.html">Journal Minimal</a></li>
-                                            <li><a href="single-post.html">Post</a></li>
-                                            <li><a href="single-post-slider.html">Post Slider</a></li>
-                                            <li><a href="single-post-video.html">Post Video</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="submenu">
-                                        <a href="javascript:void(0)">Shop</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="index-shop.html">Index Shop</a></li>
-                                            <li><a href="single-product.html">Product</a></li>
+                                            <li><a href="categories-1">文娱点评</a></li>
+                                            <li><a href="categories-2">军事分析</a></li>
+                                            <li><a href="categories-3">时事评论</a></li>
+                                            <li><a href="categories-4">技术博客</a></li>
+                                            <li><a href="categories-5">教育文化</a></li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="elements.html">Elements</a>
+                                        <a href="elements.html">发表看法</a>
                                     </li>
                                     <li>
-                                        <a href="contacts.html">Contacts</a>
+                                        <a href="contacts.html">消息</a>
                                     </li>
                                     <!-- Authentication Links -->
                                     @guest
                                         <li>
-                                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                            <a class="nav-link" href="{{ route('login') }}">注册</a>
                                         </li>
                                         @if (Route::has('register'))
                                             <li>
-                                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                                <a class="nav-link" href="{{ route('register') }}">登录</a>
                                             </li>
                                         @endif
                                     @else
                                         <li class="submenu">
-                                            <a href="javascript:void(0)">{{ Auth::user()->name }}</a>
+                                            <a href="">{{ Auth::user()->name }}</a>
                                             <ul class="sub-menu">
                                                 <li>
                                                     <a href="{{ route('logout') }}"
                                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                                        {{ __('Logout') }}
+                                                        退出登录
                                                     </a>
                                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                         @csrf
                                                     </form>
                                                 </li>
-
                                             </ul>
                                         </li>
 
@@ -162,10 +124,7 @@
                 </div>
             </header>
             <!--  END Header & Menu  -->
-
             @yield('content')
-        
-
         <!--  Footer  -->
         <footer>
             <div class="container">
@@ -197,7 +156,6 @@
             </div>
         </footer>
         <!--  END Footer. Class fixed for fixed footer  -->
-
         <!-- icons-->
         <script src="https://unpkg.com/ionicons@4.5.1/dist/ionicons.js"></script>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -218,6 +176,7 @@
         <script src="assets/js/imagesloaded.min.js"></script>
         <script src="assets/js/pace.min.js"></script>
         <script src="assets/js/main.js"></script>
+
 
         @yield('script')
 
