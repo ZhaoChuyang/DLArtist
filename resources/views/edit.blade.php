@@ -1,5 +1,4 @@
 @extends('layouts.shop')
-
 @section('head')
     <!-- Include external CSS. -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -25,6 +24,9 @@
             $('#edit').froalaEditor({
                 height: 600
             })
+        });
+        $(function () {
+            $("#editor").addClass("active-item");
         });
     </script>
 
