@@ -1,7 +1,19 @@
 @extends('layouts.shop')
-
 @section('content')
-
+    <script>
+        $(function () {
+            $("#index").addClass("active-item");
+        });
+    </script>
+    <!--  Loader  -->
+    <div id="myloader">
+        <div class="loader">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
     <!--  Page Content  -->
     <div id="page-content">
         <!--  HomePage header  -->
