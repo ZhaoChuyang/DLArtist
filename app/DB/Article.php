@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    protected $table = 'article';
+    protected $table = 'articles';
     protected $primaryKey = 'id';
     public $timestamps = false;
-    protected $fillable = ['id','username','article','time','vaild','click'];
+    protected $dateFormat = 'Y/m/d H:i';
+    protected $fillable = ['user_id','content','title','time','vaild','click_num'];
 }

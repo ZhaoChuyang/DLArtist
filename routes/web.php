@@ -33,6 +33,6 @@ Route::any('/categories-3','CategoriesController@categories3');
 Route::any('/categories-4','CategoriesController@categories4');
 Route::any('/categories-5','CategoriesController@categories5');
 //文章
-Route::any('/article','HomeController@article');
+Route::any('/article','CategoriesController@article');
 //编辑页面
 Route::get('/edit','HomeController@edit');
