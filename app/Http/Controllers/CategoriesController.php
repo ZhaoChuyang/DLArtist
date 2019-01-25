@@ -33,6 +33,12 @@ class CategoriesController extends Controller
         return view('categories-5');
     }
 
+    public function categories6(){
+//全部
+
+        return view('categories-6');
+    }
+
     public function article(){
 //具体文章
 

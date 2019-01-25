@@ -32,6 +32,7 @@ Route::any('/categories-2','CategoriesController@categories2');
 Route::any('/categories-3','CategoriesController@categories3');
 Route::any('/categories-4','CategoriesController@categories4');
 Route::any('/categories-5','CategoriesController@categories5');
+Route::any('/categories-6','CategoriesController@categories6');
 //文章
 Route::any('/article','CategoriesController@article');
 //编辑页面
