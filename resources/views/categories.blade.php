@@ -85,6 +85,17 @@
                                     </div>
                                 </article>
                             </div>
+                            <div class="single-news one-item">
+                                <article>
+                                    <img src="assets/img/news5.jpg" alt="">
+                                    <div class="content">
+                                        <span class="meta">All News</span>
+                                        <h3>全部分类</h3>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                                        <a href="categories-6" class="btn-pro">Read more</a>
+                                    </div>
+                                </article>
+                            </div>
                         </div>
                     </section>
                     <!-- END News -->
