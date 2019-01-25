@@ -11,9 +11,9 @@
 
 @section('content')
 
-    {{--<div>--}}
-        {{--<input type="image" style="position:fixed;" class="col-sm-4 col-6">--}}
-    {{--</div>--}}
+    <div style="float: right;margin-left: 1000px;margin-top: 50px;position: fixed">
+        <textarea id="4136"></textarea>
+    </div>
 
     <div id="home-wrap" class="content-section">
         <div class="container">
@@ -23,7 +23,17 @@
                         <form>
                             <textarea id="edit" name="content"></textarea>
                         </form>
+                        <input type="submit" id="button" value="value">
                     </div>
+
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div>
+                                <input type="image">
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -50,6 +60,10 @@
         $(function () {
             $("#editor").addClass("active-item");
         });
+        $("#button").click(function () {
+            $("textarea").html("<p>123</p>")
+            $("#edit").html("<p>123</p>")
+        })
     </script>
 
 @endsection

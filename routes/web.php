@@ -27,14 +27,12 @@ Route::any('/categories', function(){
     return view('categories');
 });
 //具体分类
-Route::any('/categories-1','HomeController@categories1');
-Route::any('/categories-2','HomeController@categories2');
-Route::any('/categories-3','HomeController@categories3');
-Route::any('/categories-4','HomeController@categories4');
-Route::any('/categories-5','HomeController@categories5');
+Route::any('/categories-1','CategoriesController@categories1');
+Route::any('/categories-2','CategoriesController@categories2');
+Route::any('/categories-3','CategoriesController@categories3');
+Route::any('/categories-4','CategoriesController@categories4');
+Route::any('/categories-5','CategoriesController@categories5');
 //文章
 Route::any('/article','HomeController@article');
 //编辑页面
-Route::get('/edit', function(){
-    return view('edit');
-});
+Route::get('/edit','HomeController@edit');
