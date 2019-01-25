@@ -22,36 +22,19 @@ Route::any('/home', 'HomeController@index')->name('home');
 Route::any('/index', function(){
     return view('index');
 });
-
+//分类
 Route::any('/categories', function(){
     return view('categories');
 });
-
-Route::any('/categories-1',function (){
-    ////////////传参
-   return view('categories-1');
-});
-Route::any('/categories-2',function (){
-    ////////////传参
-    return view('categories-2');
-});
-Route::any('/categories-3',function (){
-    ////////////传参
-    return view('categories-3');
-});
-Route::any('/categories-4',function (){
-    ////////////传参
-    return view('categories-4');
-});
-Route::any('/categories-5',function (){
-    ////////////传参
-    return view('categories-5');
-});
-Route::any('/article',function (){
-    ////////////传参
-    return view('article');
-});
-
+//具体分类
+Route::any('/categories-1','HomeController@categories1');
+Route::any('/categories-2','HomeController@categories2');
+Route::any('/categories-3','HomeController@categories3');
+Route::any('/categories-4','HomeController@categories4');
+Route::any('/categories-5','HomeController@categories5');
+//文章
+Route::any('/article','HomeController@article');
+//编辑页面
 Route::get('/edit', function(){
     return view('edit');
 });
