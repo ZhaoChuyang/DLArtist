@@ -69,10 +69,11 @@
                                             <li><a href="categories-3">时事评论</a></li>
                                             <li><a href="categories-4">技术博客</a></li>
                                             <li><a href="categories-5">教育文化</a></li>
+                                            <li><a href="categories-6">全部</a></li>
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="/edit">发表看法</a>
+                                        <a id="editor" href="edit">发表看法</a>
                                     </li>
                                     <li>
                                         <a href="contacts.html">消息</a>

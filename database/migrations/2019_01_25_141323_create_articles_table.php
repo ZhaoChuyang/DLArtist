@@ -1,27 +1,5 @@
 <?php
 
-namespace DLArtist\Http\Controllers;
-
-use Illuminate\Http\Request;
-use DB;
-
-class HomeController extends Controller
-{
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    public function index()
-    {
-        return view('index');
-    }
-
-    public function edit(){
-
-        return view('edit');
-    }
-}
-
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -38,12 +16,11 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
-
             $table->string('title');
             $table->integer('user_id');
             $table->text('content');
-            $table->boolean('valid');
-            $table->integer('click_num');
+            $table->boolean('valid')->default(1);
+            $table->integer('click_num')->default(0);
             $table->string('category');
 
         });
@@ -59,3 +36,4 @@ class CreateArticlesTable extends Migration
         Schema::dropIfExists('articles');
     }
 }
+
