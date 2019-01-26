@@ -36,4 +36,4 @@ Route::any('/categories-6','CategoriesController@categories6');
 //文章
 Route::any('/article','CategoriesController@article');
 //编辑页面
-Route::get('/edit','HomeController@edit');
+Route::get('/edit','ArticleController@edit');
