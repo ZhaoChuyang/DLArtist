@@ -3,6 +3,7 @@
 namespace DLArtist\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DLArtist\DB\Article;
 
 class CategoriesController extends Controller
 {
