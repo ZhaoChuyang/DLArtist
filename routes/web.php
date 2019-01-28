@@ -37,3 +37,9 @@ Route::any('/categories-6','CategoriesController@categories6');
 Route::any('/article','CategoriesController@article');
 //编辑页面
 Route::get('/edit','ArticleController@edit');
+//图片处理
+Route::resource('image', 'imageController');
+
+Route::any('/test', function(){
+    return view('test');
+});
