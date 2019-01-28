@@ -2,10 +2,8 @@
 
 namespace DLArtist\Http\Controllers;
 
-use DLArtist\FileUpload;
 use DLArtist\image;
 use Illuminate\Http\Request;
-use DLArtist\User;
 
 
 class imageController extends Controller
