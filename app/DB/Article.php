@@ -11,4 +11,10 @@ class Article extends Model
     public $timestamps = false;
     protected $dateFormat = 'Y/m/d H:i';
     protected $fillable = ['user_id','content','title','time','vaild','click_num'];
+
+
+
+    public function user(){
+        return $this->belongsTo('DLArtist\User');
+    }
 }
