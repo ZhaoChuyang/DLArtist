@@ -40,6 +40,4 @@ Route::get('/edit','ArticleController@edit');
 //图片处理
 Route::resource('image', 'imageController');
 
-Route::any('/test', function(){
-    return view('test');
-});
+Route::post('/article', 'ArticleController@store');
