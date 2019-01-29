@@ -46,9 +46,7 @@ class ArticleController extends Controller
         $article->content=$content;
         $article->category=$category;
         $article->save();
-
+        //$article -> create(request ->all());
         return 1;
-
-
     }
 }

@@ -13,7 +13,6 @@
 
 @section('content')
     <div id="page-content">
-
         <div class="row no-margin wrap-text padding-onlytop-lg">
             <div class="col-md-10 col-md-offset-1 padding-leftright-null">
                 <div class="text small padding-topbottom-null">
@@ -113,6 +112,7 @@
     <script type="text/javascript" src="froala_editor_2.9.1/js/plugins/save.min.js"></script>
     <script type="text/javascript" src="froala_editor_2.9.1/js/plugins/url.min.js"></script>
     <script type="text/javascript" src="froala_editor_2.9.1/js/plugins/video.min.js"></script>
+    <script type="text/javascript" src="froala_editor_2.9.1/js/languages/zh_cn.js"></script>
 
 
     <!-- Initialize the editor. -->
@@ -120,6 +120,9 @@
         $(function () {
             $('#edit').froalaEditor({
                 height: 480,
+                language:'zh_cn',
+                imageDefaultDisplay: 'inline',
+
                 imageUploadParam: 'image',
                 imageUploadMethod: 'post',
                 // Set the image upload URL.
@@ -137,21 +140,15 @@
                 imageManagerDeleteParams: {
                     _token: "{{ csrf_token() }}"
                 },
-
-
                 //save content
                 saveParam: 'content',
-
                 // Set the save URL.
                 saveURL: '/article',
-
                 // HTTP request type.
                 saveMethod: 'POST',
-
                 // Additional save params.
                 saveParams: {
                     _token: "{{ csrf_token() }}",
-
                     category: $("#category").val()
                 }
             })
@@ -165,19 +162,18 @@
                 .on('froalaEditor.save.after', function (e, editor, response) {//return 1 if success
                     if (response == 1) {
                         $("#success").show();
-
                     }
                 })
                 .on('froalaEditor.save.error', function (e, editor, error) {
                     console.log(error);
                 })
-        })
-
-
+        });
         $(function () {
             $("#editor").addClass("active-item");
         });
         $("#send").click(function () {
+            alert($("#title").val());
+            // 标题为纯文本
             $('#edit').froalaEditor('save.save');
             {{--var use_id = '{{ Auth::id() }}';   //user_id--}}
             {{--var array = [];--}}
@@ -192,7 +188,6 @@
             {{--content += array[i];                  //content--}}
             {{--}--}}
             {{--var category = $('#category').val();--}}
-
             {{--var data;--}}
             {{--data["title"] = title;--}}
             {{--data["content"] = content;--}}
