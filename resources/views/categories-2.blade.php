@@ -48,10 +48,17 @@
                         {{--具体文章--}}
                         <div class="row padding-sm">
 
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <a href="article">
+                                    <p style="font-size: 30px">样例</p>
+                                </a>
+                            </div>
+
                             @foreach($data as $val)
-                                <div class="alert alert-info alert-dismissible" role="alert">
+                                <div class="alert alert-success alert-dismissible" role="alert">
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <a href="article">
+                                    <a href="article?id={{$val->id}}">
                                         <p style="font-size: 30px">{{$val->title}}</p>
                                     </a>
                                 </div>

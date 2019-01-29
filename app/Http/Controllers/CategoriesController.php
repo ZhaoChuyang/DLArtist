@@ -4,7 +4,8 @@ namespace DLArtist\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DLArtist\DB\Article;
-
+use Illuminate\Support\Facades\Input;
+use DB;
 class CategoriesController extends Controller
 {
     //
@@ -54,7 +55,12 @@ class CategoriesController extends Controller
 
     public function article(){
 //具体文章
+        $article=new Article();
+        $id=$_GET['id'];
+        $title=$article->where('id',$id)->select('title')->get()->toArray();
+        $content=$article->where('id',$id)->select('content')->get()->toArray();
+        $time=$article->where('id',$id)->select('updated_at')->get();
 
-        return view('article');
+        return view('article',compact('title','content','time'));
     }
 }

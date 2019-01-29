@@ -14,9 +14,13 @@
                     <div id="page-header">
                         <div class="text text-center">
                             {{--//标题（需要dom标签）--}}
-                            <h1 class="margin-bottom-small">This is a post<span class="color">.</span></h1>
+                            <h1 class="margin-bottom-small">
+
+                                <span class="color">.</span></h1>
                             {{--//发表时间 小时+8--}}
-                            <span class="post-meta">News \ 02 November 2017</span>
+                            <span class="post-meta">
+
+                            </span>
                         </div>
                     </div>
                 </div>
