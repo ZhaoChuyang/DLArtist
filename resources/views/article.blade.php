@@ -13,7 +13,9 @@
                 <div class="col-md-12 padding-leftright-null">
                     <div id="page-header">
                         <div class="text text-center">
+                            {{--//标题（需要dom标签）--}}
                             <h1 class="margin-bottom-small">This is a post<span class="color">.</span></h1>
+                            {{--//发表时间 小时+8--}}
                             <span class="post-meta">News \ 02 November 2017</span>
                         </div>
                     </div>
@@ -31,8 +33,8 @@
                 <div class="row no-margin wrap-text padding-bottom-null padding-onlytop-lg">
                     <div class="col-md-8 col-md-offset-2 padding-leftright-null">
                         <div class="text small padding-topbottom-null">
-                            <span class="dropcap" data-dropcap="A">a</span>
-
+                            <span class="dropcap" data-dropcap="DLartist"></span>
+                            {{--//文章内容（无需dom标签）--}}
                             <p>本文翻译来自<a href="https://link.jianshu.com?t=https://github.com/froala/wysiwyg-editor" rel="nofollow" target="_blank">wysiwyg-editor</a>，大家想看原文可以点击此链接。</p>
 
                             <h2>介绍</h2>
@@ -360,6 +362,26 @@
                 <!--  END Comments  -->
             </div>
         </div>
+
+        {{--//返回上一页--}}
+        <div class="container">
+            <!--  Navigation  -->
+            <section id="nav" class="padding-onlytop-lg">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="nav-left">
+                            <a href=”#” onClick="javascript :history.back(-1);" class="btn-alt small shadow margin-null"><i class="icon ion-ios-arrow-left"></i><span>返回</span></a>
+                        </div>
+                    </div>
+                    {{--<div class="col-xs-6">--}}
+                    {{--<div class="nav-right">--}}
+                    {{--<a href="#" class="btn-alt small shadow margin-null"><span>Newer posts</span><i class="icon ion-ios-arrow-right"></i></a>--}}
+                    {{--</div>--}}
+                    {{--</div>--}}
+                </div>
+            </section>
+        </div>
+
     </div>
     <!--  END Page Content -->
     </div>
