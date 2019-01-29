@@ -57,10 +57,9 @@ class CategoriesController extends Controller
 //具体文章
         $article=new Article();
         $id=$_GET['id'];
-        $title=$article->where('id',$id)->select('title')->get()->toArray();
-        $content=$article->where('id',$id)->select('content')->get()->toArray();
+        $title=$article->where('id',$id)->select('title')->get();
+        $content=$article->where('id',$id)->select('content')->get();
         $time=$article->where('id',$id)->select('updated_at')->get();
-
         return view('article',compact('title','content','time'));
     }
 }
