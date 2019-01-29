@@ -172,7 +172,7 @@
             $("#editor").addClass("active-item");
         });
         $("#send").click(function () {
-            alert($("#title").val());
+            // alert($("#title").val());
             // 标题为纯文本
             $('#edit').froalaEditor('save.save');
             {{--var use_id = '{{ Auth::id() }}';   //user_id--}}
