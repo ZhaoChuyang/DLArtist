@@ -58,8 +58,13 @@ class CategoriesController extends Controller
         $article=new Article();
         $id=$_GET['id'];
         $title=$article->where('id',$id)->select('title')->get();
+        $user_id=$article->where('id',$id)->select("user_id")->get()->toArray();
+        foreach ($user_id as $key => $val){
+            $t=$val;
+        }
+        $user_name=DB::table('users')->join('articles','users.id','=','user_id')->where('users.id',$t)->select('name')->first();
         $content=$article->where('id',$id)->select('content')->get();
         $time=$article->where('id',$id)->select('updated_at')->get();
-        return view('article',compact('title','content','time'));
+        return view('article',compact('title','content','time','user_name'));
     }
 }

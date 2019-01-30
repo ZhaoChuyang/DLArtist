@@ -20,11 +20,14 @@
                                 @endforeach
                                 <span class="color">.</span></h1>
                             {{--//发表时间 小时+8--}}
-                            <span class="post-meta">
+                            <h5 class="post-meta">
+                                    更新于：
                                 @foreach($time as $t)
-                                    {{$t->time}}
+                                    {{$t->attribute['updated_at']}}
                                 @endforeach
-                            </span>
+                                <br>
+                                    作者：{{$user_name->name}}
+                            </h5>
                         </div>
                     </div>
                 </div>
