@@ -8,7 +8,7 @@ class Article extends Model
 {
     protected $table = 'articles';
     protected $primaryKey = 'id';
-    protected $dateFormat = 'Y/m/d H:i';
+    protected $dateFormat = 'Y/m/d H:i:s';
     protected $dates = [
         'created_at',
         'updated_at'
