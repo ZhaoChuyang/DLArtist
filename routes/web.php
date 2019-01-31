@@ -40,4 +40,10 @@ Route::get('/edit','ArticleController@edit');
 //图片处理
 Route::resource('image', 'imageController');
 
+//发表文章
 Route::post('/article', 'ArticleController@store');
+
+//账户信息
+Route::get('/account', function(){
+    return view('account');
+})->middleware('auth');
