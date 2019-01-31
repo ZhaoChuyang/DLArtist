@@ -44,25 +44,36 @@
                         </div>
                         <!--  END Grid Images with Lightbox  -->
                     </div>
+                    <hr>
                     <div class="row no-margin">
                         {{--具体文章--}}
                         <div class="row padding-sm">
                             <div class="col-md-12">
-
-                                <div class="alert alert-success alert-dismissible" role="alert">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <a href="article">
-                                        <p style="font-size: 30px">样例</p>
-                                    </a>
-                                </div>
-
                                 @foreach($data as $val)
-                                    <div class="alert alert-success alert-dismissible" role="alert">
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <a href="article?id={{$val->id}}">
-                                            <p style="font-size: 30px">{{$val->title}}</p>
-                                        </a>
+                                    <div class="container">
+                                        <div class="row no-margin wrap-text padding-onlytop-lg">
+                                            <div class="col-md-4 padding-leftright-null">
+                                                <div class="text small padding-top-null">
+                                                    <h2 class="heading margin-bottom-extrasmall">{{$val->title}}<span class="color">.</span></h2>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 padding-leftright-null">
+                                                <div class="text small padding-topbottom-null">
+                                                    <p class="heading left full">
+                                                        作者：@foreach($writer as $t)
+                                                            @if($t->id==($val->user_id))
+                                                                {{$t->name}}
+                                                            @endif
+                                                        @endforeach
+                                                        <br>
+                                                        更新于：{{$val->update}}
+                                                    </p>
+                                                    <a href="article?id={{$val->id}}" class="btn-pro">Read more</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
+                                    <hr>
                                 @endforeach
                             </div>
                         </div>
