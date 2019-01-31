@@ -36,6 +36,8 @@
 </head>
 <body>
 
+@yield('sidenav')
+
 <!--  Main Wrap  -->
 <div id="main-wrap">
     <!--  Header & Menu  -->
@@ -66,7 +68,7 @@
                                     <li><a href="categories-3">时事评论</a></li>
                                     <li><a href="categories-4">技术博客</a></li>
                                     <li><a href="categories-5">教育文化</a></li>
-                                    <li><a href="categories-6">全部</a></li>
+                                    <li><a href="categories-6">全部分类</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -89,6 +91,9 @@
                                 <li class="submenu">
                                     <a href="">{{ Auth::user()->name }}</a>
                                     <ul class="sub-menu">
+                                        <li>
+                                            <a href="/account">账户信息</a>
+                                        </li>
                                         <li>
                                             <a href="{{ route('logout') }}"
                                                onclick="event.preventDefault();
