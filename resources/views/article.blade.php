@@ -19,14 +19,15 @@
                                     {{$t->title}}
                                 @endforeach
                                 <span class="color">.</span></h1>
-                            {{--//发表时间 小时+8--}}
+                            {{--//发表时间--}}
                             <h5 class="post-meta">
-                                    更新于：
+                                作者：{{$user_name->name}}
+                                <br>  <br>
+                                更新于：
                                 @foreach($time as $t)
-                                    {{$t->attribute['updated_at']}}
+                                    {{$t->update}}
                                 @endforeach
-                                <br>
-                                    作者：{{$user_name->name}}
+
                             </h5>
                         </div>
                     </div>

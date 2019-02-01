@@ -15,14 +15,13 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
-            $table->timestamps();
+            $table->string('update');
             $table->string('title');
             $table->integer('user_id');
             $table->text('content');
             $table->boolean('valid')->default(1);
             $table->integer('click_num')->default(0);
             $table->string('category');
-
         });
     }
 

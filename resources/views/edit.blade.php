@@ -365,6 +365,9 @@
                     if (response == 1) {
                         $("#success").show();
                     }
+                    // else{
+                    //     console.log(response);
+                    // }
                 })
                 .on('froalaEditor.save.error', function (e, editor, error) {
                     console.log(error);

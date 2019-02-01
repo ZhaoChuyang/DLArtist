@@ -20,7 +20,6 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'title' => 'required',
             'content' => 'required',
@@ -29,6 +28,8 @@ class ArticleController extends Controller
 
         $title=$request->input('title');
         $user_id=auth()->user()->id;
+        date_default_timezone_set("PRC");
+        $update=date('Y-m-d H:i:s',time());
         $content=$request->input('content');
         $category=$request->input('category');
 
@@ -36,15 +37,15 @@ class ArticleController extends Controller
             "title"=>$title,
             "content"=>$content,
             "category"=>$category,
-            "user"=>$user_id
+            "user"=>$user_id,
+            "update"=>$update
         ];
-
-        //return $data;
-        $article=new Article;
+        $article=new Article();
         $article->user_id=$user_id;
         $article->title=$title;
         $article->content=$content;
         $article->category=$category;
+        $article->update=$update;
         $article->save();
         //$article -> create(request ->all());
         return 1;
