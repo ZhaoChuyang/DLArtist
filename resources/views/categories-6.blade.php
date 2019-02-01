@@ -47,35 +47,95 @@
                     <hr>
                     <div class="row no-margin">
                         {{--具体文章--}}
-                        <div class="row padding-sm">
-                            <div class="col-md-12">
-                                @foreach($data as $val)
-                                    <div class="container">
-                                        <div class="row no-margin wrap-text padding-onlytop-lg">
-                                            <div class="col-md-4 padding-leftright-null">
-                                                <div class="text small padding-top-null">
-                                                    <h2 class="heading margin-bottom-extrasmall">{{$val->title}}<span class="color">.</span></h2>
+                        <div id="home-wrap" class="content-section">
+                            <!-- Blog -->
+                            <div class="container">
+                                <div class="row no-margin wrap-text">
+                                    <!--  News Section  -->
+                                    <section id="news" class="page">
+                                        <div class="news-items equal three-columns">
+                                            @foreach($data as $val)
+                                                <div class="single-news one-item">
+                                                    <article>
+                                                        <img src="assets/img/news1.jpg" alt="">
+                                                        <div class="content">
+                                                            <span class="meta">All Blog</span>
+                                                            <h3>{{$val->title}}<span class="color">.</span></h3>
+                                                            <p>
+                                                                作者：@foreach($writer as $t)
+                                                                    @if($t->id==($val->user_id))
+                                                                        {{$t->name}}
+                                                                    @endif
+                                                                @endforeach
+                                                                <br>
+                                                                更新于：{{$val->update}}
+                                                            </p>
+                                                            <a href="article?id={{$val->id}}" class="btn-pro">Read more</a>
+                                                        </div>
+                                                    </article>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-8 padding-leftright-null">
-                                                <div class="text small padding-topbottom-null">
-                                                    <p class="heading left full">
-                                                        作者：@foreach($writer as $t)
-                                                            @if($t->id==($val->user_id))
-                                                                {{$t->name}}
-                                                            @endif
-                                                        @endforeach
-                                                        <br>
-                                                        更新于：{{$val->update}}
-                                                    </p>
-                                                    <a href="article?id={{$val->id}}" class="btn-pro">Read more</a>
-                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <!--  Navigation  -->
+                            <section id="nav" class="padding-onlytop-lg">
+                                <div class="row">
+                                    @if(!$up)
+                                        <div class="col-xs-6">
+                                            <div class="nav-left">
+                                                <a href="/categories-6?page={{$current-1}}" class="btn-alt small shadow margin-null"><i class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
                                             </div>
                                         </div>
-                                    </div>
-                                    <hr>
-                                @endforeach
-                            </div>
+                                    @endif
+                                    @if($up==2)
+                                        <script>
+                                            window.location.href="/categories-6?page={{$current}}";
+                                        </script>
+                                        <div class="col-xs-6">
+                                            <div class="nav-left">
+                                                <a href="/categories-6?page={{$current-1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if($up==1)
+                                        <div class="col-xs-6">
+                                            <div class="nav-left">
+                                                <a href="/categories-6?page={{$current-1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
+                                            </div>
+                                        </div>
+                                    @endif
+
+
+                                    @if(!$down)
+                                        <div class="col-xs-6">
+                                            <div class="nav-right">
+                                                <a href="/categories-6?page={{$current+1}}"class="btn-alt small shadow margin-null"><span>下一页</span><i class="icon ion-ios-arrow-right"></i></a>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if($down==2)
+                                        <script>
+                                            window.location.href="/categories-6?page={{$current}}";
+                                        </script>
+                                        <div class="col-xs-6">
+                                            <div class="nav-left">
+                                                <a href="/categories-6?page={{$current+1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>下一页</span></a>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if($down==1)
+                                        <div class="col-xs-6">
+                                            <div class="nav-left">
+                                                <a href="/categories-6?page={{$current+1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>下一页</span></a>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </section>
                         </div>
 
                         <div class="row margin-null padding-onlytop-md">
@@ -124,9 +184,4 @@
         </div>
         <!--  END Page Content -->
     </div>
-    <!--  Main W
-
-
-
-
 @endsection

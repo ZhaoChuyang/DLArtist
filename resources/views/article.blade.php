@@ -45,7 +45,7 @@
                 <div class="row no-margin wrap-text padding-bottom-null padding-onlytop-lg">
                     <div class="col-md-8 col-md-offset-2 padding-leftright-null">
                         <div class="text small padding-topbottom-null">
-                            <span class="dropcap" data-dropcap="DLartist"></span>
+                            <span class="dropcap" data-dropcap="DLARTIST"></span>
                             {{--//文章内容（无需dom标签）--}}
                             @foreach($content as $t)
                                 {!! $t->content !!}
