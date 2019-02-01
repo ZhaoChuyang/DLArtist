@@ -38,8 +38,8 @@ Route::any('/article','CategoriesController@article');
 //编辑页面
 Route::get('/edit','ArticleController@edit');
 //图片处理
-Route::resource('image', 'imageController');
-
+Route::post('/image','imageController@store');
+Route::delete('image','imageController@destroy');
 //发表文章
 Route::post('/article', 'ArticleController@store');
 

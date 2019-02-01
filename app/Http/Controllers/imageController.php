@@ -116,8 +116,24 @@ class imageController extends Controller
      * @param  \DLArtist\image  $image
      * @return \Illuminate\Http\Response
      */
-    public function destroy(image $image)
+    public function destroy(Request $request)
     {
-        //
+        $this->validate($request,[
+            'src'=>'required'
+        ]);
+        $src=$request->input('src');
+
+        $img=image::where('image_url', $src)->update(['valid'=>false]);
+
+        //删除文件
+        $all_deserted_img=image::where('valid', 0)->get();
+        foreach($all_deserted_img as $deserted_img){
+            $url=$deserted_img->image_url;
+            $url=substr($url, 21);
+            $url=public_path().$url;
+            unlink($url);
+        }
+
+        return "image delete success";
     }
 }
