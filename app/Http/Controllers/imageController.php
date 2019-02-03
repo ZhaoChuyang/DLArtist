@@ -127,13 +127,19 @@ class imageController extends Controller
 
         //删除文件
         $all_deserted_img=image::where('valid', 0)->get();
+
         foreach($all_deserted_img as $deserted_img){
             $url=$deserted_img->image_url;
             $url=substr($url, 21);
             $url=public_path().$url;
-            unlink($url);
+            //检查图片是否存在
+            if(file_exists($url)){
+                unlink($url);
+            }else{
+                continue;
+            }
         }
 
-        return "image delete success";
+        return "image deleted";
     }
 }
