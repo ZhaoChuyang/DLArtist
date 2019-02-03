@@ -44,7 +44,8 @@
 
     <nav class="navbar navbar-expand-md navbar-light bg-white fixed-top border-bottom" style="z-index: 999">
         <a class="navbar-brand ml-1" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+            {{--{{ config('app.name', 'Laravel') }}--}}
+            <img src="assets/img/LOGO_text.png" style="height:35px;">
         </a>
         <div class="container">
 
@@ -60,12 +61,12 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
+                    <li class="nav-item mr-3">
                         <a class="nav-link" href="index">主页</a>
                     </li>
 
-                    <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <li class="nav-item dropdown mr-3">
+                        <a id="blogMenu" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                              发现想法
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -90,11 +91,11 @@
                         </div>
                     </li>
 
-                    <li class="nav-item">
+                    <li id='editMenu' class="nav-item mr-3">
                         <a class="nav-link" href="edit">发表看法</a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item mr-3">
                         <a class="nav-link" href="contact">消息</a>
                     </li>
 
@@ -110,15 +111,16 @@
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="accountMenu" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/account">账户设置</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    退出登录
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

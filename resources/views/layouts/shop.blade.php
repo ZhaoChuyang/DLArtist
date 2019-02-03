@@ -61,7 +61,7 @@
                             </li>
                             <li>
                             <li class="submenu">
-                                <a id="categories" href="categories">发现想法</a>
+                                <a id="categories" href="#">发现想法</a>
                                 <ul class="sub-menu">
                                     <li><a href="categories-1">文娱点评</a></li>
                                     <li><a href="categories-2">军事分析</a></li>
@@ -89,10 +89,10 @@
                                 @endif
                             @else
                                 <li class="submenu">
-                                    <a href="">{{ Auth::user()->name }}</a>
+                                    <a href="#">{{ Auth::user()->name }}</a>
                                     <ul class="sub-menu">
                                         <li>
-                                            <a href="/account">账户信息</a>
+                                            <a href="/account">账户设置</a>
                                         </li>
                                         <li>
                                             <a href="{{ route('logout') }}"
