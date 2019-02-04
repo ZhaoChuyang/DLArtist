@@ -42,18 +42,20 @@
         <div class="col-3 pl-4">
             <p>个人头像</p>
             <div>
-                <img class="border"
+                <img id="curAvatar"
+                        class="border"
                      style="display: inline-block;line-height: 1;overflow: hidden;vertical-align: middle;border-radius: 6px!important;"
                      src="{!! \DLArtist\User::find($user_id)->avatar_url !!}"
                      width="200" height="200" alt="{{Auth::user()->name}}">
-                <form method="post">
+                <form method="post" id="avatarForm">
+                    {{ csrf_field() }}
                     <label class="btn btn-secondary btn-sm mt-3">
                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="20" viewBox="0 3 24 24" fill="none"
                              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                              class="feather feather-activity">
                             <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
                         </svg>
-                        选择图片<input id="avatar" type="file" hidden>
+                        选择图片<input id="avatar" name="avatar" type="file" hidden>
                     </label>
                     <a id="uploadAvatar" class="btn btn-dark btn-sm text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" width="15" height="20" viewBox="0 3 24 24" fill="none"
@@ -71,16 +73,18 @@
     <script src="assets/js/jquery-3.2.1.min.js"></script>
     <script>
         $('#uploadAvatar').click(function () {
-                var image=$('#avatar').val();
+                var form=$('#avatarForm')[0];
+                var formData=new FormData(form);
                 $.ajax({
+                    contentType: false,
+                    processData: false,
                     url: "/accounts/avatar",
                     type: "post",
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        avatar: image
-                    },
-                    success: function () {
+                    data: formData,
 
+                    success: function (response) {
+                        console.log(response);
+                        $('#curAvatar').attr('src',response);
                     }
                 })
             }
