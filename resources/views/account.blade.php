@@ -23,9 +23,9 @@
                     <span class="text-muted">账号设置</span>
                 </h5>
                     <ul class="list-group mb-3">
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <li id="menu1" class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <a href="#"><h6 class="my-0">公开信息</h6></a>
+                                <a href="#" id="publicInfo"><h6 class="my-0">公开信息</h6></a>
                                 <small class="text-muted">Brief description</small>
                             </div>
 
@@ -42,7 +42,7 @@
                                 <small class="text-muted">Brief description</small>
                             </div>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between bg-light">
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div class="text-success">
                                 <h6 class="my-0">Promo code</h6>
                                 <small>EXAMPLECODE</small>
@@ -55,8 +55,8 @@
                 </h4>
             </div>
 
-            <div class="col-md-8">
-                
+            <div class="col-md-8" id="detail">
+
             </div>
 
         </div>
@@ -66,7 +66,27 @@
 
 @section('script')
 <script>
-    $('#accountMenu').addClass('active');
+    $(document).ready(function(){
+        $('#accountMenu').addClass('active');
+        $.ajax({
+            url: 'account/publicInfo',
+            type: 'get',
+            success: function(data){
+                $('#detail').html(data);
+            }
+        })
+        $('#menu1').addClass('bg-light')
+    });
+
+    $('#publicInfo').click(function () {
+        $.ajax({
+            url: 'account/publicInfo',
+            type: 'get',
+            success: function(data){
+                $('#detail').html(data);
+            }
+        })
+    })
 </script>
 
 @endsection

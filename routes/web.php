@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::any('/', function () {
     return view('index');
 });
@@ -47,3 +48,9 @@ Route::post('/article', 'ArticleController@store');
 Route::get('/account', function(){
     return view('account');
 })->middleware('auth');
+
+Route::get('/account/{info}',function($info){
+    return View::make('ajax/account')->with('info', $info)->with('user_id', Auth::user()->id)->render();
+})->middleware('auth');
+
+Route::post('/account/avatar','accounts@storeAvatar');

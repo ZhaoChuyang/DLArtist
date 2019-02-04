@@ -125,7 +125,7 @@ class imageController extends Controller
 
         $img=image::where('image_url', $src)->update(['valid'=>false]);
 
-        //删除文件
+        //删除本地文件
         $all_deserted_img=image::where('valid', 0)->get();
 
         foreach($all_deserted_img as $deserted_img){
