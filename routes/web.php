@@ -53,4 +53,4 @@ Route::get('/account/{info}',function($info){
     return View::make('ajax/account')->with('info', $info)->with('user_id', Auth::user()->id)->render();
 })->middleware('auth');
 
-Route::post('/account/avatar','accounts@storeAvatar');
+Route::post('/accounts/avatar','accounts@storeAvatar');
