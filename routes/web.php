@@ -54,3 +54,4 @@ Route::get('/account/{info}',function($info){
 })->middleware('auth');
 
 Route::post('/accounts/avatar','accounts@storeAvatar');
+Route::post('/accounts/save','accounts@saveinfo');

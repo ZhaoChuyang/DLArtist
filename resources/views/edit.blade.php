@@ -453,7 +453,7 @@
                 height: 480,
                 language: 'zh_cn',
                 imageDefaultDisplay: 'inline',
-
+                imageDefaultWidth: 700,
                 imageUploadParam: 'image',
                 imageUploadMethod: 'post',
                 // Set the image upload URL.
@@ -492,7 +492,7 @@
                 })
                 .on('froalaEditor.save.after', function (e, editor, response) {//return 1 if success
                     if (response == 1) {
-                        $("#success").show();
+                        alert('发表成功');
                     }
                     // else{
                     //     console.log(response);

@@ -2,14 +2,11 @@
     <h5 class="mb-3 border-bottom" style="padding-bottom: 15px;">个人信息</h5>
     <div class="row ">
         <div class="col-9">
-            <form class="needs-validation" novalidate="">
+
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <label for="firstName">用户名</label>
                         <input type="text" class="form-control" id="username" placeholder="" value="" required="">
-                        <div class="invalid-feedback">
-                            Valid first name is required.
-                        </div>
                     </div>
                 </div>
 
@@ -25,19 +22,14 @@
                 <div class="mb-3">
                     <label for="birthday">生日<span class="text-muted">(可选)</span></label>
                     <input type="text" class="form-control" id="birthday" placeholder="1901/01/01" required="">
-                    <div class="invalid-feedback">
-                        Please enter your shipping address.
-                    </div>
                 </div>
 
                 <div class="mb-3">
                     <label for="bio">个人简介 <span class="text-muted">(可选)</span></label>
                     <textarea class="form-control" style="height: 100px;" id="bio" placeholder="介绍一下你自己"></textarea>
                 </div>
-
                 <hr class="mb-4">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">更新信息</button>
-            </form>
+                <button class="btn btn-primary btn-lg btn-block" type="submit" id="save">更新信息</button>
         </div>
         <div class="col-3 pl-4">
             <p>个人头像</p>
@@ -69,8 +61,8 @@
             </div>
         </div>
     </div>
-
     <script src="assets/js/jquery-3.2.1.min.js"></script>
+
     <script>
         $('#uploadAvatar').click(function () {
                 var form=$('#avatarForm')[0];
@@ -81,7 +73,6 @@
                     url: "/accounts/avatar",
                     type: "post",
                     data: formData,
-
                     success: function (response) {
                         console.log(response);
                         $('#curAvatar').attr('src',response);
@@ -89,6 +80,19 @@
                 })
             }
         );
+        $("#save").click(function () {
+            $.ajax({
+                type:"post",
+                url:"/accounts/save",
+                data:{"_token":'{{csrf_token()}}',"username":$("#username").val(),"birthday":$("#birthday").val(),"bio":$("#bio").val()},
+                success:function (response) {
+                    console.log(response);
+                },
+                error:function (xhr) {
+                    alert(xhr.status);
+                }
+            })
+        })
     </script>
 
 @else
