@@ -36,7 +36,7 @@
                                         <span class="meta">Entertainment News</span>
                                         <h3>文娱点评</h3>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                        <a href="categories-1" class="btn-pro">Read more</a>
+                                        <a href="categories-1?page=1" class="btn-pro">Read more</a>
                                     </div>
                                 </article>
                             </div>
@@ -48,7 +48,7 @@
                                         <span class="meta">Military analysis</span>
                                         <h3>军事分析</h3>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                        <a href="categories-2" class="btn-pro">Read more</a>
+                                        <a href="categories-2?page=1" class="btn-pro">Read more</a>
                                     </div>
                                 </article>
                             </div>
@@ -59,7 +59,7 @@
                                         <span class="meta">Comments on current events</span>
                                         <h3>时事评论</h3>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                        <a href="categories-3" class="btn-pro">Read more</a>
+                                        <a href="categories-3?page=1" class="btn-pro">Read more</a>
                                     </div>
                                 </article>
                             </div>
@@ -70,7 +70,7 @@
                                         <span class="meta">Engineering blog</span>
                                         <h3>技术博客</h3>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                        <a href="categories-4" class="btn-pro">Read more</a>
+                                        <a href="categories-4?page=1" class="btn-pro">Read more</a>
                                     </div>
                                 </article>
                             </div>
@@ -81,7 +81,7 @@
                                         <span class="meta">Education and Culture</span>
                                         <h3>教育文化</h3>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                        <a href="categories-5" class="btn-pro">Read more</a>
+                                        <a href="categories-5?page=1" class="btn-pro">Read more</a>
                                     </div>
                                 </article>
                             </div>
@@ -92,7 +92,7 @@
                                         <span class="meta">All News</span>
                                         <h3>全部分类</h3>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                        <a href="categories-6" class="btn-pro">Read more</a>
+                                        <a href="categories-6?page=1" class="btn-pro">Read more</a>
                                     </div>
                                 </article>
                             </div>
