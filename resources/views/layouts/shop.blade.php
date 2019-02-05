@@ -172,7 +172,7 @@
 <script src="assets/js/owl.carousel.min.js"></script>
 <script src="assets/js/isotope.min.js"></script>
 <script src="assets/js/jquery.magnific-popup.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=false"></script>
+{{--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=false"></script>--}}
 <script src="assets/js/jquery.scrollTo.min.js"></script>
 <script src="assets/js/smooth.scroll.min.js"></script>
 <script src="assets/js/jquery.appear.js"></script>

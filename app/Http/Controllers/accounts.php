@@ -41,9 +41,22 @@ class accounts extends Controller
             $user->avatar_url=$finalPath;
             $user->save();
             return $finalPath;
-
         }
 
     }
-
+    public function saveinfo(Request $request){
+        $this->validate($request, [
+            'username' => 'required',
+        ]);
+        $username=$request->input('username');
+        $birthday=$request->input('birthday');
+        $bio=$request->input('bio');
+        $id=auth()->user()->id;
+        $user=User::find($id);
+        $user->birthday=$birthday;
+        $user->name=$username;
+        $user->bio=$bio;
+        $user->save();
+        return 1;
+    }
 }
