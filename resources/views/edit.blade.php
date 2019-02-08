@@ -312,17 +312,25 @@
                             <button class="btn btn-sm btn-outline-secondary">Share</button>
                             <button class="btn btn-sm btn-outline-secondary">Export</button>
                         </div>
-                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                 stroke-linejoin="round" class="feather feather-calendar">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                <line x1="16" y1="2" x2="16" y2="6"></line>
-                                <line x1="8" y1="2" x2="8" y2="6"></line>
-                                <line x1="3" y1="10" x2="21" y2="10"></line>
-                            </svg>
-                            This week
-                        </button>
+
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                     stroke-linejoin="round" class="feather feather-calendar">
+                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                                </svg>
+                                <span id="shareStatus">私密发布</span>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <input type="text" hidden value="0" id="shareValue">
+                                <a class="dropdown-item" href="#" id="privateStatus">私密发布</a>
+                                <a class="dropdown-item" href="#" id="publicStatus">公开发布</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -479,24 +487,46 @@
                 saveMethod: 'POST',
                 // Additional save params.
                 saveParams: {
-                    _token: "{{ csrf_token() }}",
-                    category: $("#category").val()
+
                 }
             })
                 .on('froalaEditor.save.before', function (e, editor) {
                     $.extend(editor.opts.saveParams, {
                         title: $("#title").val(),
                         _token: "{{ csrf_token() }}",
-                        category: $("#category").val()
+                        category: $("#category").val(),
+                        shareStatus: $('#shareValue').val()
                     });
                 })
                 .on('froalaEditor.save.after', function (e, editor, response) {//return 1 if success
-                    if (response == 1) {
-                        alert('发表成功');
+                    console.log(response);
+
+                    if(response.status[0]){
+                        alert("上传成功");
                     }
-                    // else{
-                    //     console.log(response);
-                    // }
+                    else{
+                        if(typeof response.title !== 'undefined') {
+                            for(let i=0; i<response.title.length; i++){
+                                console.log(response.title[i]);
+                            }
+                        }
+                        if(typeof response.category !== 'undefined') {
+                            for(let i=0; i<response.category.length; i++){
+                                console.log(response.category[i]);
+                            }
+                        }
+                        if(typeof response.shareStatus !== 'undefined') {
+                            for(let i=0; i<response.shareStatus.length; i++){
+                                console.log(response.shareStatus[i]);
+                            }
+                        }
+                        if(typeof response.msg !== 'undefined') {
+                            for(let i=0; i<response.msg.length; i++){
+                                console.log(response.msg[i]);
+                            }
+                        }
+
+                    }
                 })
                 .on('froalaEditor.save.error', function (e, editor, error) {
                     console.log(error);
@@ -531,8 +561,6 @@
             $("#editor").addClass("active-item");
         });
         $("#send").click(function () {
-            // alert($("#title").val());
-            // 标题为纯文本
             $('#edit').froalaEditor('save.save');
             {{--var use_id = '{{ Auth::id() }}';   //user_id--}}
             {{--var array = [];--}}
@@ -562,6 +590,14 @@
             {{--}--}}
             {{--});--}}
         });
+        $('#privateStatus').click(function () {
+            $('#shareStatus').html('私密发布');
+            $('#shareValue').val(0);
+        })
+        $('#publicStatus').click(function () {
+            $('#shareStatus').html('公开发布');
+            $('#shareValue').val(1);
+        })
     </script>
 
 @endsection
