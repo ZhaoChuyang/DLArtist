@@ -6,7 +6,7 @@
                 <div class="row">
                     <div class="col-md-12 mb-3">
                         <label for="firstName">用户名</label>
-                        <input type="text" class="form-control" id="username" placeholder="" value="" required="">
+                        <input type="text" class="form-control" id="username" placeholder="" value={{auth()->user()->name}}>
                     </div>
                 </div>
 
@@ -21,12 +21,12 @@
 
                 <div class="mb-3">
                     <label for="birthday">生日<span class="text-muted">(可选)</span></label>
-                    <input type="text" class="form-control" id="birthday" placeholder="1901/01/01" required="">
+                    <input type="text" class="form-control" id="birthday" placeholder="1901/01/01" value={{auth()->user()->birthday}}>
                 </div>
 
                 <div class="mb-3">
                     <label for="bio">个人简介 <span class="text-muted">(可选)</span></label>
-                    <textarea class="form-control" style="height: 100px;" id="bio" placeholder="介绍一下你自己"></textarea>
+                    <textarea class="form-control" style="height: 100px;" id="bio" placeholder="介绍一下你自己" value={{auth()->user()->bio}}></textarea>
                 </div>
                 <hr class="mb-4">
                 <button class="btn btn-primary btn-lg btn-block" type="submit" id="save">更新信息</button>
