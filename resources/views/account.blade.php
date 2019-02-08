@@ -25,14 +25,14 @@
                     <ul class="list-group mb-3">
                         <li id="menu1" class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <a href="#" id="publicInfo"><h6 class="my-0">公开信息</h6></a>
+                                <a href="#" id="publicInfo"><h6 class="my-0">个人资料</h6></a>
                                 <small class="text-muted">Brief description</small>
                             </div>
 
                         </li>
                         <li class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
-                                <h6 class="my-0">Second product</h6>
+                                <a href="#" id="accountInfo"><h6 class="my-0">账户信息</h6></a>
                                 <small class="text-muted">Brief description</small>
                             </div>
                         </li>
@@ -74,7 +74,7 @@
             success: function(data){
                 $('#detail').html(data);
             }
-        })
+        });
         $('#menu1').addClass('bg-light')
     });
 
@@ -86,7 +86,17 @@
                 $('#detail').html(data);
             }
         })
-    })
+    });
+
+    $('#accountInfo').click(function(){
+        $.ajax({
+            url: 'account/accountInfo',
+            type: 'get',
+            success: function(data){
+                $('#detail').html(data);
+            }
+        })
+    });
 </script>
 
 @endsection

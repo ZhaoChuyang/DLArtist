@@ -55,3 +55,5 @@ Route::get('/account/{info}',function($info){
 
 Route::post('/accounts/avatar','accounts@storeAvatar');
 Route::post('/accounts/save','accounts@saveinfo');
+Route::post('accounts/adminPwd','accounts@adminPwd');
+Route::post('accounts/adminMail','accounts@adminMail');

@@ -95,6 +95,137 @@
         })
     </script>
 
-@else
-    <p>elseContent</p>
+@elseif($info=='accountInfo')
+
+    <h5 class="mb-3 border-bottom" style="padding-bottom: 15px;">修改密码</h5>
+    <div class="row ">
+        <div class="col-10">
+
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="old_pwd">旧密码</label>
+                    <input type="password" class="form-control" id="old_pwd" placeholder="" value="" required="">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="new_pwd">新密码</label>
+                    <input type="password" class="form-control" id="new_pwd" placeholder="" value="" required="">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="cfm_pwd">确认密码</label>
+                    <input type="password" class="form-control" id="cfm_pwd" placeholder="" value="" required="">
+                </div>
+            </div>
+
+            <button class="btn btn-secondary btn"  id="update_pwd">更新密码</button>
+
+            {{--<div class="mb-3">--}}
+            {{--<label for="email">邮箱地址 <span class="text-muted"></span></label>--}}
+            {{--<input type="email" class="form-control" id="email" placeholder="you@example.com">--}}
+            {{--<div class="invalid-feedback">--}}
+            {{--Please enter a valid email address for shipping updates.--}}
+            {{--</div>--}}
+            {{--</div>--}}
+            <h5 class="mb-3 border-bottom mt-3" style="padding-bottom: 15px;">更新邮箱/电话</h5>
+            <div class="mb-3">
+                <label for="email">邮箱</label>
+                <input type="text" class="form-control" id="email" placeholder="1901/01/01" value="{{auth()->user()->email}}">
+            </div><div class="mb-3">
+                <label for="phone">电话<span class="text-muted">(可选)</span></label>
+                <input type="text" class="form-control" id="phone" placeholder="输入手机号" value="{{auth()->user()->phone}}">
+            </div>
+            <hr class="mb-4">
+            <button class="btn btn-secondary btn"  id="update_mail">更新信息</button>
+        </div>
+    </div>
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+
+    <script>
+        $("#update_pwd").click(function () {
+            $.ajax({
+                type:"post",
+                url:"/accounts/adminPwd",
+                data:{
+                    "_token":'{{csrf_token()}}',
+                    "old_pwd":$("#old_pwd").val(),
+                    "password":$("#new_pwd").val(),
+                    "password_confirmation":$("#cfm_pwd").val(),
+                },
+                dataType: 'json',
+                success:function (response) {
+                    console.log(response);
+                    if(response.status[0]){
+                        alert("password changed successful");
+                    }
+                    else{
+                        if(typeof response.password !== 'undefined') {
+                            for(let i=0; i<response.password.length; i++){
+                                console.log(response.password[i]);
+                            }
+                        }
+                        if(typeof response.old_pwd !== 'undefined') {
+                            for(let i=0; i<response.old_pwd.length; i++){
+                                console.log(response.old_pwd[i]);
+                            }
+                        }
+                        if(typeof response.msg !== 'undefined') {
+                            for(let i=0; i<response.msg.length; i++){
+                                console.log(response.msg[i]);
+                            }
+                        }
+
+                    }
+                },
+                error:function (xhr) {
+                    alert(xhr.status);
+                }
+            })
+        })
+
+        $("#update_mail").click(function () {
+            $.ajax({
+                type:"post",
+                url:"/accounts/adminMail",
+                data:{
+                    "_token":'{{csrf_token()}}',
+                    "email":$("#email").val(),
+                    "phone":$("#phone").val(),
+                },
+                dataType: 'json',
+                success:function (response) {
+                    console.log(response);
+                    if(response.status[0]){
+                        alert("updated successful");
+                    }
+                    else{
+                        if(typeof response.phone !== 'undefined') {
+                            for(let i=0; i<response.phone.length; i++){
+                                console.log(response.phone[i]);
+                            }
+                        }
+                        if(typeof response.email !== 'undefined') {
+                            for(let i=0; i<response.email.length; i++){
+                                console.log(response.email[i]);
+                            }
+                        }
+                        if(typeof response.msg !== 'undefined') {
+                            for(let i=0; i<response.msg.length; i++){
+                                console.log(response.msg[i]);
+                            }
+                        }
+
+                    }
+                },
+                error:function (xhr) {
+                    alert(xhr.status);
+                }
+            })
+        })
+    </script>
+
 @endif

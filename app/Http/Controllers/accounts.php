@@ -5,6 +5,7 @@ namespace DLArtist\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DLArtist\User;
+use Validator;
 
 class accounts extends Controller
 {
@@ -58,5 +59,49 @@ class accounts extends Controller
         $user->bio=$bio;
         $user->save();
         return 1;
+    }
+
+    public function adminPwd(Request $request){
+
+        $validator=Validator:: make($request->all(),[
+            'old_pwd'=>'required',
+            'password'=>'required|confirmed|min:6',
+        ]);
+        if($validator->fails()){
+            return $validator->errors()->add('status', 0);
+        }
+
+        $old_pwd=$request->input('old_pwd');
+        $new_pwd=$request->input('new_pwd');
+        $current_pwd=auth()->user()->password;
+        $user_id=auth()->user()->id;
+        $user=User::find($user_id);
+        if(\Hash::check($old_pwd, $current_pwd)){
+            $user->password=\Hash::make($new_pwd);
+            $user->save();
+            return response()->json(['status'=>[1], 'msg'=>['password changed']]);
+        }
+
+        return response()->json(['status'=>[0], 'msg'=>['old password incorrect']]);
+
+
+
+    }
+
+    public function adminMail(Request $request){
+        $validator=Validator:: make($request->all(),[
+            'email'=>'required|email',
+            'phone'=>'digits:11'
+        ]);
+        if($validator->fails()){
+            return $validator->errors()->add('status', 0);
+        }
+        $email=$request->input('email');
+        $phone=$request->input('phone');
+        $user=User::find(auth()->user()->id);
+        $user->email=$email;
+        $user->phone=$phone;
+        $user->save();
+        return response()->json(['status'=>[1], 'msg'=>['updated']]);
     }
 }
