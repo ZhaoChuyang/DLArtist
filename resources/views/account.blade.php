@@ -22,7 +22,7 @@
                 <h5 class="d-flex justify-content-between align-items-center mb-3">
                     <span class="text-muted">账号设置</span>
                 </h5>
-                    <ul class="list-group mb-3">
+                    <ul class="list-group mb-3" id="sideMenu">
                         <li id="menu1" class="list-group-item d-flex justify-content-between lh-condensed">
                             <div>
                                 <a href="#" id="publicInfo"><h6 class="my-0">个人资料</h6></a>
@@ -30,7 +30,7 @@
                             </div>
 
                         </li>
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <li class="list-group-item d-flex justify-content-between lh-condensed" id="menu2">
                             <div>
                                 <a href="#" id="accountInfo"><h6 class="my-0">账户信息</h6></a>
                                 <small class="text-muted">Brief description</small>
@@ -75,7 +75,7 @@
                 $('#detail').html(data);
             }
         });
-        $('#menu1').addClass('bg-light')
+        $('#menu1').addClass('bg-light');
     });
 
     $('#publicInfo').click(function () {
@@ -85,7 +85,9 @@
             success: function(data){
                 $('#detail').html(data);
             }
-        })
+        });
+        $("#sideMenu li[class*='bg-light']").removeClass('bg-light');
+        $('#menu1').addClass('bg-light');
     });
 
     $('#accountInfo').click(function(){
@@ -95,7 +97,9 @@
             success: function(data){
                 $('#detail').html(data);
             }
-        })
+        });
+        $("#sideMenu li[class*='bg-light']").removeClass('bg-light');
+        $('#menu2').addClass('bg-light');
     });
 </script>
 
