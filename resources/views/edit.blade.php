@@ -366,6 +366,8 @@
                             <button type="button" class="btn btn-primary" id="send">发表文章</button>
                             <button type="button" class="btn btn-success ml-2" id=" compose">自动排版
                             </button>
+                            <br>
+                            <br>
                         </div>
                     </div>
                 </form>
