@@ -110,11 +110,13 @@
                     "bio": $("#bio").val(),
                     "gender": $("#gender input[type='radio']:checked").val()
                 },
+                dataType: 'json',
                 success: function (response) {
+                    alert(response);
                     console.log(response);
                 },
                 error: function (xhr) {
-                    alert(xhr.status);
+                    console.log(xhr);
                 }
             })
         })
@@ -186,10 +188,10 @@
                 dataType: 'json',
                 success: function (response) {
                     console.log(response);
-                    if (response.status[0]) {
+                    if (response.status[0]===1) {
                         alert("password changed successful");
                     }
-                    else {
+                    else if(response.status[0]===0) {
                         if (typeof response.password !== 'undefined') {
                             for (let i = 0; i < response.password.length; i++) {
                                 console.log(response.password[i]);
@@ -207,9 +209,12 @@
                         }
 
                     }
+                    else if(response.status[0]===2){
+                        console.log(response);
+                    }
                 },
                 error: function (xhr) {
-                    alert(xhr.status);
+                    console.log(xhr);
                 }
             })
         });

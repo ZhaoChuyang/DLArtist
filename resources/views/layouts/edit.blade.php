@@ -29,6 +29,48 @@
 
     @yield('head')
 
+    <style>
+        /* Sticky footer styles
+-------------------------------------------------- */
+        html {
+            position: relative;
+            min-height: 100%;
+        }
+        body {
+            /* Margin bottom by footer height */
+            margin-bottom: 60px;
+        }
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            /* Set the fixed height of the footer here */
+            height: 60px;
+            line-height: 60px; /* Vertically center the text there */
+            background-color: #f5f5f5;
+            z-index: 101;
+        }
+
+
+        /* Custom page CSS
+        -------------------------------------------------- */
+        /* Not required for template or sticky footer method. */
+
+        body > .container {
+            padding: 60px 15px 0;
+        }
+
+        .footer > .container {
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+
+        code {
+            font-size: 80%;
+        }
+
+    </style>
+
 </head>
 <body>
 <div id="app">
@@ -136,7 +178,17 @@
 
     @yield('content')
 
+
+
 </div>
+
+<footer class="footer border-top">
+    <div class="row ml-5">
+        DLArtist designed by GoodFellow
+    </div>
+</footer>
+
+
 
 @yield('script')
 

@@ -16,7 +16,10 @@
                         <div id="page-header">
                             <div class="text">
                                 <h1 class="margin-bottom-small">文娱点评<span class="color">.</span></h1>
-                                <p class="heading left max full grey-dark">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae quos rem, error facilis eveniet perspiciatis tempora totam animi doloribus. Quia officia laudantium dolor sapiente? Dolor maxime voluptatum sint molestias ipsa.</p>
+                                <p class="heading left max full grey-dark">Lorem ipsum dolor sit amet, consectetur
+                                    adipisicing elit. Beatae quos rem, error facilis eveniet perspiciatis tempora totam
+                                    animi doloribus. Quia officia laudantium dolor sapiente? Dolor maxime voluptatum
+                                    sint molestias ipsa.</p>
                             </div>
                         </div>
                     </div>
@@ -71,7 +74,8 @@
                                                                 <br>
                                                                 更新于：{{$val->update}}
                                                             </p>
-                                                            <a href="article?id={{$val->id}}" class="btn-pro">Read more</a>
+                                                            <a href="article?id={{$val->id}}" class="btn-pro">Read
+                                                                more</a>
                                                         </div>
                                                     </article>
                                                 </div>
@@ -88,24 +92,30 @@
                                     @if(!$up)
                                         <div class="col-xs-6">
                                             <div class="nav-left">
-                                                <a href="/categories-1?page={{$current-1}}" class="btn-alt small shadow margin-null"><i class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
+                                                <a href="/categories-1?page={{$current-1}}"
+                                                   class="btn-alt small shadow margin-null"><i
+                                                            class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
                                             </div>
                                         </div>
                                     @endif
                                     @if($up==2)
                                         <script>
-                                            window.location.href="/categories-1?page={{$current}}";
+                                            window.location.href = "/categories-1?page={{$current}}";
                                         </script>
                                         <div class="col-xs-6">
                                             <div class="nav-left">
-                                                <a href="/categories-1?page={{$current-1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
+                                                <a href="/categories-1?page={{$current-1}}"
+                                                   class="btn-alt small shadow margin-null invisible"><i
+                                                            class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
                                             </div>
                                         </div>
                                     @endif
                                     @if($up==1)
                                         <div class="col-xs-6">
                                             <div class="nav-left">
-                                                <a href="/categories-1?page={{$current-1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
+                                                <a href="/categories-1?page={{$current-1}}"
+                                                   class="btn-alt small shadow margin-null invisible"><i
+                                                            class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
                                             </div>
                                         </div>
                                     @endif
@@ -114,24 +124,30 @@
                                     @if(!$down)
                                         <div class="col-xs-6">
                                             <div class="nav-right">
-                                                <a href="/categories-1?page={{$current+1}}"class="btn-alt small shadow margin-null"><span>下一页</span><i class="icon ion-ios-arrow-right"></i></a>
+                                                <a href="/categories-1?page={{$current+1}}"
+                                                   class="btn-alt small shadow margin-null"><span>下一页</span><i
+                                                            class="icon ion-ios-arrow-right"></i></a>
                                             </div>
                                         </div>
                                     @endif
                                     @if($down==2)
                                         <script>
-                                            window.location.href="/categories-1?page={{$current}}";
+                                            window.location.href = "/categories-1?page={{$current}}";
                                         </script>
                                         <div class="col-xs-6">
                                             <div class="nav-left">
-                                                <a href="/categories-1?page={{$current+1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>下一页</span></a>
+                                                <a href="/categories-1?page={{$current+1}}"
+                                                   class="btn-alt small shadow margin-null invisible"><i
+                                                            class="icon ion-ios-arrow-left"></i><span>下一页</span></a>
                                             </div>
                                         </div>
                                     @endif
                                     @if($down==1)
                                         <div class="col-xs-6">
                                             <div class="nav-left">
-                                                <a href="/categories-1?page={{$current+1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>下一页</span></a>
+                                                <a href="/categories-1?page={{$current+1}}"
+                                                   class="btn-alt small shadow margin-null invisible"><i
+                                                            class="icon ion-ios-arrow-left"></i><span>下一页</span></a>
                                             </div>
                                         </div>
                                     @endif
@@ -139,44 +155,44 @@
                             </section>
                         </div>
 
-                            <div class="row margin-null padding-onlytop-md">
+                        <div class="row margin-null padding-onlytop-md">
+                            <div class="col-md-12 padding-leftright-null">
+                                <!-- Counters -->
                                 <div class="col-md-12 padding-leftright-null">
-                                    <!-- Counters -->
-                                    <div class="col-md-12 padding-leftright-null">
-                                        <div id="counters" class="row padding-md-leftright-null padding-md text-center">
-                                            <div class="col-sm-3 padding-md-leftright-null">
-                                                <div class="statistic">
-                                                    <i class="material-icons color service">people</i>
-                                                    <span data-from="0" data-to="222">&nbsp;</span>
-                                                    <h3>Clients</h3>
-                                                </div>
+                                    <div id="counters" class="row padding-md-leftright-null padding-md text-center">
+                                        <div class="col-sm-3 padding-md-leftright-null">
+                                            <div class="statistic">
+                                                <i class="material-icons color service">people</i>
+                                                <span data-from="0" data-to="222">&nbsp;</span>
+                                                <h3>Clients</h3>
                                             </div>
-                                            <div class="col-sm-3 padding-md-leftright-null">
-                                                <div class="statistic">
-                                                    <i class="material-icons color service">card_travel</i>
-                                                    <span data-from="0" data-to="400">&nbsp;</span>
-                                                    <h3>Experience</h3>
-                                                </div>
+                                        </div>
+                                        <div class="col-sm-3 padding-md-leftright-null">
+                                            <div class="statistic">
+                                                <i class="material-icons color service">card_travel</i>
+                                                <span data-from="0" data-to="400">&nbsp;</span>
+                                                <h3>Experience</h3>
                                             </div>
-                                            <div class="col-sm-3 padding-md-leftright-null">
-                                                <div class="statistic">
-                                                    <i class="material-icons color service">trending_up</i>
-                                                    <span data-from="0" data-to="25">&nbsp;</span>
-                                                    <h3>Goals</h3>
-                                                </div>
+                                        </div>
+                                        <div class="col-sm-3 padding-md-leftright-null">
+                                            <div class="statistic">
+                                                <i class="material-icons color service">trending_up</i>
+                                                <span data-from="0" data-to="25">&nbsp;</span>
+                                                <h3>Goals</h3>
                                             </div>
-                                            <div class="col-sm-3 padding-md-leftright-null">
-                                                <div class="statistic">
-                                                    <i class="material-icons color service">lightbulb_outline</i>
-                                                    <span data-from="0" data-to="54">&nbsp;</span>
-                                                    <h3>Vision</h3>
-                                                </div>
+                                        </div>
+                                        <div class="col-sm-3 padding-md-leftright-null">
+                                            <div class="statistic">
+                                                <i class="material-icons color service">lightbulb_outline</i>
+                                                <span data-from="0" data-to="54">&nbsp;</span>
+                                                <h3>Vision</h3>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- END Counters -->
                                 </div>
+                                <!-- END Counters -->
                             </div>
+                        </div>
                     </div>
                     <!-- END Section same Height. Child get the parent Height. Set the same id -->
                     <!-- END Shortcodes -->
