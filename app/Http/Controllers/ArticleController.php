@@ -60,6 +60,7 @@ class ArticleController extends Controller
             $article->content=$content;
             $article->category=$category;
             $article->update=$update;
+            $article->save();
             DB::commit();
             return response()->json(['status'=>[1], 'msg'=>['upload success']]);
 

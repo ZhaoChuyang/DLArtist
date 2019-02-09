@@ -81,7 +81,6 @@ class accounts extends Controller
             $user->gender = $gender;
             $user->save();
             DB::commit();
-
         } catch (\Exception $ex) {
             DB::rollback();
             return response()->json(['error' => $ex->getMessage()], 500);

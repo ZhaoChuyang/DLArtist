@@ -40,7 +40,7 @@
             <div class="mb-3">
                 <label for="bio">个人简介 <span class="text-muted">(可选)</span></label>
                 <textarea class="form-control" style="height: 100px;" id="bio" placeholder="介绍一下你自己"
-                          value={{auth()->user()->bio}}></textarea>
+                          >{{auth()->user()->bio}}</textarea>
             </div>
             <hr class="mb-4">
             <button class="btn btn-primary btn-lg btn-block" type="submit" id="save">更新信息</button>
