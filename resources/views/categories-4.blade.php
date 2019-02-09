@@ -57,10 +57,15 @@
                                             @foreach($data as $val)
                                                 <div class="single-news one-item">
                                                     <article>
-                                                        <img src="assets/img/news1.jpg" alt="">
+                                                        @foreach($writer as $t)
+                                                            @if($t->id==($val->user_id))
+                                                                <img style="width: 100%;height: 170px" src="{{$t->avatar_url}}" alt="">
+                                                            @endif
+                                                        @endforeach
                                                         <div class="content">
                                                             <span class="meta">All Blog</span>
-                                                            <h3>{{$val->title}}<span class="color">.</span></h3>
+                                                            <h3>{{$val->title}}
+                                                                <span class="color">.</span></h3>
                                                             <p>
                                                                 作者：@foreach($writer as $t)
                                                                     @if($t->id==($val->user_id))
@@ -69,6 +74,12 @@
                                                                 @endforeach
                                                                 <br>
                                                                 更新于：{{$val->update}}
+                                                                <br>
+                                                                浏览量：{{$val->click_num}}
+                                                                <br>
+                                                                @if(!$val->share)
+                                                                    (仅自己可见)
+                                                                @endif
                                                             </p>
                                                             <a href="article?id={{$val->id}}" class="btn-pro">Read more</a>
                                                         </div>
