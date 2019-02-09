@@ -59,8 +59,12 @@
                                                     <article>
                                                         <img src="assets/img/news1.jpg" alt="">
                                                         <div class="content">
-                                                            <span class="meta">All Blog</span>
-                                                            <h3>{{$val->title}}<span class="color">.</span></h3>
+                                                            <span class="meta">All Blogs</span>
+                                                            <h3>{{$val->title}}
+                                                                @if(!$val->share)
+                                                                    (私密)
+                                                                @endif
+                                                                <span class="color">.</span></h3>
                                                             <p>
                                                                 作者：@foreach($writer as $t)
                                                                     @if($t->id==($val->user_id))

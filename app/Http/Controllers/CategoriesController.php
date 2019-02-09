@@ -17,8 +17,10 @@ class CategoriesController extends Controller
         $perpage_num=6;
         $article = new Article();
         $user = new User();
-        $num=$article->where('category',$category)->get()->count('id');
+        $user_id=auth()->user()->id;
+        $num=$article->where('share','1')->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
+        if(!$last)$last=1;
         $down=$up=0;
         if ($current>$last||$current==$last){
             if($current>$last)
@@ -34,7 +36,9 @@ class CategoriesController extends Controller
                 $up=1;
             $current=1;
         }
-        $data = $article->where('category',$category)->orderby('click_num')->paginate($perpage_num);
+        $data = $article->where('category',$category)->where(function ($query)use($user_id){
+            $query->where('share','1')->orwhere('user_id',$user_id);
+        })->orderby('click_num')->paginate($perpage_num);
         $writer = $user->get();
         return view('categories-1',compact('data','writer','current','last','up','down'));
 
@@ -46,8 +50,10 @@ class CategoriesController extends Controller
         $perpage_num=6;
         $article = new Article();
         $user = new User();
-        $num=$article->where('category',$category)->get()->count('id');
+        $user_id=auth()->user()->id;
+        $num=$article->where('share','1')->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
+        if(!$last)$last=1;
         $down=$up=0;
         if ($current>$last||$current==$last){
             if($current>$last)
@@ -63,7 +69,9 @@ class CategoriesController extends Controller
                 $up=1;
             $current=1;
         }
-        $data = $article->where('category',$category)->orderby('click_num')->paginate($perpage_num);
+        $data = $article->where('category',$category)->where(function ($query)use($user_id){
+            $query->where('share','1')->orwhere('user_id',$user_id);
+        })->orderby('click_num')->paginate($perpage_num);
         $writer = $user->get();
         return view('categories-2',compact('data','writer','current','last','up','down'));
 
@@ -75,8 +83,10 @@ class CategoriesController extends Controller
         $perpage_num=6;
         $article = new Article();
         $user = new User();
-        $num=$article->where('category',$category)->get()->count('id');
+        $user_id=auth()->user()->id;
+        $num=$article->where('share','1')->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
+        if(!$last)$last=1;
         $down=$up=0;
         if ($current>$last||$current==$last){
             if($current>$last)
@@ -92,7 +102,9 @@ class CategoriesController extends Controller
                 $up=1;
             $current=1;
         }
-        $data = $article->where('category',$category)->orderby('click_num')->paginate($perpage_num);
+        $data = $article->where('category',$category)->where(function ($query)use($user_id){
+            $query->where('share','1')->orwhere('user_id',$user_id);
+        })->orderby('click_num')->paginate($perpage_num);
         $writer = $user->get();
         return view('categories-3',compact('data','writer','current','last','up','down'));
 
@@ -104,8 +116,10 @@ class CategoriesController extends Controller
         $perpage_num=6;
         $article = new Article();
         $user = new User();
-        $num=$article->where('category',$category)->get()->count('id');
+        $user_id=auth()->user()->id;
+        $num=$article->where('share','1')->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
+        if(!$last)$last=1;
         $down=$up=0;
         if ($current>$last||$current==$last){
             if($current>$last)
@@ -121,7 +135,9 @@ class CategoriesController extends Controller
                 $up=1;
             $current=1;
         }
-        $data = $article->where('category',$category)->orderby('click_num')->paginate($perpage_num);
+        $data = $article->where('category',$category)->where(function ($query)use($user_id){
+            $query->where('share','1')->orwhere('user_id',$user_id);
+        })->orderby('click_num')->paginate($perpage_num);
         $writer = $user->get();
         return view('categories-4',compact('data','writer','current','last','up','down'));
 
@@ -133,8 +149,10 @@ class CategoriesController extends Controller
         $perpage_num=6;
         $article = new Article();
         $user = new User();
-        $num=$article->where('category',$category)->get()->count('id');
+        $user_id=auth()->user()->id;
+        $num=$article->where('share','1')->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
+        if(!$last)$last=1;
         $down=$up=0;
         if ($current>$last||$current==$last){
             if($current>$last)
@@ -150,7 +168,9 @@ class CategoriesController extends Controller
                 $up=1;
             $current=1;
         }
-        $data = $article->where('category',$category)->orderby('click_num')->paginate($perpage_num);
+        $data = $article->where('category',$category)->where(function ($query)use($user_id){
+            $query->where('share','1')->orwhere('user_id',$user_id);
+        })->orderby('click_num')->paginate($perpage_num);
         $writer = $user->get();
         return view('categories-5',compact('data','writer','current','last','up','down'));
 
@@ -163,8 +183,10 @@ class CategoriesController extends Controller
         $perpage_num=6;
         $article = new Article();
         $user = new User();
-        $num=$article->get()->count('id');
+        $user_id=auth()->user()->id;
+        $num=$article->where('share','1')->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
+        if(!$last)$last=1;
         $down=$up=0;
         if ($current>$last||$current==$last){
             if($current>$last)
@@ -180,7 +202,7 @@ class CategoriesController extends Controller
                 $up=1;
             $current=1;
         }
-        $data = $article->orderby('click_num')->paginate($perpage_num);
+        $data = $article->where('share','1')->orwhere('user_id',$user_id)->orderby('click_num')->paginate($perpage_num);
         $writer = $user->get();
         return view('categories-6',compact('data','writer','current','last','up','down'));
     }
