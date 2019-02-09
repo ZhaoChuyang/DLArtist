@@ -52,11 +52,13 @@ class accounts extends Controller
         $username=$request->input('username');
         $birthday=$request->input('birthday');
         $bio=$request->input('bio');
+        $gender=$request->input('gender');
         $id=auth()->user()->id;
         $user=User::find($id);
         $user->birthday=$birthday;
         $user->name=$username;
         $user->bio=$bio;
+        $user->gender=$gender;
         $user->save();
         return 1;
     }
