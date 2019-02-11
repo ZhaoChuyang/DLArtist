@@ -57,3 +57,5 @@ Route::post('/accounts/avatar','accounts@storeAvatar');
 Route::post('/accounts/save','accounts@saveinfo');
 Route::post('accounts/adminPwd','accounts@adminPwd');
 Route::post('accounts/adminMail','accounts@adminMail');
+
+Route::get('/image/getImageList', 'imageController@list');
