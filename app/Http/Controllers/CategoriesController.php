@@ -2,6 +2,7 @@
 
 namespace DLArtist\Http\Controllers;
 
+use DLArtist\DB\Comment;
 use DLArtist\User;
 use Illuminate\Http\Request;
 use DLArtist\DB\Article;
@@ -18,7 +19,7 @@ class CategoriesController extends Controller
         $article = new Article();
         $user = new User();
         $user_id=auth()->user()->id;
-        $num=$article->where('share','1')->orwhere('user_id',$user_id)->get()->count('id');
+        $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
         $down=$up=0;
@@ -36,7 +37,7 @@ class CategoriesController extends Controller
                 $up=1;
             $current=1;
         }
-        $data = $article->where('category',$category)->where(function ($query)use($user_id){
+        $data = $article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
             $query->where('share','1')->orwhere('user_id',$user_id);
         })->orderby('click_num','desc')->paginate($perpage_num);
         $writer = $user->get();
@@ -51,7 +52,7 @@ class CategoriesController extends Controller
         $article = new Article();
         $user = new User();
         $user_id=auth()->user()->id;
-        $num=$article->where('share','1')->orwhere('user_id',$user_id)->get()->count('id');
+        $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
         $down=$up=0;
@@ -69,7 +70,7 @@ class CategoriesController extends Controller
                 $up=1;
             $current=1;
         }
-        $data = $article->where('category',$category)->where(function ($query)use($user_id){
+        $data = $article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
             $query->where('share','1')->orwhere('user_id',$user_id);
         })->orderby('click_num','desc')->paginate($perpage_num);
         $writer = $user->get();
@@ -84,7 +85,7 @@ class CategoriesController extends Controller
         $article = new Article();
         $user = new User();
         $user_id=auth()->user()->id;
-        $num=$article->where('share','1')->orwhere('user_id',$user_id)->get()->count('id');
+        $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
         $down=$up=0;
@@ -102,7 +103,7 @@ class CategoriesController extends Controller
                 $up=1;
             $current=1;
         }
-        $data = $article->where('category',$category)->where(function ($query)use($user_id){
+        $data = $article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
             $query->where('share','1')->orwhere('user_id',$user_id);
         })->orderby('click_num','desc')->paginate($perpage_num);
         $writer = $user->get();
@@ -117,7 +118,7 @@ class CategoriesController extends Controller
         $article = new Article();
         $user = new User();
         $user_id=auth()->user()->id;
-        $num=$article->where('share','1')->orwhere('user_id',$user_id)->get()->count('id');
+        $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
         $down=$up=0;
@@ -135,7 +136,7 @@ class CategoriesController extends Controller
                 $up=1;
             $current=1;
         }
-        $data = $article->where('category',$category)->where(function ($query)use($user_id){
+        $data = $article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
             $query->where('share','1')->orwhere('user_id',$user_id);
         })->orderby('click_num','desc')->paginate($perpage_num);
         $writer = $user->get();
@@ -150,7 +151,7 @@ class CategoriesController extends Controller
         $article = new Article();
         $user = new User();
         $user_id=auth()->user()->id;
-        $num=$article->where('share','1')->orwhere('user_id',$user_id)->get()->count('id');
+        $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
         $down=$up=0;
@@ -168,7 +169,7 @@ class CategoriesController extends Controller
                 $up=1;
             $current=1;
         }
-        $data = $article->where('category',$category)->where(function ($query)use($user_id){
+        $data = $article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
             $query->where('share','1')->orwhere('user_id',$user_id);
         })->orderby('click_num','desc')->paginate($perpage_num);
         $writer = $user->get();
@@ -184,7 +185,7 @@ class CategoriesController extends Controller
         $article = new Article();
         $user = new User();
         $user_id=auth()->user()->id;
-        $num=$article->where('share','1')->orwhere('user_id',$user_id)->get()->count('id');
+        $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
         $down=$up=0;
@@ -202,7 +203,7 @@ class CategoriesController extends Controller
                 $up=1;
             $current=1;
         }
-        $data = $article->where('share','1')->orwhere('user_id',$user_id)->orderby('click_num','desc')->paginate($perpage_num);
+        $data = $article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->orderby('click_num','desc')->paginate($perpage_num);
         $writer = $user->get();
         return view('categories-6',compact('data','writer','current','last','up','down'));
     }
@@ -210,6 +211,7 @@ class CategoriesController extends Controller
     public function article(){
 //具体文章
         $article=new Article();
+        $comment=new Comment();
         $id=$_GET['id'];
         $article->where('id',$id)->increment('click_num');
         $title=$article->where('id',$id)->select('title')->get();
@@ -220,6 +222,8 @@ class CategoriesController extends Controller
         $user_name=DB::table('users')->join('articles','users.id','=','user_id')->where('users.id',$t)->select('name')->first();
         $content=$article->where('id',$id)->select('content')->get();
         $time=$article->where('id',$id)->select('update')->get();
-        return view('article',compact('title','content','time','user_name'));
+        $comment_num=$comment->where('article_id',$id)->where('valid',1)->get()->count();
+        $comments=DB::table('comments')->join('users','users.id','=','user_id')->where('article_id',$id)->where('valid',1)->limit(5)->offset(0)->get();
+        return view('article',compact('title','content','time','user_name','comment_num','comments','id'));
     }
 }

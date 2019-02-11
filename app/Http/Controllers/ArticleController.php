@@ -2,6 +2,7 @@
 
 namespace DLArtist\Http\Controllers;
 
+use DLArtist\DB\Comment;
 use Illuminate\Http\Request;
 use DLArtist\DB\Article;
 use Validator;
@@ -68,5 +69,26 @@ class ArticleController extends Controller
             DB::rollback();
             return response()->json(['error' => $ex->getMessage()], 500);
         }
+    }
+    public function comment(Request $request){
+        $validator=Validator:: make($request->all(),[
+            'content' => 'required',
+        ]);
+
+            $content = $request->input('content');
+            $user_id = $request->input('user_id');
+            $article_id=$request->input('article_id');
+            date_default_timezone_set("PRC");
+            $update = date('Y-m-d H:i:s', time());
+            $comment=new Comment();
+            $comment->user_id=$user_id;
+            $comment->update=$update;
+            $comment->content=$content;
+            $comment->article_id=$article_id;
+            $comment->save();
+
+            return 1;
+
+
     }
 }
