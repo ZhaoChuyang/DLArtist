@@ -55,13 +55,9 @@
                 </div>
             </div>
             <!-- END Post Content -->
-
-
-
             <div class="container">
                 <hr style="border: solid">
             </div>
-
             <!-- Full width Border Separator -->
             <div class="row no-margin">
                 <div class="border-separator"></div>
@@ -81,69 +77,34 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content no-margin-bottom">
                                     <div role="tabpanel" class="tab-pane padding-md active" id="tab-one">
-                                        <div class="comment">
-                                            <div class="row margin-null">
-                                                <div class="col-md-12 padding-leftright-null">
-                                                    <img src="assets/img/comment3.jpg" alt="">
-                                                    <div class="content">
-                                                        <div class="header">
+                                        @if($comment_num)
+                                            @foreach($comments as $t)
+                                            <div class="comment">
+                                                <div class="row margin-null">
+                                                    <div class="col-md-12 padding-leftright-null">
+                                                        <img src="{{$t->avatar_url}}" alt="">
+                                                        <div class="content">
+                                                            <div class="header">
                                                                     <span class="comment-author">
-                                                                        Asia Rossi
+                                                                        {{$t->name}}
                                                                     </span>
                                                             <span class="comment-btn">
                                                                         <a href="#"><i class="material-icons">reply</i></a>
                                                                     </span>
+                                                            </div>
+                                                            <span class="comment-date">
+                                                                    {{$t->update}}
+                                                            </span>
+                                                            <p>{{$t->content}}</p>
                                                         </div>
-                                                        <span class="comment-date">
-                                                                    12 November 2017
-                                                                </span>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti quo fuga corporis sunt voluptate, quia, beatae voluptates est possimus impedit eveniet quaerat nulla sapiente. Omnis odit quas est fuga nam.</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="comment reply">
-                                            <div class="row margin-null">
-                                                <div class="col-md-10 col-md-offset-2 padding-leftright-null">
-                                                    <img src="assets/img/comment1.jpg" alt="">
-                                                    <div class="content">
-                                                        <div class="header">
-                                                                    <span class="comment-author">
-                                                                        Joe Doe
-                                                                    </span>
-                                                            <span class="comment-btn">
-                                                                        <a href="#"><i class="material-icons">reply</i></a>
-                                                                    </span>
-                                                        </div>
-                                                        <span class="comment-date">
-                                                                    12 November 2017
-                                                                </span>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti quo fuga corporis sunt voluptate, quia, beatae voluptates est possimus impedit eveniet quaerat nulla sapiente. Omnis odit quas est fuga nam.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="comment">
-                                            <div class="row">
-                                                <div class="col-md-12 padding-leftright-null">
-                                                    <img src="assets/img/comment2.jpg" alt="">
-                                                    <div class="content">
-                                                        <div class="header">
-                                                                    <span class="comment-author">
-                                                                        Jessica Brown
-                                                                    </span>
-                                                            <span class="comment-btn">
-                                                                        <a href="#"><i class="material-icons">reply</i></a>
-                                                                    </span>
-                                                        </div>
-                                                        <span class="comment-date">
-                                                                    12 November 2017
-                                                                </span>
-                                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti quo fuga corporis sunt voluptate, quia, beatae voluptates est possimus impedit eveniet quaerat nulla sapiente. Omnis odit quas est fuga nam.</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                            @endforeach
+                                        @endif
+                                        @if($comment_num==0)
+                                            <h2>还没有评论哦！</h2>
+                                        @endif
                                     </div>
                                     <div role="tabpanel" class="tab-pane padding-md" id="tab-two">
                                         <section class="comment-form">
@@ -193,5 +154,30 @@
     <!--  END Page Content -->
     </div>
 
+    <input type="hidden" id="writer_id" value="{{ Auth::user()->id }}">
+    <input type="hidden" id="article_id" value="{{$id}}">
+    <script>
+        $("#submit-contact").click(function () {
+            $.ajax({
+                url: 'ArticleController/comment',
+                type: 'post',
+                data: {
+                    "_token": '{{csrf_token()}}',
+                    "user_id": $("#writer_id").val(),
+                    "content": $("#messageForm").val(),
+                    "article_id":$("#article_id").val()
+                },
+                dataType: 'json',
+                success: function (response) {
+                    alert(123);
+                    console.log(response);
+                },
+                error: function (xhr) {
+                    alert(456);
+                    console.log(xhr);
+                }
+            });
+        })
+    </script>
 
 @endsection
