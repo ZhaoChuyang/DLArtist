@@ -142,4 +142,21 @@ class imageController extends Controller
 
         return "image deleted";
     }
+
+    public function list(Request $request){
+        $user_id=auth()->user()->id;
+        $all_image=image::where('valid', 1)->where('user_id', $user_id)->get();
+        $data=[];
+        $dataCollection=[];
+        $i=0;
+        foreach($all_image as $img){
+            $url=$img->image_url;
+            $data['url']=$url;
+            $data['thumb']=$url;
+            $dataCollection[$i]=$data;
+            $i++;
+        }
+
+        return response()->json($dataCollection);
+    }
 }

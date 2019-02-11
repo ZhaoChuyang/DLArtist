@@ -123,9 +123,9 @@
 
 @section('content')
 
-    <div class="container-fluid" >
+    <div class="container-fluid">
         <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar mt-2" >
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar mt-2">
                 <div class="sidebar-sticky">
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span>编辑本文</span>
@@ -314,7 +314,9 @@
                         </div>
 
                         <div class="dropdown">
-                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                      stroke-linejoin="round" class="feather feather-calendar">
@@ -438,7 +440,7 @@
     <script type="text/javascript" src="froala_editor_2.9.1/js/third_party/image_tui.min.js"></script>
 
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('#editMenu').addClass('active');
         });
     </script>
@@ -446,18 +448,6 @@
     <!-- Initialize the editor. -->
     <script>
         $(function () {
-            // $.FroalaEditor.RegisterCommand('imageRemove', {
-            //     title: '删除',
-            //     focus: false,
-            //     undo: false,
-            //     refreshAfterCallback: false,
-            //     callback: function () {
-            //         var $img = this.image.get();
-            //         alert("a");
-            //     }
-            // });
-
-
             $('#edit').froalaEditor({
                 //documentReady: true,
                 height: 480,
@@ -472,15 +462,30 @@
                     locaton: 'froala', // This allows us to distinguish between Froala or a regular file upload.
                     _token: "{{ csrf_token() }}" // This passes the laravel token with the ajax request.
                 },
-                // URL to get all department images from
-                imageManagerLoadURL: '/',
+
+                // Set a preloader.
+                imageManagerPreloader: "/images/loader.gif",
+                // Set page size.
+                imageManagerPageSize: 20,
+                // Set a scroll offset (value in pixels).
+                imageManagerScrollOffset: 10,
+                // Set the load images request URL.
+                imageManagerLoadURL: "/image/getImageList",
+                // Set the load images request type.
+                imageManagerLoadMethod: "GET",
+                // Additional load params.
+                imageManagerLoadParams: {user_id: "{{auth()->user()->id}}"},
                 // Set the delete image request URL.
-                {{--imageManagerDeleteURL: "/image",--}}
-                {{--// Set the delete image request type.--}}
-                {{--imageManagerDeleteMethod: "DELETE",--}}
-                {{--imageManagerDeleteParams: {--}}
-                {{--_token: "{{ csrf_token() }}"--}}
-                {{--},--}}
+                imageManagerDeleteURL: "/image",
+                // Set the delete image request type.
+                imageManagerDeleteMethod: "DELETE",
+                // Additional delete params.
+                imageManagerDeleteParams: {
+                    _token: "{{ csrf_token() }}",
+                    loaction: "froala"
+                },
+
+
                 //save content
                 saveParam: 'content',
                 // Set the save URL.
@@ -488,10 +493,19 @@
                 // HTTP request type.
                 saveMethod: 'POST',
                 // Additional save params.
-                saveParams: {
-
-                }
+                saveParams: {}
             })
+                .on('froalaEditor.imageManager.beforeDeleteImage', function (e, editor, $img) {
+                    $.extend(editor.opts.imageManagerDeleteParams, {
+                        src: $img.attr('src'),
+                        _token: "{{ csrf_token() }}",
+                        loaction: "froala"
+                    });
+                })
+                .on('froalaEditor.imageManager.imagesLoaded', function (e, editor, data) {
+                    // Do something when the request finishes with success.
+                    console.log('Images have been loaded.');
+                })
                 .on('froalaEditor.save.before', function (e, editor) {
                     $.extend(editor.opts.saveParams, {
                         title: $("#title").val(),
@@ -503,27 +517,27 @@
                 .on('froalaEditor.save.after', function (e, editor, response) {//return 1 if success
                     console.log(response);
 
-                    if(response.status[0]){
+                    if (response.status[0]) {
                         alert("上传成功");
                     }
-                    else{
-                        if(typeof response.title !== 'undefined') {
-                            for(let i=0; i<response.title.length; i++){
+                    else {
+                        if (typeof response.title !== 'undefined') {
+                            for (let i = 0; i < response.title.length; i++) {
                                 console.log(response.title[i]);
                             }
                         }
-                        if(typeof response.category !== 'undefined') {
-                            for(let i=0; i<response.category.length; i++){
+                        if (typeof response.category !== 'undefined') {
+                            for (let i = 0; i < response.category.length; i++) {
                                 console.log(response.category[i]);
                             }
                         }
-                        if(typeof response.shareStatus !== 'undefined') {
-                            for(let i=0; i<response.shareStatus.length; i++){
+                        if (typeof response.shareStatus !== 'undefined') {
+                            for (let i = 0; i < response.shareStatus.length; i++) {
                                 console.log(response.shareStatus[i]);
                             }
                         }
-                        if(typeof response.msg !== 'undefined') {
-                            for(let i=0; i<response.msg.length; i++){
+                        if (typeof response.msg !== 'undefined') {
+                            for (let i = 0; i < response.msg.length; i++) {
                                 console.log(response.msg[i]);
                             }
                         }
@@ -533,28 +547,28 @@
                 .on('froalaEditor.save.error', function (e, editor, error) {
                     console.log(error);
                 })
-                .on('froalaEditor.image.removed', function (e, editor, $img) {
-                    $.ajax({
-                        // Request method.
-                        method: "DELETE",
+                {{--.on('froalaEditor.image.removed', function (e, editor, $img) {--}}
+                    {{--$.ajax({--}}
+                        {{--// Request method.--}}
+                        {{--method: "DELETE",--}}
 
-                        // Request URL.
-                        url: "/image",
+                        {{--// Request URL.--}}
+                        {{--url: "/image",--}}
 
-                        // Request params.
-                        data: {
-                            src: $img.attr('src'),
-                            _token: "{{ csrf_token() }}",
-                            loaction: "froala"
-                        }
-                    })
-                        .done(function (data) {
-                            console.log(data);
-                        })
-                        .fail(function (data) {
-                            console.log(data);
-                        })
-                })
+                        {{--// Request params.--}}
+                        {{--data: {--}}
+                            {{--src: $img.attr('src'),--}}
+                            {{--_token: "{{ csrf_token() }}",--}}
+                            {{--loaction: "froala"--}}
+                        {{--}--}}
+                    {{--})--}}
+                        {{--.done(function (data) {--}}
+                            {{--console.log(data);--}}
+                        {{--})--}}
+                        {{--.fail(function (data) {--}}
+                            {{--console.log(data);--}}
+                        {{--})--}}
+                {{--})--}}
                 .on('froalaEditor.image.uploaded', function (e, editor, response) {
                     console.log(response);
                 })
