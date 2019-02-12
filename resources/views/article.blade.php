@@ -70,7 +70,7 @@
                         <div class="text small padding-topbottom-null">
                             <div id="comments">
                                 <ul class="nav nav-tabs" role="tablist">
-                                    <li role="presentation" class="active"><a href="#tab-one" aria-controls="tab-one" role="tab" data-toggle="tab" aria-expanded="true">所有评论</a></li>
+                                    <li role="presentation" class="active"><a href="#tab-one" aria-controls="tab-one" role="tab" data-toggle="tab" aria-expanded="true" id="all_comments">所有评论</a></li>
                                     <li role="presentation" class=""><a href="#tab-two" aria-controls="tab-two" role="tab" data-toggle="tab" aria-expanded="false">评论</a></li>
                                 </ul>
                                 <!--  Nav Tabs  -->
@@ -177,7 +177,10 @@
                     console.log(xhr);
                 }
             });
-        })
+        });
+        $("#all_comments").click(function(){
+            $('#tab-one').load(document.URL +  ' #tab-one');
+        });
     </script>
 
 @endsection
