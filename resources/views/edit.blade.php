@@ -305,12 +305,18 @@
                         <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
                     </div>
                 </div>
+                <div class="alert alert-info alert-dismissible collapse" role="alert" id="cover">封面已上传<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button></div>
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
                     <h1 class="h2 ml-4">Edit</h1>
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
-                            <button class="btn btn-sm btn-outline-secondary">Share</button>
-                            <button class="btn btn-sm btn-outline-secondary">Export</button>
+                            <label class="btn btn-outline-secondary btn-sm" id="cover_upload">
+                                选择图片<input id="cover_file" name="avatar" type="file" hidden>
+                            </label>
+                            <label class="btn btn-sm btn-outline-secondary">Share</label>
+                            <label class="btn btn-sm btn-outline-secondary">Export</label>
                         </div>
 
                         <div class="dropdown">
@@ -441,7 +447,7 @@
     <script type="text/javascript" src="froala_editor_2.9.1/js/third_party/image_tui.min.js"></script>
     <!--Math Type-->
     <script src="froala_wiris/wiris.js"></script>
-    <script src="froala_wiris/WIRISplugin.js"></script>
+    {{--<script src="froala_wiris/WIRISplugin.js"></script>--}}
 
     <script>
         $(document).ready(function () {
@@ -521,9 +527,28 @@
                         category: $("#category").val(),
                         shareStatus: $('#shareValue').val()
                     });
+
                 })
                 .on('froalaEditor.save.after', function (e, editor, response) {//return 1 if success
                     console.log(response);
+
+                    if(true){
+                        var article_id=response.article_id;
+                        var fd=new FormData();
+                        fd.append('cover',$("#cover_file").get(0).files[0]);
+                        fd.append('_token', "{{csrf_token()}}");
+                        fd.append('article_id', article_id);
+                        $.ajax({
+                            method: "post",
+                            url: "/cover_upload",
+                            data: fd,
+                            contentType: false,
+                            processData: false,
+                            success: function (response) {
+                                console.log(response);
+                            }
+                        });
+                    }
 
                     if (response.status[0]) {
                         alert("上传成功");
@@ -586,42 +611,18 @@
         });
         $("#send").click(function () {
             $('#edit').froalaEditor('save.save');
-            {{--var use_id = '{{ Auth::id() }}';   //user_id--}}
-            {{--var array = [];--}}
-            {{--var article = $("#edit").val();--}}
-            {{--array = article.split('><');--}}
-            {{--var title = array[0];                       //title--}}
-            {{--var content = '<';--}}
-            {{--for (var i = 1; i < array.length; i++) {--}}
-            {{--if (i < array.length - 1)--}}
-            {{--content += array[i] + '><';--}}
-            {{--else--}}
-            {{--content += array[i];                  //content--}}
-            {{--}--}}
-            {{--var category = $('#category').val();--}}
-            {{--var data;--}}
-            {{--data["title"] = title;--}}
-            {{--data["content"] = content;--}}
-            {{--data["category"] = category;--}}
-            {{--data["_token"] = "{{csrf_token()}}";--}}
-            {{--console.log(data);--}}
-            {{--$.ajax({--}}
-            {{--type: 'post',--}}
-            {{--url: '/article',--}}
-            {{--data: data,--}}
-            {{--success: function (data) {--}}
-            {{--alert("a");--}}
-            {{--}--}}
-            {{--});--}}
         });
         $('#privateStatus').click(function () {
             $('#shareStatus').html('私密发布');
             $('#shareValue').val(0);
-        })
+        });
         $('#publicStatus').click(function () {
             $('#shareStatus').html('公开发布');
             $('#shareValue').val(1);
-        })
+        });
+        // $('#cover_upload').click(function(){
+        //     $('#cover').show();
+        // });
     </script>
 
 @endsection

@@ -100,6 +100,7 @@
             }
         );
         $("#save").click(function () {
+
             $.ajax({
                 type: "post",
                 url: "/accounts/save",

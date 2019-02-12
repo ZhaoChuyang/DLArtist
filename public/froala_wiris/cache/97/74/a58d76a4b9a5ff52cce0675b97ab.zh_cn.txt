@@ -1,0 +1,1 @@
+{"result":{"text":"根號 a 加 a 平方 等於 分數 2 分之 b"},"status":"ok"}

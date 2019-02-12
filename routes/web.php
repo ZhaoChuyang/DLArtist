@@ -61,3 +61,5 @@ Route::post('accounts/adminMail','accounts@adminMail');
 Route::get('/image/getImageList', 'imageController@list');
 
 Route::post('/ArticleController/comment','ArticleController@comment');
+
+Route::post('/cover_upload', 'ArticleController@cover');
