@@ -402,6 +402,7 @@
             src="https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/js/froala_editor.pkgd.min.js"></script>
     <script type="text/javascript" src="froala_editor_2.9.1/js/froala_editor.min.js"></script>
 
+    <script type="text/javascript" src="froala_editor_2.9.1/js/plugins/print.min.js"></script>
     <script type="text/javascript" src="froala_editor_2.9.1/js/plugins/align.min.js"></script>
     <script type="text/javascript" src="froala_editor_2.9.1/js/plugins/char_counter.min.js"></script>
     <script type="text/javascript" src="froala_editor_2.9.1/js/plugins/code_beautifier.min.js"></script>
@@ -438,6 +439,9 @@
 
     <!-- Include TUI plugin. -->
     <script type="text/javascript" src="froala_editor_2.9.1/js/third_party/image_tui.min.js"></script>
+    <!--Math Type-->
+    <script src="froala_wiris/wiris.js"></script>
+    <script src="froala_wiris/WIRISplugin.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -449,6 +453,10 @@
     <script>
         $(function () {
             $('#edit').froalaEditor({
+                iframe: true,
+                toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'fontAwesome', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'getPDF', 'spellChecker', 'help', 'html', '|', 'undo', 'redo','|','wirisEditor', 'wirisChemistry','clear', 'insert'],
+                // Add [MW] buttons to Image Toolbar.
+                imageEditButtons: ['wirisEditor', 'wirisChemistry', 'imageDisplay', 'imageAlign', 'imageInfo', 'imageRemove'],
                 //documentReady: true,
                 height: 480,
                 language: 'zh_cn',
