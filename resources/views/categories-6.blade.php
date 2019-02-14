@@ -57,11 +57,7 @@
                                             @foreach($data as $val)
                                                 <div class="single-news one-item">
                                                     <article>
-                                                        @foreach($writer as $t)
-                                                            @if($t->id==($val->user_id))
-                                                                <img style="width: 100%;height: 170px" src="{{$t->avatar_url}}" alt="">
-                                                            @endif
-                                                        @endforeach
+                                                        <img style="width: 100%;height: 170px" src="{{$val->cover_url}}" alt="">
                                                         <div class="content">
                                                             <span class="meta">All Blogs</span>
                                                             <h3>{{$val->title}}
