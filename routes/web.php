@@ -16,7 +16,7 @@ Route::any('/', function () {
     return view('index');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::any('/home', 'HomeController@index')->name('home');
 
@@ -47,11 +47,11 @@ Route::post('/article', 'ArticleController@store');
 //账户信息
 Route::get('/account', function(){
     return view('account');
-})->middleware('auth');
+})->middleware(['auth','verified']);
 
 Route::get('/account/{info}',function($info){
     return View::make('ajax/account')->with('info', $info)->with('user_id', Auth::user()->id)->render();
-})->middleware('auth');
+})->middleware(['auth','verified']);
 
 Route::post('/accounts/avatar','accounts@storeAvatar');
 Route::post('/accounts/save','accounts@saveinfo');
@@ -63,3 +63,5 @@ Route::get('/image/getImageList', 'imageController@list');
 Route::post('/ArticleController/comment','ArticleController@comment');
 
 Route::post('/cover_upload', 'ArticleController@cover');
+
+Route::post('/send', 'EmailController@send');

@@ -313,7 +313,7 @@
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group mr-2">
                             <label class="btn btn-outline-secondary btn-sm" id="cover_upload">
-                                选择图片<input id="cover_file" name="avatar" type="file" hidden>
+                                更换封面<input id="cover_file" name="avatar" type="file" hidden>
                             </label>
                             <label class="btn btn-sm btn-outline-secondary">Share</label>
                             <label class="btn btn-sm btn-outline-secondary">Export</label>
@@ -447,7 +447,7 @@
     <script type="text/javascript" src="froala_editor_2.9.1/js/third_party/image_tui.min.js"></script>
     <!--Math Type-->
     <script src="froala_wiris/wiris.js"></script>
-    {{--<script src="froala_wiris/WIRISplugin.js"></script>--}}
+    <script src="froala_wiris/WIRISplugin.js"></script>
 
     <script>
         $(document).ready(function () {
