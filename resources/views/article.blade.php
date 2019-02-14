@@ -106,7 +106,7 @@
                                             <h2>还没有评论哦！</h2>
                                         @endif
                                     </div>
-                                    <div role="tabpanel" class="tab-pane padding-md" id="tab-two">
+                                    <div role="tabpanel" class="tab-pane padding-md " id="tab-two">
                                         <section class="comment-form">
                                             <form id="contact-form" name="comment">
                                                 <div class="row">
