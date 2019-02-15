@@ -18,7 +18,12 @@ class CategoriesController extends Controller
         $perpage_num=6;
         $article = new Article();
         $user = new User();
-        $user_id=auth()->user()->id;
+        if(auth()->user()){
+            $user_id=auth()->user()->id;
+        }
+        else{
+            $user_id=-1;
+        }
         $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
@@ -51,7 +56,12 @@ class CategoriesController extends Controller
         $perpage_num=6;
         $article = new Article();
         $user = new User();
-        $user_id=auth()->user()->id;
+        if(auth()->user()){
+            $user_id=auth()->user()->id;
+        }
+        else{
+            $user_id=-1;
+        }
         $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
@@ -84,7 +94,12 @@ class CategoriesController extends Controller
         $perpage_num=6;
         $article = new Article();
         $user = new User();
-        $user_id=auth()->user()->id;
+        if(auth()->user()){
+            $user_id=auth()->user()->id;
+        }
+        else{
+            $user_id=-1;
+        }
         $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
@@ -117,7 +132,12 @@ class CategoriesController extends Controller
         $perpage_num=6;
         $article = new Article();
         $user = new User();
-        $user_id=auth()->user()->id;
+        if(auth()->user()){
+            $user_id=auth()->user()->id;
+        }
+        else{
+            $user_id=-1;
+        }
         $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
@@ -150,7 +170,12 @@ class CategoriesController extends Controller
         $perpage_num=6;
         $article = new Article();
         $user = new User();
-        $user_id=auth()->user()->id;
+        if(auth()->user()){
+            $user_id=auth()->user()->id;
+        }
+        else{
+            $user_id=-1;
+        }
         $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
@@ -184,7 +209,12 @@ class CategoriesController extends Controller
         $perpage_num=6;
         $article = new Article();
         $user = new User();
-        $user_id=auth()->user()->id;
+        if(auth()->user()){
+            $user_id=auth()->user()->id;
+        }
+        else{
+            $user_id=-1;
+        }
         $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
         $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
