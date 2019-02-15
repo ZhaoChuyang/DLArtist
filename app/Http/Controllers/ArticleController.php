@@ -92,7 +92,6 @@ class ArticleController extends Controller
             $comment->content=$content;
             $comment->article_id=$article_id;
             $comment->save();
-
             return 1;
     }
 
