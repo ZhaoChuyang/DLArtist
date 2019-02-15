@@ -79,27 +79,27 @@
                                     <div role="tabpanel" class="tab-pane padding-md active" id="tab-one">
                                         @if($comment_num)
                                             @foreach($comments as $t)
-                                            <div class="comment">
-                                                <div class="row margin-null">
-                                                    <div class="col-md-12 padding-leftright-null">
-                                                        <img src="{{$t->avatar_url}}" alt="">
-                                                        <div class="content">
-                                                            <div class="header">
+                                                <div class="comment">
+                                                    <div class="row margin-null">
+                                                        <div class="col-md-12 padding-leftright-null">
+                                                            <img src="{{$t->avatar_url}}" alt="">
+                                                            <div class="content">
+                                                                <div class="header">
                                                                     <span class="comment-author">
                                                                         {{$t->name}}
                                                                     </span>
-                                                            <span class="comment-btn">
+                                                                    <span class="comment-btn">
                                                                         <a href="#"><i class="material-icons">reply</i></a>
                                                                     </span>
-                                                            </div>
-                                                            <span class="comment-date">
+                                                                </div>
+                                                                <span class="comment-date">
                                                                     {{$t->update}}
                                                             </span>
-                                                            <p>{{$t->content}}</p>
+                                                                <p>{{$t->content}}</p>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             @endforeach
                                         @endif
                                         @if($comment_num==0)
@@ -107,6 +107,10 @@
                                         @endif
                                     </div>
                                     <div role="tabpanel" class="tab-pane padding-md " id="tab-two">
+                                        @if($user_id==-1)
+                                            <h2>您还没有登录哦！</h2>
+                                        @endif
+                                        @if($user_id!=-1)
                                         <section class="comment-form">
                                             <form id="contact-form" name="comment">
                                                 <div class="row">
@@ -121,6 +125,7 @@
                                                 </div>
                                             </form>
                                         </section>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +159,7 @@
     <!--  END Page Content -->
     </div>
 
-    <input type="hidden" id="writer_id" value="{{ Auth::user()->id }}">
+    <input type="hidden" id="writer_id" value="{{$user_id}}">
     <input type="hidden" id="article_id" value="{{$id}}">
     <script>
         $("#submit-contact").click(function () {
@@ -178,9 +183,10 @@
                 }
             });
         });
-        $("#all_comments").click(function(){
-            $('#tab-one').load(document.URL +  ' #tab-one');
-        });
+        //这个是干啥了？
+        // $("#all_comments").click(function(){
+        //     $('#tab-one').load(document.URL +  ' #tab-one');
+        // });
     </script>
 
 @endsection

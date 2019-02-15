@@ -245,15 +245,15 @@ class CategoriesController extends Controller
         $id=$_GET['id'];
         $article->where('id',$id)->increment('click_num');
         $title=$article->where('id',$id)->select('title')->get();
-        $user_id=$article->where('id',$id)->select("user_id")->get()->toArray();
-        foreach ($user_id as $key => $val){
-            $t=$val;
-        }
-        $user_name=DB::table('users')->join('articles','users.id','=','user_id')->where('users.id',$t)->select('name')->first();
+        if(auth()->user())
+            $user_id=auth()->user()->id;
+        else
+            $user_id=-1;
+        $user_name=DB::table('users')->join('articles','users.id','=','user_id')->where('articles.id',$id)->select('name')->first();
         $content=$article->where('id',$id)->select('content')->get();
         $time=$article->where('id',$id)->select('update')->get();
         $comment_num=$comment->where('article_id',$id)->where('valid',1)->get()->count();
         $comments=DB::table('comments')->join('users','users.id','=','user_id')->where('article_id',$id)->where('valid',1)->limit(5)->offset(0)->orderby('comments.id','desc')->get();
-        return view('article',compact('title','content','time','user_name','comment_num','comments','id'));
+        return view('article',compact('title','content','time','user_name','comment_num','comments','id','user_id'));
     }
 }
