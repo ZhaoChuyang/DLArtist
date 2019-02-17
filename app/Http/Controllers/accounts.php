@@ -140,6 +140,7 @@ class accounts extends Controller
 
             $checkEmail=User::where('email', $email);
             if(!empty($checkEmail)){
+                if($user->email!=$email)
                 return response()->json(['status' => [0], 'msg' => ['email has alredy been taken']]);
             }
             $user->email = $email;
