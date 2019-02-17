@@ -17,6 +17,11 @@
     <!-- Include TUI Froala Editor CSS. -->
     <link rel="stylesheet" href="froala_editor_2.9.1/css/third_party/image_tui.min.css">
 
+    <!--smart wizard-->
+    <link rel="stylesheet" href="smart_wizard/smart_wizard.css">
+    <link rel="stylesheet" href="smart_wizard/smart_wizard_theme_arrows.min.css">
+    <link rel="stylesheet" href="smart_wizard/smart_wizard_theme_dots.min.css">
+
     <style>
         body {
             font-size: .875rem;
@@ -139,9 +144,9 @@
                             </svg>
                         </a>
                     </h6>
-                    <ul class="nav flex-column">
+                    <ul class="nav flex-column" id="sideNav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">
+                            <a class="nav-link active" href="#" id="edit_button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                      stroke-linejoin="round" class="feather feather-activity">
@@ -166,7 +171,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="#" id="image_edit_button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                      stroke-linejoin="round" class="feather feather-activity">
@@ -305,80 +310,172 @@
                         <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
                     </div>
                 </div>
-                <div class="alert alert-info alert-dismissible collapse" role="alert" id="cover">封面已上传<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                {{--消息提醒--}}
+                <div class="alert alert-info alert-dismissible collapse" role="alert" id="cover">封面已上传
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button></div>
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-                    <h1 class="h2 ml-4">Edit</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group mr-2">
-                            <label class="btn btn-outline-secondary btn-sm" id="cover_upload">
-                                更换封面<input id="cover_file" name="avatar" type="file" hidden>
-                            </label>
-                            <label class="btn btn-sm btn-outline-secondary">Share</label>
-                            <label class="btn btn-sm btn-outline-secondary">Export</label>
-                        </div>
+                    </button>
+                </div>
+                <div id="edit_view">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                        <h1 class="h2 ml-4">Edit</h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group mr-2">
+                                <label class="btn btn-outline-secondary btn-sm" id="cover_upload">
+                                    更换封面<input id="cover_file" name="avatar" type="file" hidden>
+                                </label>
+                                <label class="btn btn-sm btn-outline-secondary">Share</label>
+                                <label class="btn btn-sm btn-outline-secondary">Export</label>
+                            </div>
 
-                        <div class="dropdown">
-                            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
-                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-calendar">
-                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                                </svg>
-                                <span id="shareStatus">私密发布</span>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <input type="text" hidden value="0" id="shareValue">
-                                <a class="dropdown-item" href="#" id="privateStatus">私密发布</a>
-                                <a class="dropdown-item" href="#" id="publicStatus">公开发布</a>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="feather feather-calendar">
+                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                    </svg>
+                                    <span id="shareStatus">私密发布</span>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <input type="text" hidden value="0" id="shareValue">
+                                    <a class="dropdown-item" href="#" id="privateStatus">私密发布</a>
+                                    <a class="dropdown-item" href="#" id="publicStatus">公开发布</a>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <form class="ml-4">
+                        <div class="form-group row">
+                            <label for="title" class="col-sm-1 col-form-label"><strong>标题</strong></label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control w-50" id="title" placeholder="请输入标题">
+                            </div>
+                        </div>
+                        <div class="form-group row mt-4">
+                            <label for="category" class="col-sm-1 col-form-label"><strong>分类</strong></label>
+                            <div class="col-sm-10">
+                                <select id="category" class="custom-select w-50">
+                                    <option value="0" selected>请选择类别</option>
+                                    <option value="文娱点评">文娱点评</option>
+                                    <option value="军事分析">军事分析</option>
+                                    <option value="时事评论">时事评论</option>
+                                    <option value="技术博客">技术博客</option>
+                                    <option value="教育文化">教育文化</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-4">
+                            <label for="edit" class="col-sm-1 col-form-label"><strong>内容</strong></label>
+                            <div class="col-sm-10">
+                                <textarea id="edit" name="content"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row mt-4">
+                            <label class="col-sm-1 col-form-label"></label>
+                            <div class="col-sm-10">
+                                <button type="button" class="btn btn-primary" id="send">发表文章</button>
+                                <button type="button" class="btn btn-success ml-2" id=" compose">自动排版
+                                </button>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </form>
                 </div>
 
-                <form class="ml-4">
-                    <div class="form-group row">
-                        <label for="title" class="col-sm-1 col-form-label"><strong>标题</strong></label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control w-50" id="title" placeholder="请输入标题">
+                <div id="image_view" class="mb-4">
+
+                    {{--<div id="smartwizard" class="sw-main sw-theme-dots">--}}
+                        {{--<ul class="nav nav-tabs step-anchor">--}}
+                            {{--<li class="nav-item active"><a href="#step-1" class="nav-link">Step 1<br><small>This is step description</small></a></li>--}}
+                            {{--<li class="nav-item done"><a href="#step-2" class="nav-link">Step 2<br><small>This is step description</small></a></li>--}}
+                            {{--<li class="nav-item done"><a href="#step-3" class="nav-link">Step 3<br><small>This is step description</small></a></li>--}}
+                            {{--<li class="nav-item done"><a href="#step-4" class="nav-link">Step 4<br><small>This is step description</small></a></li>--}}
+                        {{--</ul>--}}
+
+                        {{--<div class="btn-toolbar sw-toolbar sw-toolbar-top justify-content-end"><div class="btn-group mr-2 sw-btn-group" role="group"><button class="btn btn-secondary sw-btn-prev disabled" type="button">Previous</button><button class="btn btn-secondary sw-btn-next" type="button">Next</button></div><div class="btn-group mr-2 sw-btn-group-extra" role="group"><button class="btn btn-info">Finish</button><button class="btn btn-danger">Cancel</button></div></div><div class="sw-container tab-content" style="min-height: 190px;">--}}
+                            {{--<div id="step-1" class="tab-pane step-content" style="display: block;">--}}
+                                {{--<h3 class="border-bottom border-gray pb-2">Step 1 Content</h3>--}}
+                                {{--Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.--}}
+                            {{--</div>--}}
+                            {{--<div id="step-2" class="tab-pane step-content" style="display: none;">--}}
+                                {{--<h3 class="border-bottom border-gray pb-2">Step 2 Content</h3>--}}
+                                {{--<div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. </div>--}}
+                            {{--</div>--}}
+                            {{--<div id="step-3" class="tab-pane step-content" style="display: none;">--}}
+                                {{--Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.--}}
+                                {{--Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.--}}
+                                {{--Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.--}}
+                                {{--Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.--}}
+                                {{--Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.--}}
+                                {{--Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.--}}
+                            {{--</div>--}}
+                            {{--<div id="step-4" class="tab-pane step-content" style="display: none;">--}}
+                                {{--<h3 class="border-bottom border-gray pb-2">Step 4 Content</h3>--}}
+                                {{--<div class="card">--}}
+                                    {{--<div class="card-header">My Details</div>--}}
+                                    {{--<div class="card-block p-0">--}}
+                                        {{--<table class="table">--}}
+                                            {{--<tbody>--}}
+                                            {{--<tr> <th>Name:</th> <td>Tim Smith</td> </tr>--}}
+                                            {{--<tr> <th>Email:</th> <td>example@example.com</td> </tr>--}}
+                                            {{--</tbody>--}}
+                                        {{--</table>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div><div class="btn-toolbar sw-toolbar sw-toolbar-bottom justify-content-end"><div class="btn-group mr-2 sw-btn-group" role="group"><button class="btn btn-secondary sw-btn-prev disabled" type="button">Previous</button><button class="btn btn-secondary sw-btn-next" type="button">Next</button></div><div class="btn-group mr-2 sw-btn-group-extra" role="group"><button class="btn btn-info">Finish</button><button class="btn btn-danger">Cancel</button></div></div>--}}
+                    {{--</div>--}}
+                    <h1 class="h2 ml-5">风格迁移</h1>
+                    <div id="smartwizard" class="ml-5 mt-4">
+
+                        <ul id="wizard_li">
+                            <li class="ml-5"><a href="#step-1" class="">Step 1<br /><small>上传图片</small></a></li>
+                            <li class="ml-5"><a href="#step-2" class="">Step 2<br /><small>选择风格</small></a></li>
+                            <li class="ml-5"><a href="#step-3" class="">Step 3<br /><small>生成图片</small></a></li>
+                        </ul>
+
+                        <div class="mt-4">
+                            <div id="step-1" class="ml-3">
+                                <h3 class="border-bottom border-gray pb-2">Step 1 上传图片</h3>
+                                <form id="form1" runat="server">
+                                    <label class="btn btn-outline-secondary btn-sm" id="cover_upload">
+                                        上传图片<input id="imgInp" name="avatar" type="file" hidden>
+                                    </label>
+                                    <br>
+                                    <img id="content" src="#" alt="your image" class="border p-2 rounded collapse" style="max-width: 300px; max-height: 300px;"/>
+                                </form>
+                            </div>
+                            <div id="step-2" class="ml-3">
+                                <h3 class="border-bottom border-gray pb-2">Step 2 选择风格</h3>
+                                <form id="form1" runat="server">
+                                    <label class="btn btn-outline-secondary btn-sm" id="cover_upload">
+                                        上传图片<input id="imgInp2" name="avatar" type="file" hidden>
+                                    </label>
+                                    <br>
+                                    <img id="style" src="#" alt="your image" class="border p-2 rounded collapse" style="max-width: 300px; max-height: 300px;"/>
+                                </form>
+                            </div>
+                            <div id="step-3" class="ml-3">
+                                <h3 class="border-bottom border-gray pb-2">Step 3 生成图片</h3>
+                                <button id="stylize" class="btn btn-success">提交</button>
+                                <br>
+                                <canvas id="stylized" width="192" height="256" class="image"></canvas>
+                                <br>
+                            </div>
                         </div>
+
+
                     </div>
-                    <div class="form-group row mt-4">
-                        <label for="category" class="col-sm-1 col-form-label"><strong>分类</strong></label>
-                        <div class="col-sm-10">
-                            <select id="category" class="custom-select w-50">
-                                <option value="0" selected>请选择类别</option>
-                                <option value="文娱点评">文娱点评</option>
-                                <option value="军事分析">军事分析</option>
-                                <option value="时事评论">时事评论</option>
-                                <option value="技术博客">技术博客</option>
-                                <option value="教育文化">教育文化</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row mt-4">
-                        <label for="edit" class="col-sm-1 col-form-label"><strong>内容</strong></label>
-                        <div class="col-sm-10">
-                            <textarea id="edit" name="content"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group row mt-4">
-                        <label class="col-sm-1 col-form-label"></label>
-                        <div class="col-sm-10">
-                            <button type="button" class="btn btn-primary" id="send">发表文章</button>
-                            <button type="button" class="btn btn-success ml-2" id=" compose">自动排版
-                            </button>
-                            <br>
-                            <br>
-                        </div>
-                    </div>
-                </form>
+
+                </div>
 
             </main>
         </div>
@@ -449,18 +546,148 @@
     <script src="froala_wiris/wiris.js"></script>
     <script src="froala_wiris/WIRISplugin.js"></script>
 
+    <!--smart wizard-->
+    <script src="smart_wizard/jquery.smartWizard.min.js"></script>
+
+    <!--风格迁移-->
+    <script src="modelFile/arbitrary_stylization_bundle.js"></script>
+
     <script>
+
+        //风格迁移图片预览
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#content').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp").change(function() {
+            readURL(this);
+            $('#content').show();
+        });
+
+        function readURL2(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#style').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp2").change(function() {
+            readURL2(this);
+            $('#style').show();
+        });
+
         $(document).ready(function () {
             $('#editMenu').addClass('active');
+            $('#image_view').hide();
+            $('#smartwizard').smartWizard({
+                selected: 0,  // Initial selected step, 0 = first step
+                keyNavigation:true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
+                autoAdjustHeight:true, // Automatically adjust content height
+                cycleSteps: false, // Allows to cycle the navigation of steps
+                backButtonSupport: true, // Enable the back button support
+                useURLhash: true, // Enable selection of the step based on url hash
+                lang: {  // Language variables
+                    next: 'Next',
+                    previous: 'Previous'
+                },
+                toolbarSettings: {
+                    toolbarPosition: 'bottom', // none, top, bottom, both
+                    toolbarButtonPosition: 'right', // left, right
+                    showNextButton: true, // show/hide a Next button
+                    showPreviousButton: true, // show/hide a Previous button
+                    toolbarExtraButtons: [
+                        $('<button></button>').text('Finish')
+                            .addClass('btn btn-info')
+                            .on('click', function(){
+                                alert('Finsih button click');
+                            }),
+                        $('<button></button>').text('Cancel')
+                            .addClass('btn btn-danger')
+                            .on('click', function(){
+                                $('#smartwizard').smartWizard("reset");
+                                $('#wizard_li li').addClass('ml-5');
+                                return true;
+                            })
+                    ]
+                },
+                anchorSettings: {
+                    anchorClickable: true, // Enable/Disable anchor navigation
+                    enableAllAnchors: false, // Activates all anchors clickable all times
+                    markDoneStep: true, // add done css
+                    enableAnchorOnDoneStep: true // Enable/Disable the done steps navigation
+                },
+                contentURL: null, // content url, Enables Ajax content loading. can set as data data-content-url on anchor
+                disabledSteps: [],    // Array Steps disabled
+                errorSteps: [],    // Highlight step with errors
+                theme: 'dots',
+                transitionEffect: 'fade', // Effect on navigation, none/slide/fade
+                transitionSpeed: '400'
+            });
         });
+
+
     </script>
 
     <!-- Initialize the editor. -->
     <script>
+        //未保存提示
+        var formSubmitting = false;
+        var setFormSubmitting = function () {
+            formSubmitting = true;
+        };
+
+        window.onload = function () {
+            window.addEventListener("beforeunload", function (e) {
+                if (formSubmitting) {
+                    return undefined;
+                }
+
+                var confirmationMessage = 'It looks like you have been editing something. '
+                    + 'If you leave before saving, your changes will be lost.';
+
+                (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+                return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+            });
+        };
+
+        $('#edit_button').click(function () {
+            $('#image_view').hide();
+            //the other views should be hide too
+            $('#edit_view').show();
+
+            $("#sideNav a[class*='active']").removeClass('active');
+            $('#edit_button').addClass('active');
+        });
+        
+        $('#image_edit_button').click(function () {
+            $('#edit_view').hide();
+            //the other views should be hide too
+            $('#image_view').show();
+
+            $("#sideNav a[class*='active']").removeClass('active');
+            $('#image_edit_button').addClass('active');
+
+        });
+
         $(function () {
             $('#edit').froalaEditor({
                 iframe: true,
-                toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'fontAwesome', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'getPDF', 'spellChecker', 'help', 'html', '|', 'undo', 'redo','|','wirisEditor', 'wirisChemistry','clear', 'insert'],
+                toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'fontAwesome', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'getPDF', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', '|', 'wirisEditor', 'wirisChemistry', 'clear', 'insert'],
                 // Add [MW] buttons to Image Toolbar.
                 imageEditButtons: ['wirisEditor', 'wirisChemistry', 'imageDisplay', 'imageAlign', 'imageInfo', 'imageRemove'],
                 //documentReady: true,
@@ -530,12 +757,13 @@
 
                 })
                 .on('froalaEditor.save.after', function (e, editor, response) {//return 1 if success
+                    setFormSubmitting();
                     console.log(response);
 
-                    if(true){
-                        var article_id=response.article_id;
-                        var fd=new FormData();
-                        fd.append('cover',$("#cover_file").get(0).files[0]);
+                    if (true) {
+                        var article_id = response.article_id;
+                        var fd = new FormData();
+                        fd.append('cover', $("#cover_file").get(0).files[0]);
                         fd.append('_token', "{{csrf_token()}}");
                         fd.append('article_id', article_id);
                         $.ajax({
@@ -581,26 +809,26 @@
                     console.log(error);
                 })
                 {{--.on('froalaEditor.image.removed', function (e, editor, $img) {--}}
-                    {{--$.ajax({--}}
-                        {{--// Request method.--}}
-                        {{--method: "DELETE",--}}
+                {{--$.ajax({--}}
+                {{--// Request method.--}}
+                {{--method: "DELETE",--}}
 
-                        {{--// Request URL.--}}
-                        {{--url: "/image",--}}
+                {{--// Request URL.--}}
+                {{--url: "/image",--}}
 
-                        {{--// Request params.--}}
-                        {{--data: {--}}
-                            {{--src: $img.attr('src'),--}}
-                            {{--_token: "{{ csrf_token() }}",--}}
-                            {{--loaction: "froala"--}}
-                        {{--}--}}
-                    {{--})--}}
-                        {{--.done(function (data) {--}}
-                            {{--console.log(data);--}}
-                        {{--})--}}
-                        {{--.fail(function (data) {--}}
-                            {{--console.log(data);--}}
-                        {{--})--}}
+                {{--// Request params.--}}
+                {{--data: {--}}
+                {{--src: $img.attr('src'),--}}
+                {{--_token: "{{ csrf_token() }}",--}}
+                {{--loaction: "froala"--}}
+                {{--}--}}
+                {{--})--}}
+                {{--.done(function (data) {--}}
+                {{--console.log(data);--}}
+                {{--})--}}
+                {{--.fail(function (data) {--}}
+                {{--console.log(data);--}}
+                {{--})--}}
                 {{--})--}}
                 .on('froalaEditor.image.uploaded', function (e, editor, response) {
                     console.log(response);

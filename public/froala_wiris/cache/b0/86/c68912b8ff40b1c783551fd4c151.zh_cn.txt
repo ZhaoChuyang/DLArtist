@@ -1,0 +1,1 @@
+{"result":{"text":"根號 2 加 3 等於 4"},"status":"ok"}
