@@ -65,3 +65,7 @@ Route::post('/ArticleController/comment','ArticleController@comment');
 Route::post('/cover_upload', 'ArticleController@cover');
 
 Route::post('/send', 'EmailController@send');
+
+Route::get('/test', function (){
+    return view('test');
+});
