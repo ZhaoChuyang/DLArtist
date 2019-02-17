@@ -77,6 +77,7 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content no-margin-bottom">
                                     <div role="tabpanel" class="tab-pane padding-md active" id="tab-one">
+                                        <div id="tab-one-content">
                                         @if($comment_num)
                                             @foreach($comments as $t)
                                                 <div class="comment">
@@ -105,6 +106,7 @@
                                         @if($comment_num==0)
                                             <h2>还没有评论哦！</h2>
                                         @endif
+                                        </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane padding-md " id="tab-two">
                                         @if($user_id==-1)
@@ -184,9 +186,9 @@
             });
         });
         //这个是干啥了？
-        // $("#all_comments").click(function(){
-        //     $('#tab-one').load(document.URL +  ' #tab-one');
-        // });
+        $("#all_comments").click(function(){
+            $('#tab-one').load(document.URL +  ' #tab-one-content');
+        });
     </script>
 
 @endsection

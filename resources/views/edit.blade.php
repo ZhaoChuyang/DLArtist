@@ -170,8 +170,20 @@
                                 排版方案
                             </a>
                         </li>
+                        {{--<li class="nav-item">--}}
+                            {{--<a class="nav-link" href="#" id="image_edit_button">--}}
+                                {{--<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"--}}
+                                     {{--fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"--}}
+                                     {{--stroke-linejoin="round" class="feather feather-activity">--}}
+                                    {{--<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>--}}
+                                    {{--<circle cx="8.5" cy="8.5" r="1.5"></circle>--}}
+                                    {{--<polyline points="21 15 16 10 5 21"></polyline>--}}
+                                {{--</svg>--}}
+                                {{--图片美化--}}
+                            {{--</a>--}}
+                        {{--</li>--}}
                         <li class="nav-item">
-                            <a class="nav-link" href="#" id="image_edit_button">
+                            <a href="#" data-toggle="collapse" data-target="#submenu-1" class="nav-link" id="image_edit_button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                      stroke-linejoin="round" class="feather feather-activity">
@@ -181,6 +193,24 @@
                                 </svg>
                                 图片美化
                             </a>
+
+                            <ul id="submenu-1" class="collapse">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        文字生图
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#" id="fgqy_button">
+                                        风格迁移
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">
+                                        Current month
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
@@ -209,35 +239,35 @@
                         </a>
                     </h6>
                     <ul class="nav flex-column mb-2">
-                        <li>
-                            <a href="#" data-toggle="collapse" data-target="#submenu-1" class="nav-link">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                     stroke-linejoin="round" class="feather feather-plus-circle">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line x1="12" y1="8" x2="12" y2="16"></line>
-                                    <line x1="8" y1="12" x2="16" y2="12"></line>
-                                </svg>
-                                下拉菜单
-                            </a>
-                            <ul id="submenu-1" class="collapse">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        Current month
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        Current month
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        Current month
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        {{--<li>--}}
+                            {{--<a href="#" data-toggle="collapse" data-target="#submenu-1" class="nav-link">--}}
+                                {{--<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"--}}
+                                     {{--fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"--}}
+                                     {{--stroke-linejoin="round" class="feather feather-plus-circle">--}}
+                                    {{--<circle cx="12" cy="12" r="10"></circle>--}}
+                                    {{--<line x1="12" y1="8" x2="12" y2="16"></line>--}}
+                                    {{--<line x1="8" y1="12" x2="16" y2="12"></line>--}}
+                                {{--</svg>--}}
+                                {{--下拉菜单--}}
+                            {{--</a>--}}
+                            {{--<ul id="submenu-1" class="collapse">--}}
+                                {{--<li class="nav-item">--}}
+                                    {{--<a class="nav-link" href="#">--}}
+                                        {{--Current month--}}
+                                    {{--</a>--}}
+                                {{--</li>--}}
+                                {{--<li class="nav-item">--}}
+                                    {{--<a class="nav-link" href="#">--}}
+                                        {{--Current month--}}
+                                    {{--</a>--}}
+                                {{--</li>--}}
+                                {{--<li class="nav-item">--}}
+                                    {{--<a class="nav-link" href="#">--}}
+                                        {{--Current month--}}
+                                    {{--</a>--}}
+                                {{--</li>--}}
+                            {{--</ul>--}}
+                        {{--</li>--}}
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -633,13 +663,17 @@
         });
         
         $('#image_edit_button').click(function () {
-            $('#edit_view').hide();
-            //the other views should be hide too
-            $('#image_view').show();
+
 
             $("#sideNav a[class*='active']").removeClass('active');
             $('#image_edit_button').addClass('active');
 
+        });
+
+        $('#fgqy_button').click(function () {
+            $('#edit_view').hide();
+            //the other views should be hide too
+            $('#image_view').show();
         });
 
         $(function () {
