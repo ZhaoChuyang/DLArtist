@@ -452,8 +452,19 @@
                                 </form>
                             </div>
                             <div id="step-3" class="ml-3">
+                                {{--<div class="row">--}}
+                                    {{--<div class="col">--}}
+                                        {{--<img id="content_copy" src="#" alt="your image" class="border p-2 rounded" style="max-width: 300px; max-height: 300px;"/>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col">--}}
+                                        {{--<img id="style_copy"src="#" alt="your image" class="border p-2 rounded" style="max-width: 300px; max-height: 300px;"/>--}}
+                                    {{--</div>--}}
+                                    {{--<div class="col">--}}
+                                        {{--<canvas id="stylized" width="192" height="256" class="image mt-2 border p-2 rounded"></canvas>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                                 <h3 class="border-bottom border-gray pb-2">Step 3 生成图片</h3>
-                                <button id="stylize" class="btn btn-success">提交</button>
+                                <button id="stylize" class="btn btn-outline-secondary btn-sm">提交图片</button>
                                 <br>
                                 <canvas id="stylized" width="192" height="256" class="image mt-2 border p-2 rounded"></canvas>
                                 <br>
@@ -550,6 +561,7 @@
 
                 reader.onload = function(e) {
                     $('#content').attr('src', e.target.result);
+                    $('#content_copy').attr('src', e.target.result);
                 }
 
                 reader.readAsDataURL(input.files[0]);
@@ -568,6 +580,7 @@
 
                 reader.onload = function(e) {
                     $('#style').attr('src', e.target.result);
+                    $('#style_copy').attr('src', e.target.result);
                 }
 
                 reader.readAsDataURL(input.files[0]);
@@ -598,20 +611,20 @@
                     toolbarButtonPosition: 'right', // left, right
                     showNextButton: true, // show/hide a Next button
                     showPreviousButton: true, // show/hide a Previous button
-                    toolbarExtraButtons: [
-                        $('<button></button>').text('Finish')
-                            .addClass('btn btn-info')
-                            .on('click', function(){
-                                alert('Finsih button click');
-                            }),
-                        $('<button></button>').text('Cancel')
-                            .addClass('btn btn-danger')
-                            .on('click', function(){
-                                $('#smartwizard').smartWizard("reset");
-                                $('#wizard_li li').addClass('ml-5');
-                                return true;
-                            })
-                    ]
+                    // toolbarExtraButtons: [
+                    //     $('<button></button>').text('Finish')
+                    //         .addClass('btn btn-info')
+                    //         .on('click', function(){
+                    //             alert('Finsih button click');
+                    //         }),
+                    //     $('<button></button>').text('Cancel')
+                    //         .addClass('btn btn-danger')
+                    //         .on('click', function(){
+                    //             $('#smartwizard').smartWizard("reset");
+                    //             $('#wizard_li li').addClass('ml-5');
+                    //             return true;
+                    //         })
+                    // ]
                 },
                 anchorSettings: {
                     anchorClickable: true, // Enable/Disable anchor navigation
