@@ -165,6 +165,7 @@
     <input type="hidden" id="article_id" value="{{$id}}">
     <script>
         $("#submit-contact").click(function () {
+
             $.ajax({
                 url: 'ArticleController/comment',
                 type: 'post',
@@ -177,6 +178,7 @@
                 dataType: 'json',
                 success: function (response) {
                     alert(123);
+                    $("#messageForm").val('');
                     console.log(response);
                 },
                 error: function (xhr) {
@@ -184,6 +186,7 @@
                     console.log(xhr);
                 }
             });
+
         });
         //这个是干啥了？
         $("#all_comments").click(function(){
