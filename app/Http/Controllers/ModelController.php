@@ -48,7 +48,7 @@ class ModelController extends Controller
             // Makes the request.
             list($headers, $json) = BingImageSearch($endpoint, $accessKey, $term);
             // Prints JSON encoded response.
-            print "\nJSON Response:\n\n";
+//            print "\nJSON Response:\n\n";
             return $json;
         } else {
             print("Invalid Bing Search API subscription key!\n");
