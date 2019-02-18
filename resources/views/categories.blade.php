@@ -36,13 +36,13 @@
                     <div class="row no-margin text-left">
                         <div class="col-sm-12 padding-leftright-null">
                             <div class="filter-wrap left">
-                                <ul class="col-md-12 filters uppercase padding-leftright-null">
-                                    <li class="is-checked">所有文章</li>
-                                    <li class="">文娱点评</li>
-                                    <li class="">军事分析</li>
-                                    <li class="">时事评论</li>
-                                    <li class="">技术博客</li>
-                                    <li class="">教育文化</li>
+                                <ul class="col-md-12 filters uppercase padding-leftright-null" id="filter">
+                                    <li value='0' class="is-checked">所有文章</li>
+                                    <li value='1' class="">文娱点评</li>
+                                    <li value='2' class="">军事分析</li>
+                                    <li value='3' class="">时事评论</li>
+                                    <li value='4' class="">技术博客</li>
+                                    <li value='5' class="">教育文化</li>
                                 </ul>
                             </div>
                         </div>
@@ -52,10 +52,10 @@
                     <div class="row no-margin text-left">
                         <div class="col-sm-12 padding-leftright-null">
                             <div class="filter-wrap left">
-                                <ul class="col-md-12 filters uppercase padding-leftright-null">
-                                    <li class="is-checked">名称<i class="fa fa-fw fa-sort"></i></li>
-                                    <li class="">日期<i class="fa fa-fw fa-sort"></i></li>
-                                    <li class="">热度<i class="fa fa-fw fa-sort"></i></li>
+                                <ul class="col-md-12 filters uppercase padding-leftright-null" id="sorter">
+                                    <li class="is-checked" value="1">名称<i class="fa fa-fw fa-sort"></i></li>
+                                    <li class="" value="2">日期<i class="fa fa-fw fa-sort"></i></li>
+                                    <li class="" value="3">热度<i class="fa fa-fw fa-sort"></i></li>
                                 </ul>
                             </div>
                         </div>
@@ -246,4 +246,39 @@
     <!--  END Page Content -->
     </div>
     <!--  Main Wrap  -->
+@endsection
+
+@section('script')
+
+    <script>
+        // $("#filter li[class*='isChecked']")
+
+        var lastSort=1;
+        var asc=[1,0,0];
+
+        $("#filter li").click(function(){
+            var val=$("#sorter li[class*='is-checked']").val();
+            console.log($(this).val());
+            console.log(val);
+        });
+
+        $("#sorter li").click(function(){
+            var filter_val=$("#filter li[class*='is-checked']").val();
+            var sort_val=$(this).val();
+            if($(this).val()===lastSort){
+                asc[sort_val-1]=1-asc[sort_val-1];
+            }
+            lastSort=sort_val;
+            // if(asc[sort_val-1]){
+            //     $("#sorter li[class*='is-checked'] i").attr('class','fa fa-fw fa-sort-asc');
+            // }
+            // else{
+            //     $("#sorter li[class*='is-checked'] i").attr('class','fa fa-fw fa-sort-desc');
+            // }
+            console.log(asc);
+            console.log(filter_val);
+            console.log(sort_val);
+        });
+    </script>
+
 @endsection
