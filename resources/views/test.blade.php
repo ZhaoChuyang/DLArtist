@@ -29,7 +29,11 @@
                         },
                         dataType: 'json',
                         success: function (response) {
-                            console.log(response);
+                            // console.log(response.value);
+                            var temp;
+                            for(var i=0;i<10;i++){
+                                console.log(response.value[i].contentUrl);
+                            }
                         },
                         error: function (xhr) {
                             console.log(xhr);
@@ -43,7 +47,7 @@
     </script>
 </head>
 <body>
-<img id="img" src="images/dog.jpg" width=224 height=224 crossorigin="anonymous"/>
+<img id="img" src="images/th.jpg" width=224 height=224 crossorigin="anonymous"/>
 <button type="button" onclick="func()">推断</button>
 <input type="text" id="result" value="None" style="display: none"></input>
 </body>
