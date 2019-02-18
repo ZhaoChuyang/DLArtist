@@ -53,9 +53,6 @@ class ArticleController extends Controller
             $article->category=$category;
             $article->update=$update;
 
-
-
-
 //            $data=[
 //                "title"=>$title,
 //                "content"=>$content,
