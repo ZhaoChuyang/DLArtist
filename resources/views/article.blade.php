@@ -71,7 +71,7 @@
                             <div id="comments">
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li role="presentation" class="active"><a href="#tab-one" aria-controls="tab-one" role="tab" data-toggle="tab" aria-expanded="true" id="all_comments">所有评论</a></li>
-                                    <li role="presentation" class=""><a href="#tab-two" aria-controls="tab-two" role="tab" data-toggle="tab" aria-expanded="false">评论</a></li>
+                                    <li role="presentation" class=""><a href="#tab-two" aria-controls="tab-two" role="tab" data-toggle="tab" aria-expanded="false" id="second">评论</a></li>
                                 </ul>
                                 <!--  Nav Tabs  -->
                                 <!-- Tab panes -->
@@ -80,6 +80,8 @@
                                         <div id="tab-one-content">
                                         @if($comment_num)
                                             @foreach($comments as $t)
+                                                <input type="text" name="reply_id" style="display: none" value="{{$t->id}}">
+                                                <input type="text" name="reply_name" style="display: none" value="{{$t->name}}">
                                                 <div class="comment">
                                                     <div class="row margin-null">
                                                         <div class="col-md-12 padding-leftright-null">
@@ -90,7 +92,7 @@
                                                                         {{$t->name}}
                                                                     </span>
                                                                     <span class="comment-btn">
-                                                                        <a href="#"><i class="material-icons">reply</i></a>
+                                                                        <a href="#" name="reply"><i class="material-icons">reply</i></a>
                                                                     </span>
                                                                 </div>
                                                                 <span class="comment-date">
@@ -101,6 +103,31 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                @foreach($reply as $m)
+                                                    @if($m->id==$t->id)
+                                                    <div class="comment reply">
+                                                        <div class="row margin-null">
+                                                            <div class="col-md-10 col-md-offset-2 padding-leftright-null">
+                                                                <img src="{{$m->avatar_url}}" alt="">
+                                                                <div class="content">
+                                                                    <div class="header">
+                                                                    <span class="comment-author">
+                                                                         {{$m->name}}
+                                                                    </span>
+                                                                        <span class="comment-btn">
+                                                                        {{--<a href="#"><i class="material-icons">reply</i></a>--}}
+                                                                    </span>
+                                                                    </div>
+                                                                    <span class="comment-date">
+                                                                    {{$m->update}}
+                                                                </span>
+                                                                    <p>{{$m->content}}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @endif
+                                                @endforeach
                                             @endforeach
                                         @endif
                                         @if($comment_num==0)
@@ -109,9 +136,6 @@
                                         </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane padding-md " id="tab-two">
-                                        @if($user_id==-1)
-                                            <h2>您还没有登录哦！</h2>
-                                        @endif
                                         @if($user_id!=-1)
                                         <section class="comment-form">
                                             <form id="contact-form" name="comment">
@@ -127,6 +151,9 @@
                                                 </div>
                                             </form>
                                         </section>
+                                        @endif
+                                        @if($user_id==-1)
+                                            <h2>您还没有登录哦！</h2>
                                         @endif
                                     </div>
                                 </div>
@@ -164,33 +191,81 @@
     <input type="hidden" id="writer_id" value="{{$user_id}}">
     <input type="hidden" id="article_id" value="{{$id}}">
     <script>
-        $("#submit-contact").click(function () {
-
-            $.ajax({
-                url: 'ArticleController/comment',
-                type: 'post',
-                data: {
-                    "_token": '{{csrf_token()}}',
-                    "user_id": $("#writer_id").val(),
-                    "content": $("#messageForm").val(),
-                    "article_id":$("#article_id").val()
-                },
-                dataType: 'json',
-                success: function (response) {
-                    alert(123);
-                    $("#messageForm").val('');
-                    console.log(response);
-                },
-                error: function (xhr) {
-                    alert(456);
-                    console.log(xhr);
-                }
-            });
-
+        var reply_id=new Array();
+        var reply_name=new Array();
+        var reply=false;
+        var index;
+        $.each($("input[name='reply_id']"),function (index,value) {
+            reply_id[index]=$("input[name='reply_id']").eq(index);
         });
-        //这个是干啥了？
+        $.each($("input[name='reply_name']"),function (index,value) {
+            reply_name[index]=$("input[name='reply_name']").eq(index);
+        });
+        $("a[name='reply']").click(function () {
+            reply=true;
+            $("#second").trigger('click');
+            index=$("a[name='reply']").index($(this));
+            // console.log(reply_id[index].val());
+            // console.log(reply_name[index].val());
+            // $("#messageForm").html("@"+reply_name[index].val()+" :");
+            $("#messageForm").attr('placeholder',"回复 "+reply_name[index].val());
+            return false;
+        });
+        $("#second").click(function () {
+            reply=false;
+            $("#messageForm").attr('placeholder',"Your messages");
+        });
         $("#all_comments").click(function(){
-            $('#tab-one').load(document.URL +  ' #tab-one-content');
+            reply=false;
+            // $('#tab-one').load(document.URL +  ' #tab-one-content');
+        });
+        $("#submit-contact").click(function () {
+            if(!reply){
+                $.ajax({
+                    url: 'ArticleController/comment',
+                    type: 'post',
+                    data: {
+                        "_token": '{{csrf_token()}}',
+                        "user_id": $("#writer_id").val(),
+                        "content": $("#messageForm").val(),
+                        "article_id":$("#article_id").val()
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        alert("评论成功");
+                        $("#messageForm").val('');
+                        console.log(response);
+                    },
+                    error: function (xhr) {
+                        alert(456);
+                        console.log(xhr);
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    url: 'ArticleController/comment_reply',
+                    type: 'post',
+                    data: {
+                        "_token": '{{csrf_token()}}',
+                        "id": reply_id[index].val(),
+                        'reply_name': reply_name[index].val(),
+                        "user_id": $("#writer_id").val(),
+                        "content": $("#messageForm").val(),
+                        "article_id":$("#article_id").val()
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        alert("回复成功");
+                        $("#messageForm").val('');
+                        console.log(response);
+                    },
+                    error: function (xhr) {
+                        alert(456);
+                        console.log(xhr);
+                    }
+                });
+            }
         });
     </script>
 

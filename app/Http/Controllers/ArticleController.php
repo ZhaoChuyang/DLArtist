@@ -3,6 +3,7 @@
 namespace DLArtist\Http\Controllers;
 
 use DLArtist\DB\Comment;
+use DLArtist\DB\reply;
 use Illuminate\Http\Request;
 use DLArtist\DB\Article;
 use Validator;
@@ -73,11 +74,11 @@ class ArticleController extends Controller
             return response()->json(['error' => $ex->getMessage()], 500);
         }
     }
+
     public function comment(Request $request){
         $validator=Validator:: make($request->all(),[
             'content' => 'required',
         ]);
-
             $content = $request->input('content');
             $user_id = $request->input('user_id');
             $article_id=$request->input('article_id');
@@ -90,6 +91,28 @@ class ArticleController extends Controller
             $comment->article_id=$article_id;
             $comment->save();
             return 1;
+    }
+
+    public function comment_reply(Request $request){
+        $validator=Validator:: make($request->all(),[
+            'content' => 'required',
+        ]);
+        $id=$request->input('id');
+        $reply_name=$request->input('reply_name');
+        $content = $request->input('content');
+        $user_id = $request->input('user_id');
+        $article_id=$request->input('article_id');
+        date_default_timezone_set("PRC");
+        $update = date('Y-m-d H:i:s', time());
+        $reply=new Reply();
+        $reply->id=$id;
+        $reply->reply_name=$reply_name;
+        $reply->user_id=$user_id;
+        $reply->update=$update;
+        $reply->content=$content;
+        $reply->article_id=$article_id;
+        $reply->save();
+        return 1;
     }
 
     public function cover(Request $request){
