@@ -71,6 +71,7 @@ class imageController extends Controller
         $img->user_id=$user_id;
 
         $img->save();
+        //return response()->json(['link' => url("/images/$inputImageName")]);
 
         return stripslashes(response()->json(['link' => url("/images/$inputImageName")])->content());
 

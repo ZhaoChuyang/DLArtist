@@ -69,4 +69,9 @@ Route::post('/send', 'EmailController@send');
 Route::get('/test', function (){
     return view('test');
 });
+
+Route::get('/test2', function (){
+    return view('test2');
+});
+
 Route::post('/model/image','ModelController@BingImageSearch');

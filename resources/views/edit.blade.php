@@ -481,7 +481,7 @@
     </div>
 
 
-
+    <img src="images/dog.jpg" id="img" hidden>
 
 
 
@@ -550,6 +550,26 @@
 
     <!--风格迁移-->
     <script src="modelFile/arbitrary_stylization_bundle.js"></script>
+
+    <!--模型类别推断-->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.5"></script>
+    <script src="modelFile/cocossd.js"></script>
+
+    <script>
+        async function func()
+        {
+            const img = document.getElementById('img');
+
+            cocoSsd.load().then(model => {
+
+                model.detect(img).then(predictions => {
+                    // result = document.getElementById('result');
+                    // result.innerHTML = predictions[0].class;
+                    console.log(predictions[0].class);
+                });
+            });
+        }
+    </script>
 
     <script>
 
@@ -838,6 +858,10 @@
                 {{--})--}}
                 .on('froalaEditor.image.uploaded', function (e, editor, response) {
                     console.log(response);
+                    console.log(response.substring(9,response.length-2));
+                    //console.log(response.msg);
+                    $('#img').attr('src', response.substring(9,response.length-2));
+                    func();
                 })
         });
         $(function () {
