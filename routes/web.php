@@ -70,3 +70,8 @@ Route::get('/test', function (){
     return view('test');
 });
 Route::post('/model/image','ModelController@BingImageSearch');
+
+
+Route::any('/mode-1',function (){
+    return view('article_mode1');
+});
