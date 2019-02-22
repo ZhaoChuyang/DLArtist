@@ -253,7 +253,8 @@ class CategoriesController extends Controller
         $content=$article->where('id',$id)->select('content')->get();
         $time=$article->where('id',$id)->select('update')->get();
         $comment_num=$comment->where('article_id',$id)->where('valid',1)->get()->count();
-        $comments=DB::table('comments')->join('users','users.id','=','user_id')->where('article_id',$id)->where('valid',1)->limit(5)->offset(0)->orderby('comments.id','desc')->get();
-        return view('article',compact('title','content','time','user_name','comment_num','comments','id','user_id'));
+        $comments=DB::table('comments')->join('users','users.id','=','user_id')->where('article_id',$id)->where('valid',1)->select('comments.id','name','update','content','avatar_url')->limit(5)->offset(0)->orderby('comments.id','desc')->get();
+        $reply=DB::table('reply')->join('users','users.id','=','user_id')->where('article_id',$id)->where('valid',1)->select('pid','reply.id','name','update','content','avatar_url','reply_name')->orderby('pid','desc')->get();
+        return view('article',compact('title','content','time','user_name','comment_num','comments','id','user_id','reply'));
     }
 }

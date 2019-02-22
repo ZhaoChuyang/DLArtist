@@ -61,7 +61,7 @@ Route::post('accounts/adminMail','accounts@adminMail');
 Route::get('/image/getImageList', 'imageController@list');
 
 Route::post('/ArticleController/comment','ArticleController@comment');
-
+Route::post('/ArticleController/comment_reply','ArticleController@comment_reply');
 Route::post('/cover_upload', 'ArticleController@cover');
 
 Route::post('/send', 'EmailController@send');
@@ -76,8 +76,15 @@ Route::get('/test2', function (){
 
 Route::post('/model/image','ModelController@BingImageSearch');
 
+
 Route::get('/format', function (){
     return view('format');
 });
 
 Route::post('/sendArticle', 'ModelController@sendArticle')->middleware(['auth','verified']);
+
+
+Route::any('/mode-1',function (){
+    return view('article_mode1');
+});
+
