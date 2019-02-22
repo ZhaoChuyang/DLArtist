@@ -50,9 +50,14 @@ class ModelController extends Controller
             // Prints JSON encoded response.
 //            print "\nJSON Response:\n\n";
             return $json;
+
         } else {
-            print("Invalid Bing Search API subscription key!\n");
-            print("Please paste yours into the source code.\n");
+            //print("Invalid Bing Search API subscription key!\n");
+            //print("Please paste yours into the source code.\n");
         }
+    }
+
+    public function sendArticle(Request $request){
+
     }
 }

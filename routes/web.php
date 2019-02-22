@@ -35,7 +35,7 @@ Route::any('/categories-4','CategoriesController@categories4');
 Route::any('/categories-5','CategoriesController@categories5');
 Route::any('/categories-6','CategoriesController@categories6');
 //文章
-Route::any('/article','CategoriesController@article');
+Route::get('/article','CategoriesController@article');
 //编辑页面
 Route::get('/edit','ArticleController@edit');
 //图片处理
@@ -69,9 +69,22 @@ Route::post('/send', 'EmailController@send');
 Route::get('/test', function (){
     return view('test');
 });
+
+Route::get('/test2', function (){
+    return view('test2');
+});
+
 Route::post('/model/image','ModelController@BingImageSearch');
+
+
+Route::get('/format', function (){
+    return view('format');
+});
+
+Route::post('/sendArticle', 'ModelController@sendArticle')->middleware(['auth','verified']);
 
 
 Route::any('/mode-1',function (){
     return view('article_mode1');
 });
+
