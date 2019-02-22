@@ -27,6 +27,7 @@ class ArticleController extends Controller
             'title' => 'required',
             'category' => 'required|not_in:0',
             'shareStatus'=>'required',
+            'uploadFlag' => 'required|in:1',
         ]);
 
         if($validator->fails()){

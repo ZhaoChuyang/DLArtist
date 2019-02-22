@@ -55,4 +55,8 @@ class ModelController extends Controller
             //print("Please paste yours into the source code.\n");
         }
     }
+
+    public function sendArticle(Request $request){
+
+    }
 }

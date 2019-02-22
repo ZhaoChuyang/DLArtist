@@ -7,7 +7,7 @@
     <!-- Include Editor style. -->
     <link href="https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/css/froala_editor.pkgd.min.css" rel="stylesheet"
           type="text/css"/>
-    <link href="https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/css/froala_style.min.css" rel="stylesheet"
+    <link href="froala_editor_2.9.1/css/froala_style.min.css" rel="stylesheet"
           type="text/css"/>
 
     <!-- Include TUI CSS. -->
@@ -156,8 +156,9 @@
                                 编辑文章 <span class="sr-only">(current)</span>
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="#" id="compose_view_button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                      stroke-linejoin="round" class="feather feather-activity">
@@ -167,23 +168,13 @@
                                     <line x1="16" y1="17" x2="8" y2="17"></line>
                                     <polyline points="10 9 9 9 8 9"></polyline>
                                 </svg>
-                                排版方案
+                                自动排版
                             </a>
                         </li>
-                        {{--<li class="nav-item">--}}
-                            {{--<a class="nav-link" href="#" id="image_edit_button">--}}
-                                {{--<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"--}}
-                                     {{--fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"--}}
-                                     {{--stroke-linejoin="round" class="feather feather-activity">--}}
-                                    {{--<rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>--}}
-                                    {{--<circle cx="8.5" cy="8.5" r="1.5"></circle>--}}
-                                    {{--<polyline points="21 15 16 10 5 21"></polyline>--}}
-                                {{--</svg>--}}
-                                {{--图片美化--}}
-                            {{--</a>--}}
-                        {{--</li>--}}
+
                         <li class="nav-item">
-                            <a href="#" data-toggle="collapse" data-target="#submenu-1" class="nav-link" id="image_edit_button">
+                            <a href="#" data-toggle="collapse" data-target="#submenu-1" class="nav-link"
+                               id="image_edit_button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                      stroke-linejoin="round" class="feather feather-activity">
@@ -240,33 +231,33 @@
                     </h6>
                     <ul class="nav flex-column mb-2">
                         {{--<li>--}}
-                            {{--<a href="#" data-toggle="collapse" data-target="#submenu-1" class="nav-link">--}}
-                                {{--<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"--}}
-                                     {{--fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"--}}
-                                     {{--stroke-linejoin="round" class="feather feather-plus-circle">--}}
-                                    {{--<circle cx="12" cy="12" r="10"></circle>--}}
-                                    {{--<line x1="12" y1="8" x2="12" y2="16"></line>--}}
-                                    {{--<line x1="8" y1="12" x2="16" y2="12"></line>--}}
-                                {{--</svg>--}}
-                                {{--下拉菜单--}}
-                            {{--</a>--}}
-                            {{--<ul id="submenu-1" class="collapse">--}}
-                                {{--<li class="nav-item">--}}
-                                    {{--<a class="nav-link" href="#">--}}
-                                        {{--Current month--}}
-                                    {{--</a>--}}
-                                {{--</li>--}}
-                                {{--<li class="nav-item">--}}
-                                    {{--<a class="nav-link" href="#">--}}
-                                        {{--Current month--}}
-                                    {{--</a>--}}
-                                {{--</li>--}}
-                                {{--<li class="nav-item">--}}
-                                    {{--<a class="nav-link" href="#">--}}
-                                        {{--Current month--}}
-                                    {{--</a>--}}
-                                {{--</li>--}}
-                            {{--</ul>--}}
+                        {{--<a href="#" data-toggle="collapse" data-target="#submenu-1" class="nav-link">--}}
+                        {{--<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"--}}
+                        {{--fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"--}}
+                        {{--stroke-linejoin="round" class="feather feather-plus-circle">--}}
+                        {{--<circle cx="12" cy="12" r="10"></circle>--}}
+                        {{--<line x1="12" y1="8" x2="12" y2="16"></line>--}}
+                        {{--<line x1="8" y1="12" x2="16" y2="12"></line>--}}
+                        {{--</svg>--}}
+                        {{--下拉菜单--}}
+                        {{--</a>--}}
+                        {{--<ul id="submenu-1" class="collapse">--}}
+                        {{--<li class="nav-item">--}}
+                        {{--<a class="nav-link" href="#">--}}
+                        {{--Current month--}}
+                        {{--</a>--}}
+                        {{--</li>--}}
+                        {{--<li class="nav-item">--}}
+                        {{--<a class="nav-link" href="#">--}}
+                        {{--Current month--}}
+                        {{--</a>--}}
+                        {{--</li>--}}
+                        {{--<li class="nav-item">--}}
+                        {{--<a class="nav-link" href="#">--}}
+                        {{--Current month--}}
+                        {{--</a>--}}
+                        {{--</li>--}}
+                        {{--</ul>--}}
                         {{--</li>--}}
                         <li class="nav-item">
                             <a class="nav-link" href="#">
@@ -411,8 +402,6 @@
                             <label class="col-sm-1 col-form-label"></label>
                             <div class="col-sm-10">
                                 <button type="button" class="btn btn-primary" id="send">发表文章</button>
-                                <button type="button" class="btn btn-success ml-2" id=" compose">自动排版
-                                </button>
                                 <br>
                                 <br>
                             </div>
@@ -425,9 +414,15 @@
                     <div id="smartwizard" class="ml-5 mt-4">
 
                         <ul id="wizard_li">
-                            <li class="ml-5"><a href="#step-1" class="">Step 1<br /><small>上传图片</small></a></li>
-                            <li class="ml-5"><a href="#step-2" class="">Step 2<br /><small>选择风格</small></a></li>
-                            <li class="ml-5"><a href="#step-3" class="">Step 3<br /><small>生成图片</small></a></li>
+                            <li class="ml-5"><a href="#step-1" class="">Step 1<br/>
+                                    <small>上传图片</small>
+                                </a></li>
+                            <li class="ml-5"><a href="#step-2" class="">Step 2<br/>
+                                    <small>选择风格</small>
+                                </a></li>
+                            <li class="ml-5"><a href="#step-3" class="">Step 3<br/>
+                                    <small>生成图片</small>
+                                </a></li>
                         </ul>
 
                         <div class="mt-4">
@@ -438,7 +433,8 @@
                                         上传图片<input id="imgInp" name="avatar" type="file" hidden>
                                     </label>
                                     <br>
-                                    <img id="content" src="#" alt="your image" class="border p-2 rounded collapse" style="max-width: 300px; max-height: 300px;"/>
+                                    <img id="content" src="#" alt="your image" class="border p-2 rounded collapse"
+                                         style="max-width: 300px; max-height: 300px;"/>
                                 </form>
                             </div>
                             <div id="step-2" class="ml-3">
@@ -448,25 +444,27 @@
                                         上传图片<input id="imgInp2" name="avatar" type="file" hidden>
                                     </label>
                                     <br>
-                                    <img id="style" src="#" alt="your image" class="border p-2 rounded collapse" style="max-width: 300px; max-height: 300px;"/>
+                                    <img id="style" src="#" alt="your image" class="border p-2 rounded collapse"
+                                         style="max-width: 300px; max-height: 300px;"/>
                                 </form>
                             </div>
                             <div id="step-3" class="ml-3">
                                 {{--<div class="row">--}}
-                                    {{--<div class="col">--}}
-                                        {{--<img id="content_copy" src="#" alt="your image" class="border p-2 rounded" style="max-width: 300px; max-height: 300px;"/>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col">--}}
-                                        {{--<img id="style_copy"src="#" alt="your image" class="border p-2 rounded" style="max-width: 300px; max-height: 300px;"/>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col">--}}
-                                        {{--<canvas id="stylized" width="192" height="256" class="image mt-2 border p-2 rounded"></canvas>--}}
-                                    {{--</div>--}}
+                                {{--<div class="col">--}}
+                                {{--<img id="content_copy" src="#" alt="your image" class="border p-2 rounded" style="max-width: 300px; max-height: 300px;"/>--}}
+                                {{--</div>--}}
+                                {{--<div class="col">--}}
+                                {{--<img id="style_copy"src="#" alt="your image" class="border p-2 rounded" style="max-width: 300px; max-height: 300px;"/>--}}
+                                {{--</div>--}}
+                                {{--<div class="col">--}}
+                                {{--<canvas id="stylized" width="192" height="256" class="image mt-2 border p-2 rounded"></canvas>--}}
+                                {{--</div>--}}
                                 {{--</div>--}}
                                 <h3 class="border-bottom border-gray pb-2">Step 3 生成图片</h3>
                                 <button id="stylize" class="btn btn-outline-secondary btn-sm">提交图片</button>
                                 <br>
-                                <canvas id="stylized" width="192" height="256" class="image mt-2 border p-2 rounded"></canvas>
+                                <canvas id="stylized" width="192" height="256"
+                                        class="image mt-2 border p-2 rounded"></canvas>
                                 <br>
                             </div>
                         </div>
@@ -474,6 +472,10 @@
 
                     </div>
 
+                </div>
+
+                <div id="compose_view">
+                    <button class="btn btn-primary w-50" id="compose">自动排版</button>
                 </div>
 
             </main>
@@ -556,8 +558,7 @@
     <script src="modelFile/cocossd.js"></script>
 
     <script>
-        async function func()
-        {
+        async function func() {
             const img = document.getElementById('img');
 
             cocoSsd.load().then(model => {
@@ -579,7 +580,7 @@
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     $('#content').attr('src', e.target.result);
                     $('#content_copy').attr('src', e.target.result);
                 }
@@ -588,7 +589,7 @@
             }
         }
 
-        $("#imgInp").change(function() {
+        $("#imgInp").change(function () {
             readURL(this);
             $('#content').show();
         });
@@ -598,7 +599,7 @@
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     $('#style').attr('src', e.target.result);
                     $('#style_copy').attr('src', e.target.result);
                 }
@@ -607,7 +608,7 @@
             }
         }
 
-        $("#imgInp2").change(function() {
+        $("#imgInp2").change(function () {
             readURL2(this);
             $('#style').show();
         });
@@ -617,8 +618,8 @@
             $('#image_view').hide();
             $('#smartwizard').smartWizard({
                 selected: 0,  // Initial selected step, 0 = first step
-                keyNavigation:true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
-                autoAdjustHeight:true, // Automatically adjust content height
+                keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
+                autoAdjustHeight: true, // Automatically adjust content height
                 cycleSteps: false, // Allows to cycle the navigation of steps
                 backButtonSupport: true, // Enable the back button support
                 useURLhash: true, // Enable selection of the step based on url hash
@@ -659,6 +660,8 @@
                 transitionEffect: 'fade', // Effect on navigation, none/slide/fade
                 transitionSpeed: '400'
             });
+            uploadFlag = 0;
+            lastUploadArticle = 0;
         });
 
 
@@ -666,6 +669,11 @@
 
     <!-- Initialize the editor. -->
     <script>
+
+        //最后一次上传的文章的id
+        var lastUploadArticle = 0;
+        //神奇bug解决
+        var uploadFlag = 0;
         //未保存提示
         var formSubmitting = false;
         var setFormSubmitting = function () {
@@ -688,186 +696,329 @@
 
         $('#edit_button').click(function () {
             $('#image_view').hide();
+            $('#compose_view').hide();
             //the other views should be hide too
             $('#edit_view').show();
 
             $("#sideNav a[class*='active']").removeClass('active');
             $('#edit_button').addClass('active');
         });
-        
-        $('#image_edit_button').click(function () {
 
+        $('#image_edit_button').click(function () {
 
             $("#sideNav a[class*='active']").removeClass('active');
             $('#image_edit_button').addClass('active');
 
         });
 
+        $('#compose_view_button').click(function () {
+
+            $("#sideNav a[class*='active']").removeClass('active');
+            $('#compose_view_button').addClass('active');
+            $('#image_view').hide();
+            $('#edit_view').hide();
+            $('#compose_view').show();
+
+
+        });
+
+
         $('#fgqy_button').click(function () {
             $('#edit_view').hide();
+            $('#compose_view').hide();
             //the other views should be hide too
             $('#image_view').show();
         });
 
-        $(function () {
-            $('#edit').froalaEditor({
-                iframe: true,
-                toolbarButtons: ['fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'fontAwesome', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'getPDF', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', '|', 'wirisEditor', 'wirisChemistry', 'clear', 'insert'],
-                // Add [MW] buttons to Image Toolbar.
-                //imageEditButtons: ['wirisEditor', 'wirisChemistry', 'imageDisplay', 'imageAlign', 'imageInfo', 'imageRemove'],
-                // imageEditButtons: ['wirisEditor', 'wirisChemistry', 'imageDisplay', 'imageAlign', 'imageInfo', 'imageRemove'],
-                //documentReady: true,
-                height: 480,
-                language: 'zh_cn',
-                imageDefaultDisplay: 'inline',
-                imageDefaultWidth: 700,
-                imageUploadParam: 'image',
-                imageUploadMethod: 'post',
-                // Set the image upload URL.
-                imageUploadURL: '/image',
-                imageUploadParams: {
-                    locaton: 'froala', // This allows us to distinguish between Froala or a regular file upload.
-                    _token: "{{ csrf_token() }}" // This passes the laravel token with the ajax request.
-                },
 
-                // Set a preloader.
-                imageManagerPreloader: "/images/loader.gif",
-                // Set page size.
-                imageManagerPageSize: 20,
-                // Set a scroll offset (value in pixels).
-                imageManagerScrollOffset: 10,
-                // Set the load images request URL.
-                imageManagerLoadURL: "/image/getImageList",
-                // Set the load images request type.
-                imageManagerLoadMethod: "GET",
-                // Additional load params.
-                imageManagerLoadParams: {user_id: "{{auth()->user()->id}}"},
-                // Set the delete image request URL.
-                imageManagerDeleteURL: "/image",
-                // Set the delete image request type.
-                imageManagerDeleteMethod: "DELETE",
-                // Additional delete params.
-                imageManagerDeleteParams: {
+        $.extend($.FroalaEditor.POPUP_TEMPLATES, {
+            'customPlugin.popup': '[_BUTTONS_]'
+        });
+
+        // Define popup buttons.
+        $.extend($.FroalaEditor.DEFAULTS, {
+            popupButtons: ['popupClose', '|', 'popupButton1', 'popupButton2', 'image_important'],
+        });
+
+        // The custom popup is defined inside a plugin (new or existing).
+        $.FroalaEditor.PLUGINS.customPlugin = function (editor) {
+            // Create custom popup.
+            function initPopup() {
+                // Load popup template.
+                var template = $.FroalaEditor.POPUP_TEMPLATES.customPopup;
+                if (typeof template == 'function') template = template.apply(editor);
+
+                // Popup buttons.
+                var popup_buttons = '';
+
+                // Create the list of buttons.
+                if (editor.opts.popupButtons.length > 1) {
+                    popup_buttons += '<div class="fr-buttons">';
+                    popup_buttons += editor.button.buildList(editor.opts.popupButtons);
+                    popup_buttons += '</div>';
+                }
+
+                // Load popup template.
+                var template = {
+                    buttons: popup_buttons,
+                    custom_layer: '<div class="custom-layer">为文本选择相应的类型</div>'
+                };
+
+                // Create popup.
+                var $popup = editor.popups.create('customPlugin.popup', template);
+
+                return $popup;
+            }
+
+            // Show the popup
+            function showPopup() {
+                // Get the popup object defined above.
+                var $popup = editor.popups.get('customPlugin.popup');
+
+                // If popup doesn't exist then create it.
+                // To improve performance it is best to create the popup when it is first needed
+                // and not when the editor is initialized.
+                if (!$popup) $popup = initPopup();
+
+                // Set the editor toolbar as the popup's container.
+                editor.popups.setContainer('customPlugin.popup', editor.$tb);
+
+                // If the editor is not displayed when a toolbar button is pressed, then set BODY as the popup's container.
+                // editor.popups.setContainer('customPlugin.popup', $('body'));
+
+                // Trigger refresh for the popup.
+                // editor.popups.refresh('customPlugin.popup');
+
+                // This custom popup is opened by pressing a button from the editor's toolbar.
+                // Get the button's object in order to place the popup relative to it.
+                var $btn = editor.$tb.find('.fr-command[data-cmd="myButton"]');
+
+                // Compute the popup's position.
+                var left = $btn.offset().left + $btn.outerWidth() / 2;
+                var top = $btn.offset().top + (editor.opts.toolbarBottom ? 10 : $btn.outerHeight() - 10);
+
+                // Show the custom popup.
+                // The button's outerHeight is required in case the popup needs to be displayed above it.
+                editor.popups.show('customPlugin.popup', left, top, $btn.outerHeight());
+            }
+
+            // Hide the custom popup.
+            function hidePopup() {
+                editor.popups.hide('customPlugin.popup');
+            }
+
+            // Methods visible outside the plugin.
+            return {
+                showPopup: showPopup,
+                hidePopup: hidePopup
+            }
+        };
+
+        // Define an icon and command for the button that opens the custom popup.
+        $.FroalaEditor.DefineIcon('buttonIcon', {NAME: 'star'})
+        $.FroalaEditor.RegisterCommand('myButton', {
+            title: 'Show Popup',
+            icon: 'buttonIcon',
+            undo: false,
+            focus: false,
+            popup: true,
+            // Buttons which are included in the editor toolbar should have the plugin property set.
+            plugin: 'customPlugin',
+            callback: function () {
+                if (!this.popups.isVisible('customPlugin.popup')) {
+                    this.customPlugin.showPopup();
+                }
+                else {
+                    if (this.$el.find('.fr-marker')) {
+                        this.events.disableBlur();
+                        this.selection.restore();
+                    }
+                    this.popups.hide('customPlugin.popup');
+                }
+            }
+        });
+
+        // Define custom popup close button icon and command.
+        $.FroalaEditor.DefineIcon('popupClose', {NAME: 'times'});
+        $.FroalaEditor.RegisterCommand('popupClose', {
+            title: 'Close',
+            undo: false,
+            focus: false,
+            callback: function () {
+                this.customPlugin.hidePopup();
+            }
+        });
+
+        // Define custom popup 1.
+        $.FroalaEditor.DefineIcon('popupButton1', {NAME: 'code'});
+        $.FroalaEditor.RegisterCommand('popupButton1', {
+            title: '代码段',
+            undo: false,
+            focus: false,
+            callback: function () {
+                var text = $('#edit').froalaEditor('selection.text');
+                $('#edit').froalaEditor('html.insert', '<code>' + text + '</code>', true);
+            }
+        });
+
+        // Define custom popup 2.
+        $.FroalaEditor.DefineIcon('popupButton2', {NAME: 'info'});
+        $.FroalaEditor.RegisterCommand('popupButton2', {
+            title: '大标题',
+            undo: false,
+            focus: false,
+            callback: function () {
+                var text = $('#edit').froalaEditor('selection.text');
+                $('#edit').froalaEditor('html.insert', '<h1>' + text + '</h1>', true);
+            }
+        });
+
+        // Define image_important.
+        $.FroalaEditor.DefineIcon('image_important', {NAME: 'info'});
+        $.FroalaEditor.RegisterCommand('image_important', {
+            title: '重要图片',
+            undo: false,
+            focus: false,
+            callback: function () {
+                var $img = this.image.get();
+                $img.addClass('important');
+            }
+        });
+
+        $('#edit').froalaEditor({
+            iframe: true,
+            toolbarButtons: ['myButton', 'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'fontAwesome', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'getPDF', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', '|', 'wirisEditor', 'wirisChemistry', 'clear', 'insert'],
+            // Add [MW] buttons to Image Toolbar.
+            imageEditButtons: ['imageReplace', 'imageAlign', 'imageCaption', 'imageRemove', 'imageLink', 'imageDisplay', 'imageStyle', 'imageAlt', 'imageSize', 'imageTUI', 'image_important'],
+            //documentReady: true,
+            height: 480,
+            language: 'zh_cn',
+            imageDefaultDisplay: 'inline',
+            imageDefaultWidth: 700,
+            imageUploadParam: 'image',
+            imageUploadMethod: 'post',
+            // Set the image upload URL.
+            imageUploadURL: '/image',
+            imageUploadParams: {
+                locaton: 'froala', // This allows us to distinguish between Froala or a regular file upload.
+                _token: "{{ csrf_token() }}" // This passes the laravel token with the ajax request.
+            },
+            // Set page size.
+            imageManagerPageSize: 20,
+            // Set a scroll offset (value in pixels).
+            imageManagerScrollOffset: 10,
+            // Set the load images request URL.
+            imageManagerLoadURL: "/image/getImageList",
+            // Set the load images request type.
+            imageManagerLoadMethod: "GET",
+            // Additional load params.
+            imageManagerLoadParams: {user_id: "{{auth()->user()->id}}"},
+            // Set the delete image request URL.
+            imageManagerDeleteURL: "/image",
+            // Set the delete image request type.
+            imageManagerDeleteMethod: "DELETE",
+            // Additional delete params.
+            imageManagerDeleteParams: {
+                _token: "{{ csrf_token() }}",
+                loaction: "froala"
+            },
+
+
+            //save content
+            saveParam: 'content',
+            // Set the save URL.
+            saveURL: '/article',
+            // HTTP request type.
+            saveMethod: 'POST',
+            // Additional save params.
+            saveParams: {}
+        })
+            .on('froalaEditor.imageManager.beforeDeleteImage', function (e, editor, $img) {
+                $.extend(editor.opts.imageManagerDeleteParams, {
+                    src: $img.attr('src'),
                     _token: "{{ csrf_token() }}",
                     loaction: "froala"
-                },
-
-
-                //save content
-                saveParam: 'content',
-                // Set the save URL.
-                saveURL: '/article',
-                // HTTP request type.
-                saveMethod: 'POST',
-                // Additional save params.
-                saveParams: {}
+                });
             })
-                .on('froalaEditor.imageManager.beforeDeleteImage', function (e, editor, $img) {
-                    $.extend(editor.opts.imageManagerDeleteParams, {
-                        src: $img.attr('src'),
-                        _token: "{{ csrf_token() }}",
-                        loaction: "froala"
+            .on('froalaEditor.imageManager.imagesLoaded', function (e, editor, data) {
+                // Do something when the request finishes with success.
+                console.log('Images have been loaded.');
+            })
+            .on('froalaEditor.save.before', function (e, editor) {
+                $.extend(editor.opts.saveParams, {
+                    title: $("#title").val(),
+                    _token: "{{ csrf_token() }}",
+                    category: $("#category").val(),
+                    shareStatus: $('#shareValue').val(),
+                    uploadFlag: uploadFlag,
+                });
+
+            })
+            .on('froalaEditor.save.after', function (e, editor, response) {//return 1 if success
+                uploadFlag = 0;
+                setFormSubmitting();
+                console.log(response);
+                var article_id = response.article_id;
+                lastUploadArticle = article_id;
+                if (true) {
+                    var fd = new FormData();
+                    fd.append('cover', $("#cover_file").get(0).files[0]);
+                    fd.append('_token', "{{csrf_token()}}");
+                    fd.append('article_id', article_id);
+                    $.ajax({
+                        method: "post",
+                        url: "/cover_upload",
+                        data: fd,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            console.log(response);
+                        }
                     });
-                })
-                .on('froalaEditor.imageManager.imagesLoaded', function (e, editor, data) {
-                    // Do something when the request finishes with success.
-                    console.log('Images have been loaded.');
-                })
-                .on('froalaEditor.save.before', function (e, editor) {
-                    $.extend(editor.opts.saveParams, {
-                        title: $("#title").val(),
-                        _token: "{{ csrf_token() }}",
-                        category: $("#category").val(),
-                        shareStatus: $('#shareValue').val()
-                    });
+                }
 
-                })
-                .on('froalaEditor.save.after', function (e, editor, response) {//return 1 if success
-                    setFormSubmitting();
-                    console.log(response);
-
-                    if (true) {
-                        var article_id = response.article_id;
-                        var fd = new FormData();
-                        fd.append('cover', $("#cover_file").get(0).files[0]);
-                        fd.append('_token', "{{csrf_token()}}");
-                        fd.append('article_id', article_id);
-                        $.ajax({
-                            method: "post",
-                            url: "/cover_upload",
-                            data: fd,
-                            contentType: false,
-                            processData: false,
-                            success: function (response) {
-                                console.log(response);
-                            }
-                        });
+                if (response.status[0]) {
+                    alert("上传成功");
+                }
+                else {
+                    if (typeof response.title !== 'undefined') {
+                        for (let i = 0; i < response.title.length; i++) {
+                            console.log(response.title[i]);
+                        }
+                    }
+                    if (typeof response.category !== 'undefined') {
+                        for (let i = 0; i < response.category.length; i++) {
+                            console.log(response.category[i]);
+                        }
+                    }
+                    if (typeof response.shareStatus !== 'undefined') {
+                        for (let i = 0; i < response.shareStatus.length; i++) {
+                            console.log(response.shareStatus[i]);
+                        }
+                    }
+                    if (typeof response.msg !== 'undefined') {
+                        for (let i = 0; i < response.msg.length; i++) {
+                            console.log(response.msg[i]);
+                        }
                     }
 
-                    if (response.status[0]) {
-                        alert("上传成功");
-                    }
-                    else {
-                        if (typeof response.title !== 'undefined') {
-                            for (let i = 0; i < response.title.length; i++) {
-                                console.log(response.title[i]);
-                            }
-                        }
-                        if (typeof response.category !== 'undefined') {
-                            for (let i = 0; i < response.category.length; i++) {
-                                console.log(response.category[i]);
-                            }
-                        }
-                        if (typeof response.shareStatus !== 'undefined') {
-                            for (let i = 0; i < response.shareStatus.length; i++) {
-                                console.log(response.shareStatus[i]);
-                            }
-                        }
-                        if (typeof response.msg !== 'undefined') {
-                            for (let i = 0; i < response.msg.length; i++) {
-                                console.log(response.msg[i]);
-                            }
-                        }
+                }
+            })
+            .on('froalaEditor.save.error', function (e, editor, error) {
+                console.log(error);
+            })
+            .on('froalaEditor.image.uploaded', function (e, editor, response) {
+                console.log(response);
+                console.log(response.substring(9, response.length - 2));
+                $('#img').attr('src', response.substring(9, response.length - 2));
+                func();
+            })
 
-                    }
-                })
-                .on('froalaEditor.save.error', function (e, editor, error) {
-                    console.log(error);
-                })
-                {{--.on('froalaEditor.image.removed', function (e, editor, $img) {--}}
-                {{--$.ajax({--}}
-                {{--// Request method.--}}
-                {{--method: "DELETE",--}}
-
-                {{--// Request URL.--}}
-                {{--url: "/image",--}}
-
-                {{--// Request params.--}}
-                {{--data: {--}}
-                {{--src: $img.attr('src'),--}}
-                {{--_token: "{{ csrf_token() }}",--}}
-                {{--loaction: "froala"--}}
-                {{--}--}}
-                {{--})--}}
-                {{--.done(function (data) {--}}
-                {{--console.log(data);--}}
-                {{--})--}}
-                {{--.fail(function (data) {--}}
-                {{--console.log(data);--}}
-                {{--})--}}
-                {{--})--}}
-                .on('froalaEditor.image.uploaded', function (e, editor, response) {
-                    console.log(response);
-                    console.log(response.substring(9,response.length-2));
-                    //console.log(response.msg);
-                    $('#img').attr('src', response.substring(9,response.length-2));
-                    func();
-                })
-        });
         $(function () {
             $("#editor").addClass("active-item");
         });
         $("#send").click(function () {
+            uploadFlag = 1;
             $('#edit').froalaEditor('save.save');
         });
         $('#privateStatus').click(function () {
@@ -878,6 +1029,25 @@
             $('#shareStatus').html('公开发布');
             $('#shareValue').val(1);
         });
+
+        //排版
+        $('#compose').click(function () {
+            $("#send").trigger('click');
+            if (lastUploadArticle !== 0) {
+                $.ajax({
+                    url: "/sendArticle",
+                    type: "post",
+                    data: {
+                        id: lastUploadArticle,
+                        _token: "{{ csrf_token() }}",
+                    },
+                    success: function(response){
+
+                    }
+                });
+            }
+        });
+
         // $('#cover_upload').click(function(){
         //     $('#cover').show();
         // });
