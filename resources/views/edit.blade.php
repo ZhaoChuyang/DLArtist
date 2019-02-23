@@ -485,9 +485,35 @@
         </div>
     </div>
 
+    <!-- Button trigger modal -->
+    <button type="button" id="showModal"class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" hidden>
+        Launch demo modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">相似图片</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modalImg').empty()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalImg">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modalImg').empty()">Close</button>
+                    {{--<button type="button" class="btn btn-primary">Save changes</button>--}}
+                </div>
+            </div>
+        </div>
+    </div>
 
     <img src="images/dog.jpg" id="img" hidden>
-
+    <img src="#" id="img_rec" crossorigin="anonymous" hidden>
+    <input type="text" id="result" value="None" style="display: none"></input>
 
 
 
@@ -560,6 +586,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.5"></script>
     <script src="modelFile/cocossd.js"></script>
 
+    {{--<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.11.7"> </script>--}}
+    <script src="modelFile/mobilenet.js"></script>
+
     <script>
         async function func() {
             const img = document.getElementById('img');
@@ -570,8 +599,50 @@
                     // result = document.getElementById('result');
                     // result.innerHTML = predictions[0].class;
                     console.log(predictions[0].class);
+
+                });
+
+            });
+        }
+
+        async function func_1()
+        {
+            const img = document.getElementById('img_rec');
+            mobilenet.load().then(model => {
+                // Classify the image.
+                model.classify(img).then(predictions => {
+                    //predictions是一个对象数组
+                    //数组中的每一个对象 的属性是className、probably ...
+                    //可使用 console控制台打印查看详细信息
+                    top0 = predictions[0];
+                    res = document.getElementById("result");
+                    res.value = top0.className;
+                    $.ajax({
+                        type: "post",
+                        url: "/model/image",
+                        data: {
+                            "_token": '{{csrf_token()}}',
+                            "query" :$("#result").val()
+                        },
+                        dataType: 'json',
+                        success: function (response) {
+                            // console.log(response.value);
+                            var temp;
+                            if(response.value.length===0){
+                                $('#modalImg').append("<p>无法识别图片</p>");
+                            }
+                            for(var i=0;i<12;i++){
+                                $('#modalImg').append('<a href="'+response.value[i].contentUrl+'" target="_blank"><img src="'+response.value[i].contentUrl+'" class="img-thumbnail ml-2 mt-2" style="height: 100px; width: 100px;"></a>')
+                                //console.log(response.value[i].contentUrl);
+                            }
+                        },
+                        error: function (xhr) {
+                            console.log(xhr);
+                        }
+                    })
                 });
             });
+
         }
     </script>
 
@@ -619,6 +690,7 @@
         $(document).ready(function () {
             $('#editMenu').addClass('active');
             $('#image_view').hide();
+            $('#compose_view').hide();
             $('#smartwizard').smartWizard({
                 selected: 0,  // Initial selected step, 0 = first step
                 keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
@@ -890,11 +962,26 @@
             }
         });
 
+        //相似图片推荐
+        $.FroalaEditor.DefineIcon('image_recommendation', {NAME: 'info'});
+        $.FroalaEditor.RegisterCommand('image_recommendation', {
+            title: '相似图片推荐',
+            undo: false,
+            focus: false,
+            callback: function () {
+                var $img = this.image.get();
+                var src=$img.attr('src');
+                $('#img_rec').attr('src', src);
+                func_1();
+                $('#showModal').trigger('click');
+            }
+        });
+
         $('#edit').froalaEditor({
             iframe: true,
             toolbarButtons: ['myButton', 'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'fontAwesome', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'getPDF', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', '|', 'wirisEditor', 'wirisChemistry', 'clear', 'insert'],
             // Add [MW] buttons to Image Toolbar.
-            imageEditButtons: ['imageReplace', 'imageAlign', 'imageCaption', 'imageRemove', 'imageLink', 'imageDisplay', 'imageStyle', 'imageAlt', 'imageSize', 'imageTUI', 'image_important'],
+            imageEditButtons: ['imageReplace', 'imageAlign', 'imageCaption', 'imageRemove', 'imageLink', 'imageDisplay', 'imageStyle', 'imageAlt', 'imageSize', 'imageTUI', 'image_important','image_recommendation'],
             //documentReady: true,
             height: 480,
             language: 'zh_cn',
