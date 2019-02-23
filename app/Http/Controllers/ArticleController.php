@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
-    //
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -20,6 +20,10 @@ class ArticleController extends Controller
     public function edit()
     {
         return view('edit');
+    }
+
+    public function compose($id){
+
     }
 
     public function store(Request $request)
@@ -38,6 +42,8 @@ class ArticleController extends Controller
         DB::beginTransaction();
 
         try {
+
+            $composeFlag=$request->input('composeFlag');
 
             $title=$request->input('title');
             $user_id=auth()->user()->id;
@@ -68,6 +74,9 @@ class ArticleController extends Controller
 
             $article->save();
             DB::commit();
+            if($composeFlag==1){
+                return response()->json(['status'=>[1], 'msg'=>['upload success'], 'article_id'=>$article->id, 'plan'=>[1,2,3]]);
+            }
             return response()->json(['status'=>[1], 'msg'=>['upload success'], 'article_id'=>$article->id]);
 
         } catch (\Exception $ex) {
@@ -75,6 +84,8 @@ class ArticleController extends Controller
             return response()->json(['error' => $ex->getMessage()], 500);
         }
     }
+
+
 
     public function comment(Request $request){
         $validator=Validator:: make($request->all(),[

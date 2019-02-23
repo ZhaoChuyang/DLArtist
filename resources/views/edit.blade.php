@@ -476,6 +476,9 @@
 
                 <div id="compose_view">
                     <button class="btn btn-primary w-50" id="compose">自动排版</button>
+                    <div id="compose_plan">
+
+                    </div>
                 </div>
 
             </main>
@@ -662,6 +665,7 @@
             });
             uploadFlag = 0;
             lastUploadArticle = 0;
+            composeFlag=0;
         });
 
 
@@ -669,7 +673,8 @@
 
     <!-- Initialize the editor. -->
     <script>
-
+        //是否排版
+        composeFlag=0;
         //最后一次上传的文章的id
         var lastUploadArticle = 0;
         //神奇bug解决
@@ -951,10 +956,12 @@
                     category: $("#category").val(),
                     shareStatus: $('#shareValue').val(),
                     uploadFlag: uploadFlag,
+                    composeFlag: composeFlag,
                 });
 
             })
-            .on('froalaEditor.save.after', function (e, editor, response) {//return 1 if success
+            .on('froalaEditor.save.after', function (e, editor, response) {
+                composeFlag=0;
                 uploadFlag = 0;
                 setFormSubmitting();
                 console.log(response);
@@ -980,6 +987,23 @@
                 if (response.status[0]) {
                     alert("上传成功");
                 }
+
+                if(typeof response.plan !== 'undefined'){
+                    for(let i=0; i<response.plan.length; i++){
+                        $.ajax({
+                            url: "/encrypt",
+                            data: {
+                                data: response.plan[i],
+                            },
+                            method: "get",
+                            success: function(data){
+                                $('#compose_plan').append('<a href="/compose_plan/'+ data +'"><img src="#" alt="plan'+response.plan[i]+'" class="img-thumbnail"></a>')
+                            }
+                        })
+
+                    }
+                }
+
                 else {
                     if (typeof response.title !== 'undefined') {
                         for (let i = 0; i < response.title.length; i++) {
@@ -1012,7 +1036,7 @@
                 console.log(response.substring(9, response.length - 2));
                 $('#img').attr('src', response.substring(9, response.length - 2));
                 func();
-            })
+            });
 
         $(function () {
             $("#editor").addClass("active-item");
@@ -1030,22 +1054,10 @@
             $('#shareValue').val(1);
         });
 
-        //排版
         $('#compose').click(function () {
+            $('#compose_plan').empty();
+            composeFlag=1;
             $("#send").trigger('click');
-            if (lastUploadArticle !== 0) {
-                $.ajax({
-                    url: "/sendArticle",
-                    type: "post",
-                    data: {
-                        id: lastUploadArticle,
-                        _token: "{{ csrf_token() }}",
-                    },
-                    success: function(response){
-
-                    }
-                });
-            }
         });
 
         // $('#cover_upload').click(function(){

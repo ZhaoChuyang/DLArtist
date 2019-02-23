@@ -81,10 +81,11 @@ Route::get('/format', function (){
     return view('format');
 });
 
-Route::post('/sendArticle', 'ModelController@sendArticle')->middleware(['auth','verified']);
-
-
 Route::any('/mode-1',function (){
     return view('article_mode1');
 });
+
+Route::get('/compose_plan/{article_id}', 'ModelController@sendArticle')->middleware(['auth','verified']);
+
+Route::get('/encrypt', 'ModelController@encrypt')->middleware(['auth','verified']);
 

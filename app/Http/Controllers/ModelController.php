@@ -3,6 +3,11 @@
 namespace DLArtist\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use DLArtist\User;
+use Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
 
 class ModelController extends Controller
 {
@@ -57,7 +62,12 @@ class ModelController extends Controller
         }
     }
 
-    public function sendArticle(Request $request){
+    public function sendArticle($id){
+        return $id;
+    }
 
+    public function encrypt(Request $request){
+        $data=$request->input('data');
+        return Crypt::encrypt($data);
     }
 }
