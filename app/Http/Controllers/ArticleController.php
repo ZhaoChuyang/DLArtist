@@ -44,7 +44,6 @@ class ArticleController extends Controller
         try {
 
             $composeFlag=$request->input('composeFlag');
-
             $title=$request->input('title');
             $user_id=auth()->user()->id;
             date_default_timezone_set("PRC");
