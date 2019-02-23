@@ -70,8 +70,8 @@ class ModelController extends Controller
         $user_name=auth()->user()->name;
         date_default_timezone_set("PRC");
         $update=date('Y-m-d H:i:s',time());
-        $content=$article->where('id',$article_id)->where('valid',1)->get();
-        return view('article_mode1',compact('content','user_name','update'));
+        $content=$article->where('id',$article_id)->get();
+        return view('article_mode2',compact('content','user_name','update'));
     }
 
     public function encrypt(Request $request){
