@@ -993,7 +993,7 @@
                         $.ajax({
                             url: "/encrypt",
                             data: {
-                                data: response.plan[i],
+                                data: article_id,
                             },
                             method: "get",
                             success: function(data){

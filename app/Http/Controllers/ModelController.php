@@ -63,7 +63,7 @@ class ModelController extends Controller
     }
 
     public function sendArticle($id){
-        return $id;
+        return Crypt::decrypt($id);
     }
 
     public function encrypt(Request $request){
