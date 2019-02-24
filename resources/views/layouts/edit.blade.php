@@ -72,7 +72,9 @@
     </style>
 
 </head>
+@yield('loader')
 <body>
+
 <div id="app">
     {{--<nav class="navbar navbar-dark fixed-top bg-light flex-md-nowrap p-0 shadow">--}}
         {{--<a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>--}}
@@ -193,4 +195,6 @@
 @yield('script')
 
 </body>
+
+
 </html>
