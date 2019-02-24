@@ -201,23 +201,25 @@
         $.each($("input[name='reply_name']"),function (index,value) {
             reply_name[index]=$("input[name='reply_name']").eq(index);
         });
-        $("a[name='reply']").click(function () {
-            reply=true;
-            $("#second").trigger('click');
-            index=$("a[name='reply']").index($(this));
-            // console.log(reply_id[index].val());
-            // console.log(reply_name[index].val());
-            // $("#messageForm").html("@"+reply_name[index].val()+" :");
-            $("#messageForm").attr('placeholder',"回复 "+reply_name[index].val());
-            return false;
+        $("#tab-one").delegate("a[name='reply']",'click',function () {
+           reply=true;
+           $("#second").trigger('click');
+           index=$("a[name='reply']").index($(this));
+           $("#messageForm").attr('placeholder',"回复 "+reply_name[index].val());
+           return false;
+       })
+        $("#all_comments").click(function(){
+            reply=false;
+            $.each($("input[name='reply_id']"),function (index,value) {
+                reply_id[index]=$("input[name='reply_id']").eq(index);
+            });
+            $.each($("input[name='reply_name']"),function (index,value) {
+                reply_name[index]=$("input[name='reply_name']").eq(index);
+            });
         });
         $("#second").click(function () {
             reply=false;
             $("#messageForm").attr('placeholder',"Your messages");
-        });
-        $("#all_comments").click(function(){
-            reply=false;
-            // $('#tab-one').load(document.URL +  ' #tab-one-content');
         });
         $("#submit-contact").click(function () {
             if(!reply){
@@ -235,6 +237,7 @@
                         alert("评论成功");
                         $("#messageForm").val('');
                         console.log(response);
+                        $('#tab-one').load(document.URL +  ' #tab-one-content');
                     },
                     error: function (xhr) {
                         alert(456);
@@ -259,6 +262,7 @@
                         alert("回复成功");
                         $("#messageForm").val('');
                         console.log(response);
+                        $('#tab-one').load(document.URL +  ' #tab-one-content');
                     },
                     error: function (xhr) {
                         alert(456);
@@ -267,6 +271,7 @@
                 });
             }
         });
+        
     </script>
 
 @endsection
