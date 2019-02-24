@@ -1,4 +1,41 @@
 @extends('layouts.edit')
+
+@section('loader')
+    <style>
+        #loader {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: fixed;
+            display: block;
+            opacity: 1;
+            background-color: #fff;
+            z-index: 1000;
+            text-align: center;
+        }
+
+
+        #loading-image {
+
+            /*vertical-align: middle;*/
+            /*z-index: 1000;*/
+            max-width: 350px;
+
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
+
+    <div id="loader">
+        <img id="loading-image"  src="images/preloader_3.gif" alt="Loading..." />
+    </div>
+@endsection
+
 @section('head')
     <!-- Include external CSS. -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"
@@ -551,6 +588,8 @@
 
 
 
+
+
 @endsection
 
 @section('script')
@@ -621,6 +660,14 @@
     <script src="modelFile/mobilenet.js"></script>
 
     <script>
+
+        //window loader
+        $(window).load(function(){
+            // PAGE IS FULLY LOADED
+            // FADE OUT YOUR OVERLAYING DIV
+            $('#loader').fadeOut();
+        });
+
         async function func() {
             const img = document.getElementById('img');
             var src = $('#img').attr('src');
@@ -734,6 +781,48 @@
             $('#style').show();
         });
 
+        function loadImageManagement(){
+
+            $('#v-pills-tabContent div').empty();
+
+            $.ajax({
+                url: "image/image_management",
+                method: "post",
+                data: {
+                    "_token": '{{csrf_token()}}',
+                },
+                dataType: "json",
+                success: function(response){
+                    console.log(response);
+                    for(var i=0; i<response.length; i++){
+                        var clas=response[i].class;
+                        var src=response[i].src;
+                        if(clas==='person'){
+                            $('#v-pills-home').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
+                        }
+                        if(clas==='animal'){
+                            $('#v-pills-profile').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
+                        }
+                        if(clas==='food'){
+                            $('#v-pills-messages').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
+                        }
+                        if(clas==='item'){
+                            $('#v-pills-settings').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
+                        }
+                        if(clas==='traffic'){
+                            $('#v-pills-person').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
+                        }
+                        if(clas==='undefined'){
+                            $('#v-pills-undef').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
+                        }
+                    }
+                },
+                error: function(xhr){
+                    console.log(xhr);
+                }
+            });
+        }
+
         $(document).ready(function () {
             $('#editMenu').addClass('active');
             $('#image_view').hide();
@@ -788,42 +877,7 @@
             composeFlag = 0;
 
             //智能图库
-            $.ajax({
-                url: "image/image_management",
-                method: "post",
-                data: {
-                    "_token": '{{csrf_token()}}',
-                },
-                dataType: "json",
-                success: function(response){
-                    console.log(response);
-                    for(var i=0; i<response.length; i++){
-                        var clas=response[i].class;
-                        var src=response[i].src;
-                        if(clas==='person'){
-                            $('#v-pills-home').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
-                        }
-                        if(clas==='animal'){
-                            $('#v-pills-profile').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
-                        }
-                        if(clas==='food'){
-                            $('#v-pills-messages').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
-                        }
-                        if(clas==='item'){
-                            $('#v-pills-settings').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
-                        }
-                        if(clas==='traffic'){
-                            $('#v-pills-person').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
-                        }
-                        if(clas==='undefined'){
-                            $('#v-pills-undef').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
-                        }
-                    }
-                },
-                error: function(xhr){
-                    console.log(xhr);
-                }
-            });
+            loadImageManagement();
         });
 
 
@@ -894,6 +948,8 @@
             $('#edit_view').hide();
             $('#compose_view').hide();
             $('#image_manage_view').show();
+
+            loadImageManagement();
         });
 
 
