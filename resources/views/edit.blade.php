@@ -187,24 +187,14 @@
 
                             <ul id="submenu-1" class="collapse">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        文字生图
-                                    </a>
-                                </li>
-                                <li class="nav-item">
                                     <a class="nav-link" href="#" id="fgqy_button">
                                         风格迁移
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        Current month
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="#" id="image_manage_button">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                      fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                      stroke-linejoin="round" class="feather feather-activity">
@@ -481,22 +471,61 @@
                     </div>
                 </div>
 
+                <div id="image_manage_view">
+                    <div class="row ml-4 mt-4">
+                        <div class="col-2 ">
+                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">人物</a>
+                                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">动物</a>
+                                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">食物</a>
+                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">物品</a>
+                                <a class="nav-link" id="v-pills-person-tab" data-toggle="pill" href="#v-pills-person" role="tab" aria-controls="v-pills-person" aria-selected="false">出行</a>
+                                <a class="nav-link" id="v-pills-undef-tab" data-toggle="pill" href="#v-pills-undef" role="tab" aria-controls="v-pills-undef" aria-selected="false">默认</a>
+                            </div>
+                        </div>
+                        <div class="col-9  border-left">
+                            <div class="tab-content" id="v-pills-tabContent">
+                                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+                                </div>
+                                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+                                </div>
+                                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+
+                                </div>
+                                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+
+                                </div>
+                                <div class="tab-pane fade" id="v-pills-person" role="tabpanel" aria-labelledby="v-pills-person-tab">
+
+                                </div>
+                                <div class="tab-pane fade" id="v-pills-undef" role="tabpanel" aria-labelledby="v-pills-person-tab">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </main>
         </div>
     </div>
 
     <!-- Button trigger modal -->
-    <button type="button" id="showModal"class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" hidden>
+    <button type="button" id="showModal" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" hidden>
         Launch demo modal
     </button>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">相似图片</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$('#modalImg').empty()">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                            onclick="$('#modalImg').empty()">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -504,7 +533,9 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="$('#modalImg').empty()">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                            onclick="$('#modalImg').empty()">Close
+                    </button>
                     {{--<button type="button" class="btn btn-primary">Save changes</button>--}}
                 </div>
             </div>
@@ -592,21 +623,37 @@
     <script>
         async function func() {
             const img = document.getElementById('img');
-
+            var src = $('#img').attr('src');
+            var clas;
             cocoSsd.load().then(model => {
 
                 model.detect(img).then(predictions => {
                     // result = document.getElementById('result');
                     // result.innerHTML = predictions[0].class;
-                    console.log(predictions[0].class);
-
+                    console.log(predictions);
+                    clas = predictions[0].class;
+                    $.ajax({
+                        url: "image/class",
+                        method: "post",
+                        datatype: "json",
+                        data: {
+                            "_token": '{{csrf_token()}}',
+                            "src": src,
+                            "class": clas,
+                        },
+                        success: function (response) {
+                            console.log(response);
+                        },
+                        error: function (xhr) {
+                            console.log(xhr);
+                        }
+                    });
                 });
 
             });
         }
 
-        async function func_1()
-        {
+        async function func_1() {
             const img = document.getElementById('img_rec');
             mobilenet.load().then(model => {
                 // Classify the image.
@@ -622,17 +669,17 @@
                         url: "/model/image",
                         data: {
                             "_token": '{{csrf_token()}}',
-                            "query" :$("#result").val()
+                            "query": $("#result").val()
                         },
                         dataType: 'json',
                         success: function (response) {
                             // console.log(response.value);
                             var temp;
-                            if(response.value.length===0){
+                            if (response.value.length === 0) {
                                 $('#modalImg').append("<p>无法识别图片</p>");
                             }
-                            for(var i=0;i<12;i++){
-                                $('#modalImg').append('<a href="'+response.value[i].contentUrl+'" target="_blank"><img src="'+response.value[i].contentUrl+'" class="img-thumbnail ml-2 mt-2" style="height: 100px; width: 100px;"></a>')
+                            for (var i = 0; i < 12; i++) {
+                                $('#modalImg').append('<a href="' + response.value[i].contentUrl + '" target="_blank"><img src="' + response.value[i].contentUrl + '" class="img-thumbnail ml-2 mt-2" style="height: 100px; width: 100px;"></a>')
                                 //console.log(response.value[i].contentUrl);
                             }
                         },
@@ -691,6 +738,7 @@
             $('#editMenu').addClass('active');
             $('#image_view').hide();
             $('#compose_view').hide();
+            $('#image_manage_view').hide();
             $('#smartwizard').smartWizard({
                 selected: 0,  // Initial selected step, 0 = first step
                 keyNavigation: true, // Enable/Disable keyboard navigation(left and right keys are used if enabled)
@@ -737,7 +785,45 @@
             });
             uploadFlag = 0;
             lastUploadArticle = 0;
-            composeFlag=0;
+            composeFlag = 0;
+
+            //智能图库
+            $.ajax({
+                url: "image/image_management",
+                method: "post",
+                data: {
+                    "_token": '{{csrf_token()}}',
+                },
+                dataType: "json",
+                success: function(response){
+                    console.log(response);
+                    for(var i=0; i<response.length; i++){
+                        var clas=response[i].class;
+                        var src=response[i].src;
+                        if(clas==='person'){
+                            $('#v-pills-home').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
+                        }
+                        if(clas==='animal'){
+                            $('#v-pills-profile').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
+                        }
+                        if(clas==='food'){
+                            $('#v-pills-messages').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
+                        }
+                        if(clas==='item'){
+                            $('#v-pills-settings').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
+                        }
+                        if(clas==='traffic'){
+                            $('#v-pills-person').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
+                        }
+                        if(clas==='undefined'){
+                            $('#v-pills-undef').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
+                        }
+                    }
+                },
+                error: function(xhr){
+                    console.log(xhr);
+                }
+            });
         });
 
 
@@ -746,7 +832,7 @@
     <!-- Initialize the editor. -->
     <script>
         //是否排版
-        composeFlag=0;
+        composeFlag = 0;
         //最后一次上传的文章的id
         var lastUploadArticle = 0;
         //神奇bug解决
@@ -774,6 +860,7 @@
         $('#edit_button').click(function () {
             $('#image_view').hide();
             $('#compose_view').hide();
+            $('#image_manage_view').hide();
             //the other views should be hide too
             $('#edit_view').show();
 
@@ -794,15 +881,26 @@
             $('#compose_view_button').addClass('active');
             $('#image_view').hide();
             $('#edit_view').hide();
+            $('#image_manage_view').hide();
             $('#compose_view').show();
 
 
+        });
+
+        $('#image_manage_button').click(function(){
+            $("#sideNav a[class*='active']").removeClass('active');
+            $('#image_manage_button').addClass('active');
+            $('#image_view').hide();
+            $('#edit_view').hide();
+            $('#compose_view').hide();
+            $('#image_manage_view').show();
         });
 
 
         $('#fgqy_button').click(function () {
             $('#edit_view').hide();
             $('#compose_view').hide();
+            $('#image_manage_view').hide();
             //the other views should be hide too
             $('#image_view').show();
         });
@@ -970,7 +1068,7 @@
             focus: false,
             callback: function () {
                 var $img = this.image.get();
-                var src=$img.attr('src');
+                var src = $img.attr('src');
                 $('#img_rec').attr('src', src);
                 func_1();
                 $('#showModal').trigger('click');
@@ -981,7 +1079,7 @@
             iframe: true,
             toolbarButtons: ['myButton', 'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'emoticons', 'fontAwesome', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'getPDF', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', '|', 'wirisEditor', 'wirisChemistry', 'clear', 'insert'],
             // Add [MW] buttons to Image Toolbar.
-            imageEditButtons: ['imageReplace', 'imageAlign', 'imageCaption', 'imageRemove', 'imageLink', 'imageDisplay', 'imageStyle', 'imageAlt', 'imageSize', 'imageTUI', 'image_important','image_recommendation'],
+            imageEditButtons: ['imageReplace', 'imageAlign', 'imageCaption', 'imageRemove', 'imageLink', 'imageDisplay', 'imageStyle', 'imageAlt', 'imageSize', 'imageTUI', 'image_important', 'image_recommendation'],
             //documentReady: true,
             height: 480,
             language: 'zh_cn',
@@ -1048,7 +1146,7 @@
 
             })
             .on('froalaEditor.save.after', function (e, editor, response) {
-                composeFlag=0;
+                composeFlag = 0;
                 uploadFlag = 0;
                 setFormSubmitting();
                 console.log(response);
@@ -1075,16 +1173,16 @@
                     alert("上传成功");
                 }
 
-                if(typeof response.plan !== 'undefined'){
-                    for(let i=0; i<response.plan.length; i++){
+                if (typeof response.plan !== 'undefined') {
+                    for (let i = 0; i < response.plan.length; i++) {
                         $.ajax({
                             url: "/encrypt",
                             data: {
                                 data: article_id,
                             },
                             method: "get",
-                            success: function(data){
-                                $('#compose_plan').append('<a href="/compose_plan/'+ data +'"><img src="#" alt="plan'+response.plan[i]+'" class="img-thumbnail"></a>')
+                            success: function (data) {
+                                $('#compose_plan').append('<a href="/compose_plan/' + data + '"><img src="#" alt="plan' + response.plan[i] + '" class="img-thumbnail"></a>')
                             }
                         })
 
@@ -1143,7 +1241,7 @@
 
         $('#compose').click(function () {
             $('#compose_plan').empty();
-            composeFlag=1;
+            composeFlag = 1;
             $("#send").trigger('click');
         });
 

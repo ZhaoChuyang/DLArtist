@@ -89,3 +89,7 @@ Route::get('/compose_plan/{article_id}', 'ModelController@sendArticle')->middlew
 
 Route::get('/encrypt', 'ModelController@encrypt')->middleware(['auth','verified']);
 
+Route::post('/image/class', 'imageController@classify')->middleware(['auth','verified']);
+
+Route::post('/image/image_management', 'imageController@imageManagement')->middleware(['auth','verified']);
+
