@@ -9,6 +9,7 @@ use DLArtist\User;
 use Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
+use DLArtist\image;
 
 class ModelController extends Controller
 {
@@ -78,4 +79,40 @@ class ModelController extends Controller
         $data=$request->input('data');
         return Crypt::encrypt($data);
     }
+
+//    public function crop_pic(Request $request){
+//        $this->validate($request, [
+//            'img'=>'required|image|max:10240'
+//        ]);
+//        $image=$request->file('img');
+//        $inputImageName=time().'.'.$image->getClientOriginalExtension();
+//        $destinatonPath='images/';
+//        $image->move($destinatonPath, $inputImageName);
+//        $img = new image;
+//        $img->image_url=url("/images/$inputImageName");
+//        $user_id=auth()->user()->id;
+//        $img->user_id=$user_id;
+//        $img->save();
+//
+//        $fin_width=$request->get('fin_width');
+//        $fin_height=$request->get('fin_height');
+//        $x=$request->get('x');
+//        $y=$request->get('y');
+//        $width=$request->get('width');
+//        $height=$request->get('height');
+//        $source=imagecreatefromjpeg("http://127.0.0.1:8000/images/$inputImageName");
+//        $croped=imagecreatetruecolor($fin_width, $fin_height);
+//        imagecopy($croped, $source, 0, 0, , $y, $width, $height);
+//
+//        $inputImageName=time().'.'.$croped->getClientOriginalExtension();
+//        $destinatonPath='images/';
+//        $croped->move($destinatonPath, $inputImageName);
+//        $img = new image;
+//        $img->image_url=url("/images/$inputImageName");
+//        $user_id=auth()->user()->id;
+//        $img->user_id=$user_id;
+//        $img->save();
+//        return 1;
+//
+//    }
 }
