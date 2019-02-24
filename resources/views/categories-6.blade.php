@@ -102,7 +102,20 @@
                                         <script>
                                             window.location.href="/categories-6?page={{$current}}";
                                         </script>
+                                        <div class="col-xs-6">
+                                            <div class="nav-left">
+                                                <a href="/categories-6?page={{$current-1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
+                                            </div>
+                                        </div>
                                     @endif
+                                    @if($up==1)
+                                        <div class="col-xs-6">
+                                            <div class="nav-left">
+                                                <a href="/categories-6?page={{$current-1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
+                                            </div>
+                                        </div>
+                                    @endif
+
 
                                     @if(!$down)
                                         <div class="col-xs-6">
@@ -115,6 +128,18 @@
                                         <script>
                                             window.location.href="/categories-6?page={{$current}}";
                                         </script>
+                                        <div class="col-xs-6">
+                                            <div class="nav-left">
+                                                <a href="/categories-6?page={{$current+1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>下一页</span></a>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if($down==1)
+                                        <div class="col-xs-6">
+                                            <div class="nav-left">
+                                                <a href="/categories-6?page={{$current+1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>下一页</span></a>
+                                            </div>
+                                        </div>
                                     @endif
                                 </div>
                             </section>
