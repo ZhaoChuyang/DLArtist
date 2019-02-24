@@ -24,7 +24,9 @@ class CategoriesController extends Controller
         else{
             $user_id=-1;
         }
-        $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
+        $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+            $query->where('share','1')->orwhere('user_id',$user_id);
+        })->get()->count('id');
         $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
         $down=$up=0;
@@ -46,7 +48,13 @@ class CategoriesController extends Controller
             $query->where('share','1')->orwhere('user_id',$user_id);
         })->orderby('click_num','desc')->paginate($perpage_num);
         $writer = $user->get();
-        return view('categories-1',compact('data','writer','current','last','up','down'));
+
+        $user_num=$user->get()->count('id');
+        $article_num=$article->where('category',$category)->where('valid',1)->get()->count('id');
+        date_default_timezone_set("PRC");
+        $time=date('Y-m-d',time());
+        $new_article=$article->where('category',$category)->where('valid',1)->where('update','like',$time.'%')->get()->count('id');
+        return view('categories-1',compact('data','writer','current','last','up','down','user_num','article_num','new_article'));
 
     }
     public function categories2(){
@@ -62,8 +70,9 @@ class CategoriesController extends Controller
         else{
             $user_id=-1;
         }
-        $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
-        $last=ceil($num/$perpage_num);
+        $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+            $query->where('share','1')->orwhere('user_id',$user_id);
+        })->get()->count('id');        $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
         $down=$up=0;
         if ($current>$last||$current==$last){
@@ -84,7 +93,13 @@ class CategoriesController extends Controller
             $query->where('share','1')->orwhere('user_id',$user_id);
         })->orderby('click_num','desc')->paginate($perpage_num);
         $writer = $user->get();
-        return view('categories-2',compact('data','writer','current','last','up','down'));
+
+        $user_num=$user->get()->count('id');
+        $article_num=$article->where('category',$category)->where('valid',1)->get()->count('id');
+        date_default_timezone_set("PRC");
+        $time=date('Y-m-d',time());
+        $new_article=$article->where('category',$category)->where('valid',1)->where('update','like',$time.'%')->get()->count('id');
+        return view('categories-2',compact('data','writer','current','last','up','down','user_num','article_num','new_article'));
 
     }
     public function categories3(){
@@ -100,8 +115,9 @@ class CategoriesController extends Controller
         else{
             $user_id=-1;
         }
-        $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
-        $last=ceil($num/$perpage_num);
+        $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+            $query->where('share','1')->orwhere('user_id',$user_id);
+        })->get()->count('id');        $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
         $down=$up=0;
         if ($current>$last||$current==$last){
@@ -122,7 +138,13 @@ class CategoriesController extends Controller
             $query->where('share','1')->orwhere('user_id',$user_id);
         })->orderby('click_num','desc')->paginate($perpage_num);
         $writer = $user->get();
-        return view('categories-3',compact('data','writer','current','last','up','down'));
+
+        $user_num=$user->get()->count('id');
+        $article_num=$article->where('category',$category)->where('valid',1)->get()->count('id');
+        date_default_timezone_set("PRC");
+        $time=date('Y-m-d',time());
+        $new_article=$article->where('category',$category)->where('valid',1)->where('update','like',$time.'%')->get()->count('id');
+        return view('categories-3',compact('data','writer','current','last','up','down','user_num','article_num','new_article'));
 
     }
     public function categories4(){
@@ -138,8 +160,9 @@ class CategoriesController extends Controller
         else{
             $user_id=-1;
         }
-        $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
-        $last=ceil($num/$perpage_num);
+        $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+            $query->where('share','1')->orwhere('user_id',$user_id);
+        })->get()->count('id');        $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
         $down=$up=0;
         if ($current>$last||$current==$last){
@@ -160,7 +183,13 @@ class CategoriesController extends Controller
             $query->where('share','1')->orwhere('user_id',$user_id);
         })->orderby('click_num','desc')->paginate($perpage_num);
         $writer = $user->get();
-        return view('categories-4',compact('data','writer','current','last','up','down'));
+
+        $user_num=$user->get()->count('id');
+        $article_num=$article->where('category',$category)->where('valid',1)->get()->count('id');
+        date_default_timezone_set("PRC");
+        $time=date('Y-m-d',time());
+        $new_article=$article->where('category',$category)->where('valid',1)->where('update','like',$time.'%')->get()->count('id');
+        return view('categories-4',compact('data','writer','current','last','up','down','user_num','article_num','new_article'));
 
     }
     public function categories5(){
@@ -176,8 +205,9 @@ class CategoriesController extends Controller
         else{
             $user_id=-1;
         }
-        $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
-        $last=ceil($num/$perpage_num);
+        $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+            $query->where('share','1')->orwhere('user_id',$user_id);
+        })->get()->count('id');        $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
         $down=$up=0;
         if ($current>$last||$current==$last){
@@ -198,7 +228,13 @@ class CategoriesController extends Controller
             $query->where('share','1')->orwhere('user_id',$user_id);
         })->orderby('click_num','desc')->paginate($perpage_num);
         $writer = $user->get();
-        return view('categories-5',compact('data','writer','current','last','up','down'));
+
+        $user_num=$user->get()->count('id');
+        $article_num=$article->where('category',$category)->where('valid',1)->get()->count('id');
+        date_default_timezone_set("PRC");
+        $time=date('Y-m-d',time());
+        $new_article=$article->where('category',$category)->where('valid',1)->where('update','like',$time.'%')->get()->count('id');
+        return view('categories-5',compact('data','writer','current','last','up','down','user_num','article_num','new_article'));
 
     }
 
@@ -235,7 +271,13 @@ class CategoriesController extends Controller
         }
         $data = $article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->orderby('click_num','desc')->paginate($perpage_num);
         $writer = $user->get();
-        return view('categories-6',compact('data','writer','current','last','up','down'));
+
+        $user_num=$user->get()->count('id');
+        $article_num=$article->get()->count('id');
+        date_default_timezone_set("PRC");
+        $time=date('Y-m-d',time());
+        $new_article=$article->where('update','like',$time.'%')->get()->count('id');
+        return view('categories-6',compact('data','writer','current','last','up','down','user_num','article_num','new_article'));
     }
 
     public function article(){
