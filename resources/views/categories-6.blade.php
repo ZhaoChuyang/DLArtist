@@ -94,24 +94,24 @@
                                     @if(!$up)
                                         <div class="col-xs-6">
                                             <div class="nav-left">
-                                                <a href="/categories-2?page={{$current-1}}" class="btn-alt small shadow margin-null"><i class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
+                                                <a href="/categories-6?page={{$current-1}}" class="btn-alt small shadow margin-null"><i class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
                                             </div>
                                         </div>
                                     @endif
                                     @if($up==2)
                                         <script>
-                                            window.location.href="/categories-2?page={{$current}}";
+                                            window.location.href="/categories-6?page={{$current}}";
                                         </script>
                                         <div class="col-xs-6">
                                             <div class="nav-left">
-                                                <a href="/categories-2?page={{$current-1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
+                                                <a href="/categories-6?page={{$current-1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
                                             </div>
                                         </div>
                                     @endif
                                     @if($up==1)
                                         <div class="col-xs-6">
                                             <div class="nav-left">
-                                                <a href="/categories-2?page={{$current-1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
+                                                <a href="/categories-6?page={{$current-1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
                                             </div>
                                         </div>
                                     @endif
@@ -120,24 +120,24 @@
                                     @if(!$down)
                                         <div class="col-xs-6">
                                             <div class="nav-right">
-                                                <a href="/categories-2?page={{$current+1}}"class="btn-alt small shadow margin-null"><span>下一页</span><i class="icon ion-ios-arrow-right"></i></a>
+                                                <a href="/categories-6?page={{$current+1}}"class="btn-alt small shadow margin-null"><span>下一页</span><i class="icon ion-ios-arrow-right"></i></a>
                                             </div>
                                         </div>
                                     @endif
                                     @if($down==2)
                                         <script>
-                                            window.location.href="/categories-2?page={{$current}}";
+                                            window.location.href="/categories-6?page={{$current}}";
                                         </script>
                                         <div class="col-xs-6">
                                             <div class="nav-left">
-                                                <a href="/categories-2?page={{$current+1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>下一页</span></a>
+                                                <a href="/categories-6?page={{$current+1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>下一页</span></a>
                                             </div>
                                         </div>
                                     @endif
                                     @if($down==1)
                                         <div class="col-xs-6">
                                             <div class="nav-left">
-                                                <a href="/categories-2?page={{$current+1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>下一页</span></a>
+                                                <a href="/categories-6?page={{$current+1}}" class="btn-alt small shadow margin-null invisible"><i class="icon ion-ios-arrow-left"></i><span>下一页</span></a>
                                             </div>
                                         </div>
                                     @endif
