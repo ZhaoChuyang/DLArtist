@@ -5,14 +5,38 @@
             $("#index").addClass("active-item");
         });
     </script>
+    <style>
+        #loader {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: fixed;
+            display: block;
+            opacity: 1;
+            background-color: #fff;
+            z-index: 1000;
+            text-align: center;
+        }
+
+
+        #loading-image {
+
+            /*vertical-align: middle;*/
+            /*z-index: 1000;*/
+            max-width: 350px;
+
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
     <!--  Loader  -->
-    <div id="myloader">
-        <div class="loader">
-            <div class="spinner">
-                <div class="double-bounce1"></div>
-                <div class="double-bounce2"></div>
-            </div>
-        </div>
+    <div id="loader">
+        <img id="loading-image"  src="images/preloader_3.gif" alt="Loading..." />
     </div>
     <!--  Page Content  -->
     <div id="page-content">
@@ -77,6 +101,16 @@
     </div>
     <!--  END Page Content -->
     </div>
-    <!--  Main Wrap  -->
 
+    <!--  Main Wrap  -->
+@endsection
+
+@section('script')
+  <script>
+      $(window).load(function(){
+          // PAGE IS FULLY LOADED
+          // FADE OUT YOUR OVERLAYING DIV
+          $('#loader').fadeOut();
+      });
+  </script>
 @endsection
