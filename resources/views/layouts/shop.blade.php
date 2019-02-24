@@ -59,7 +59,6 @@
                             <li>
                                 <a id="index" href="index">主页</a>
                             </li>
-                            <li>
                             <li class="submenu">
                                 <a id="categories" href="#">发现想法</a>
                                 <ul class="sub-menu">
