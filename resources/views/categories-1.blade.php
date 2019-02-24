@@ -91,6 +91,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="container">
                             <!--  Navigation  -->
                             <section id="nav" class="padding-onlytop-lg">
@@ -108,22 +109,6 @@
                                         <script>
                                             window.location.href = "/categories-1?page={{$current}}";
                                         </script>
-                                        <div class="col-xs-6">
-                                            <div class="nav-left">
-                                                <a href="/categories-1?page={{$current-1}}"
-                                                   class="btn-alt small shadow margin-null invisible"><i
-                                                            class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
-                                            </div>
-                                        </div>
-                                    @endif
-                                    @if($up==1)
-                                        <div class="col-xs-6">
-                                            <div class="nav-left">
-                                                <a href="/categories-1?page={{$current-1}}"
-                                                   class="btn-alt small shadow margin-null invisible"><i
-                                                            class="icon ion-ios-arrow-left"></i><span>上一页</span></a>
-                                            </div>
-                                        </div>
                                     @endif
 
 
@@ -140,22 +125,6 @@
                                         <script>
                                             window.location.href = "/categories-1?page={{$current}}";
                                         </script>
-                                        <div class="col-xs-6">
-                                            <div class="nav-left">
-                                                <a href="/categories-1?page={{$current+1}}"
-                                                   class="btn-alt small shadow margin-null invisible"><i
-                                                            class="icon ion-ios-arrow-left"></i><span>下一页</span></a>
-                                            </div>
-                                        </div>
-                                    @endif
-                                    @if($down==1)
-                                        <div class="col-xs-6">
-                                            <div class="nav-left">
-                                                <a href="/categories-1?page={{$current+1}}"
-                                                   class="btn-alt small shadow margin-null invisible"><i
-                                                            class="icon ion-ios-arrow-left"></i><span>下一页</span></a>
-                                            </div>
-                                        </div>
                                     @endif
                                 </div>
                             </section>
@@ -169,29 +138,29 @@
                                         <div class="col-sm-3 padding-md-leftright-null">
                                             <div class="statistic">
                                                 <i class="material-icons color service">people</i>
-                                                <span data-from="0" data-to="222">&nbsp;</span>
-                                                <h3>Clients</h3>
+                                                <span data-from="0" data-to="{{$user_num}}">&nbsp;</span>
+                                                <h3>用户</h3>
                                             </div>
                                         </div>
                                         <div class="col-sm-3 padding-md-leftright-null">
                                             <div class="statistic">
                                                 <i class="material-icons color service">card_travel</i>
-                                                <span data-from="0" data-to="400">&nbsp;</span>
-                                                <h3>Experience</h3>
+                                                <span data-from="0" data-to="{{$article_num}}">&nbsp;</span>
+                                                <h3>文章</h3>
                                             </div>
                                         </div>
                                         <div class="col-sm-3 padding-md-leftright-null">
                                             <div class="statistic">
                                                 <i class="material-icons color service">trending_up</i>
-                                                <span data-from="0" data-to="25">&nbsp;</span>
-                                                <h3>Goals</h3>
+                                                <span data-from="0" data-to="{{$new_article}}">&nbsp;</span>
+                                                <h3>新增</h3>
                                             </div>
                                         </div>
                                         <div class="col-sm-3 padding-md-leftright-null">
                                             <div class="statistic">
                                                 <i class="material-icons color service">lightbulb_outline</i>
-                                                <span data-from="0" data-to="54">&nbsp;</span>
-                                                <h3>Vision</h3>
+                                                <span data-from="0" data-to="4">&nbsp;</span>
+                                                <h3>开发人员</h3>
                                             </div>
                                         </div>
                                     </div>

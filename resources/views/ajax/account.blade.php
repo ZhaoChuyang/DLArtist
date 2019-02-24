@@ -63,9 +63,6 @@
                         </svg>
                         选择图片<input id="avatar" name="avatar" type="file" hidden>
                     </label>
-                    <a id="uploadAvatar" class="btn btn-dark btn-sm text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="20" viewBox="0 3 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
-                        上传头像</a>
                 </form>
             </div>
         </div>
@@ -82,23 +79,22 @@
                $('#customRadioInline2').attr('checked', true);
            }
         });
-        $('#uploadAvatar').click(function () {
-                var form = $('#avatarForm')[0];
-                var formData = new FormData(form);
-                $.ajax({
-                    contentType: false,
-                    processData: false,
-                    url: "/accounts/avatar",
-                    type: "post",
-                    data: formData,
-                    success: function (response) {
-                        console.log(response);
-                        $('#curAvatar').attr('src', response);
-                        alert('上传成功');
-                    }
-                })
-            }
-        );
+        $("#avatar").change(function () {
+            var form = $('#avatarForm')[0];
+            var formData = new FormData(form);
+            $.ajax({
+                contentType: false,
+                processData: false,
+                url: "/accounts/avatar",
+                type: "post",
+                data: formData,
+                success: function (response) {
+                    console.log(response);
+                    $('#curAvatar').attr('src', response);
+                    console.log('上传成功');
+                }
+            })
+        })
         $("#save").click(function () {
 
             $.ajax({
