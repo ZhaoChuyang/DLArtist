@@ -1,5 +1,39 @@
 @extends('layouts.edit')
+@section('loader')
+    <style>
+        #loader {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: fixed;
+            display: block;
+            opacity: 1;
+            background-color: #fff;
+            z-index: 1000;
+            text-align: center;
+        }
 
+
+        #loading-image {
+
+            /*vertical-align: middle;*/
+            /*z-index: 1000;*/
+            max-width: 350px;
+
+            position: absolute;
+            margin: auto;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
+
+    <div id="loader">
+        <img id="loading-image"  src="images/preloader_3.gif" alt="Loading..." />
+    </div>
+@endsection
 @section('head')
 <style>
     .navbar-brand {
@@ -66,6 +100,12 @@
 
 @section('script')
 <script>
+    //window loader$(window).on('load', function(){ ...});
+    $(window).on('load',function(){
+        // PAGE IS FULLY LOADED
+        // FADE OUT YOUR OVERLAYING DIV
+        $('#loader').fadeOut();
+    });
     $(document).ready(function(){
         $('#accountMenu').addClass('active');
         $.ajax({
