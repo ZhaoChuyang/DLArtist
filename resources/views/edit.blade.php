@@ -369,9 +369,34 @@
                         <h1 class="h2 ml-4">Edit</h1>
                         <div class="btn-toolbar mb-2 mb-md-0">
                             <div class="btn-group mr-2">
-                                <label class="btn btn-outline-secondary btn-sm" id="cover_upload">
-                                    更换封面<input id="cover_file" name="avatar" type="file" hidden>
+                                <label class="btn btn-outline-secondary btn-sm" id="show_cover" data-toggle="modal" data-target="#exampleModal1">
+                                    查看封面
                                 </label>
+
+                                <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">文章封面</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img id="cover_img_preview" class="img-thumbnail " style="max-height: 300px; max-width: 400px;     display:block;
+    margin:auto;" src="/images/blog_cover.jpg">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <label class="btn btn-primary ml-2">
+                                                    选择图片<input id="cover_file" name="avatar" type="file" hidden>
+                                                </label>
+                                                <label class="btn btn-secondary ml-2" data-dismiss="modal">
+                                                    关闭窗口
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <label class="btn btn-sm btn-outline-secondary">Share</label>
                                 <label class="btn btn-sm btn-outline-secondary">Export</label>
                             </div>
@@ -779,6 +804,23 @@
         $("#imgInp2").change(function () {
             readURL2(this);
             $('#style').show();
+        });
+
+        function readURL3(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#cover_img_preview').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#cover_file").change(function() {
+            readURL3(this);
         });
 
         function loadImageManagement(){
@@ -1203,12 +1245,12 @@
             })
             .on('froalaEditor.save.after', function (e, editor, response) {
                 composeFlag = 0;
-                uploadFlag = 0;
+
                 setFormSubmitting();
                 console.log(response);
                 var article_id = response.article_id;
                 lastUploadArticle = article_id;
-                if (true) {
+                if (uploadFlag) {
                     var fd = new FormData();
                     fd.append('cover', $("#cover_file").get(0).files[0]);
                     fd.append('_token', "{{csrf_token()}}");
@@ -1224,7 +1266,7 @@
                         }
                     });
                 }
-
+                uploadFlag = 0;
                 if (response.status[0]) {
                     alert("上传成功");
                 }

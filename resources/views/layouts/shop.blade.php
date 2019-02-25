@@ -87,24 +87,12 @@
                                     </li>
                                 @endif
                             @else
+                                <li>
+                                    <a href="contacts.html">消息</a>
+                                </li>
                                 <li class="submenu">
-                                    <a href="#">{{ Auth::user()->name }}</a>
-                                    <ul class="sub-menu">
-                                        <li>
-                                            <a href="/account">账户设置</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('logout') }}"
-                                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                                退出登录
-                                            </a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                  style="display: none;">
-                                                @csrf
-                                            </form>
-                                        </li>
-                                    </ul>
+                                    <a href="/account">{{ Auth::user()->name }}</a>
+                                    
                                 </li>
 
                             @endguest
