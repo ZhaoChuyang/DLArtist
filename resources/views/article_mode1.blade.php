@@ -131,12 +131,7 @@ if ($img_num) {
     <img src="/images/1551092849.jpg" style="width: 700px;" class="fr-fic fr-dii" id="aaa">
 
 </div><!--Div hyphenate-->
-<?php
-$http_src = $html->find('img', 0)->src;
-$path = substr($http_src, 21);
-$img = imagecreatefromstring(file_get_contents(public_path() . $path));
 
-?>
 
 <!--Include footer data from inc/footer.html-->
 {{--<div class="footer">--}}
@@ -146,15 +141,23 @@ $img = imagecreatefromstring(file_get_contents(public_path() . $path));
 <script>
     $(document).ready(function () {
         currentSlide(1);
-        var img_src1 = "<?php
-            echo $path;
-            ?>";
-
+    });
+    function f(){
         smartcrop.crop($('#aaa'), {width: 400, height: 600}).then(function (result) {
             console.log(result);
         });
-
-    });
+        <?php
+        $http_src = $html->find('img', 0)->src;
+        $path = substr($http_src, 21);
+        $img = imagecreatefromstring(file_get_contents(public_path() . $path));
+        $im2 = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => 400, 'height' => 600]);
+        if ($im2 !== FALSE) {
+            imagepng($im2, public_path() .'/images/'.time().'.png');
+            imagedestroy($im2);
+        }
+        imagedestroy($img);
+        ?>
+    }
     $(".dossier-start-bg").css('background-image', 'url(<?php echo $bg?>)')
 </script>
 </body>

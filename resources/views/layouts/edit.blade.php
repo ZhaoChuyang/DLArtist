@@ -110,29 +110,7 @@
                     </li>
 
                     <li class="nav-item dropdown mr-3">
-                        <a id="blogMenu" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                             发现想法
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="categories-1?page=1">
-                                文娱点评
-                            </a>
-                            <a class="dropdown-item" href="categories-2?page=1">
-                                军事分析
-                            </a>
-                            <a class="dropdown-item" href="categories-3?page=1">
-                                时事评论
-                            </a>
-                            <a class="dropdown-item" href="categories-4?page=1">
-                                技术博客
-                            </a>
-                            <a class="dropdown-item" href="categories-5?page=1">
-                                教育文化
-                            </a>
-                            <a class="dropdown-item" href="categories-6?page=1">
-                                全部分类
-                            </a>
-                        </div>
+                        <a id="blogMenu"class="nav-link" href="categories">发现想法</a>
                     </li>
 
                     <li id='editMenu' class="nav-item mr-3">
