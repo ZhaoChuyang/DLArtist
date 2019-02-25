@@ -70,20 +70,11 @@
                                 <small class="text-muted">Brief description</small>
                             </div>
                         </li>
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <li class="list-group-item d-flex justify-content-between lh-condensed" id="menu3">
                             <div>
-                                <h6 class="my-0">Third item</h6>
+                                <a href="#" id="loginInfo"><h6 class="my-0">登录设置</h6></a>
                                 <small class="text-muted">Brief description</small>
                             </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div class="text-success">
-                                <h6 class="my-0">Promo code</h6>
-                                <small>EXAMPLECODE</small>
-                            </div>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>Total (USD)</span>
                         </li>
                     </ul>
                 </h4>
@@ -140,6 +131,18 @@
         });
         $("#sideMenu li[class*='bg-light']").removeClass('bg-light');
         $('#menu2').addClass('bg-light');
+    });
+
+    $('#loginInfo').click(function(){
+        $.ajax({
+            url: 'account/loginInfo',
+            type: 'get',
+            success: function(data){
+                $('#detail').html(data);
+            }
+        });
+        $("#sideMenu li[class*='bg-light']").removeClass('bg-light');
+        $('#menu3').addClass('bg-light');
     });
 </script>
 

@@ -256,5 +256,17 @@
             })
         })
     </script>
+@elseif($info=='loginInfo')
+    <div class="row ">
+        <a class="btn btn-danger" href="{{ route('logout') }}"
+           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+            退出登录
+        </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+    </div>
 
 @endif
