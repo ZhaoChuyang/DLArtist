@@ -7,9 +7,6 @@ $html = HtmlDomParser::str_get_html($html_str);
 
 @foreach($content as $t)
 <?php
-
-
-
 preg_match_all('/<img[^>]*?src="([^"]*?)"[^>]*?>/i', $t->content, $img);
 $img_num = sizeof($img[1]);
 $title = $t->title;
@@ -19,7 +16,6 @@ $category = $t->category;
 $content = strip_tags($t->content, '<p>');
 $length = strlen($content);
 $latch = $length / 2;
-while ($latch % 3 != 1) $latch++;
 $first_section = substr($content, 0, $latch);
 $second_section = substr($content, $latch, $length);
 $bg = 'http://127.0.0.1:8000/images/dossier-01/dossier-start-bg.jpg';
@@ -70,6 +66,7 @@ if ($img_num) {
             <h1><?php echo $title ?></h1>
         </div>
     </div>
+    <button onclick="f()">1224564</button>
     <div class="content-element">
         <div class="large-column float-left">
             <p>作者：<em><?php echo $writer?></em></p>
@@ -80,13 +77,13 @@ if ($img_num) {
         </div>
         <div class="large-column float-left">
             <div class="media-right">
-                <img src="<?php echo $right_bg?>" width="400" height="600"/>
+                <img id="right" src="<?php echo $right_bg?>" width="400" height="600"/>
             </div>
             <p><?php echo $first_section?></p>
         </div>
         <div class="large-column float-right">
             <div class="media-left">
-                <img src="<?php echo $left_bg?>" width="400" height="600"/>
+                <img id="left" src="<?php echo $left_bg?>" width="400" height="600"/>
             </div>
             <p><?php echo $second_section?></p>
         </div><!--Div large-column float-right-->
@@ -128,35 +125,77 @@ if ($img_num) {
         }
         ?>
     </div>
-    <img src="/images/1551092849.jpg" style="width: 700px;" class="fr-fic fr-dii" id="aaa">
 
 </div><!--Div hyphenate-->
-
-
-<!--Include footer data from inc/footer.html-->
-{{--<div class="footer">--}}
-{{--<div id="includeFooter" csi:src="inc/footer.html"></div>--}}
-{{--</div><!--Div footer-->--}}
 
 <script>
     $(document).ready(function () {
         currentSlide(1);
+
     });
+
+    window.onload=f();
+
     function f(){
-        smartcrop.crop($('#aaa'), {width: 400, height: 600}).then(function (result) {
-            console.log(result);
+        var imgl = new Image();
+        imgl.src="<?php echo $right_bg; ?>";
+        smartcrop.crop(imgl, {width: 400, height: 600}).then(function (result) {
+            console.log(result.topCrop);
+            var xl,yl,widthl,heightl;
+            xl=result.topCrop.x;
+            yl=result.topCrop.y;
+            widthl=result.topCrop.width;
+            heightl=result.topCrop.height;
+            $.ajax({
+                url:"/model/crop",
+                type:'post',
+                data:{
+                    "_token": '{{csrf_token()}}',
+                    'src':imgl.src,
+                    'x':xl,
+                    'y':yl,
+                    'width':widthl,
+                    'height':heightl
+                },
+                dataType:'json',
+                success:function (response) {
+                    console.log(response);
+                    $("#right").attr('src',response.name);
+                },
+                error:function () {
+                    console.log(4);
+                }
+            })
         });
-        <?php
-        $http_src = $html->find('img', 0)->src;
-        $path = substr($http_src, 21);
-        $img = imagecreatefromstring(file_get_contents(public_path() . $path));
-        $im2 = imagecrop($img, ['x' => 0, 'y' => 0, 'width' => 400, 'height' => 600]);
-        if ($im2 !== FALSE) {
-            imagepng($im2, public_path() .'/images/'.time().'.png');
-            imagedestroy($im2);
-        }
-        imagedestroy($img);
-        ?>
+        imgl.src="<?php echo $left_bg; ?>";
+        smartcrop.crop(imgl, {width: 400, height: 600}).then(function (result) {
+            console.log(result.topCrop);
+            var xl,yl,widthl,heightl;
+            xl=result.topCrop.x;
+            yl=result.topCrop.y;
+            widthl=result.topCrop.width;
+            heightl=result.topCrop.height;
+            $.ajax({
+                url:"/model/crop",
+                type:'post',
+                data:{
+                    "_token": '{{csrf_token()}}',
+                    'src':imgl.src,
+                    'x':xl,
+                    'y':yl,
+                    'width':widthl,
+                    'height':heightl
+                },
+                dataType:'json',
+                success:function (response) {
+                    console.log(response);
+                    $("#left").attr('src',response.name);
+                },
+                error:function () {
+                    console.log(4);
+                }
+            })
+        });
     }
     $(".dossier-start-bg").css('background-image', 'url(<?php echo $bg?>)')
 </script>

@@ -80,39 +80,23 @@ class ModelController extends Controller
         return Crypt::encrypt($data);
     }
 
-//    public function crop_pic(Request $request){
-//        $this->validate($request, [
-//            'img'=>'required|image|max:10240'
-//        ]);
-//        $image=$request->file('img');
-//        $inputImageName=time().'.'.$image->getClientOriginalExtension();
-//        $destinatonPath='images/';
-//        $image->move($destinatonPath, $inputImageName);
-//        $img = new image;
-//        $img->image_url=url("/images/$inputImageName");
-//        $user_id=auth()->user()->id;
-//        $img->user_id=$user_id;
-//        $img->save();
-//
-//        $fin_width=$request->get('fin_width');
-//        $fin_height=$request->get('fin_height');
-//        $x=$request->get('x');
-//        $y=$request->get('y');
-//        $width=$request->get('width');
-//        $height=$request->get('height');
-//        $source=imagecreatefromjpeg("http://127.0.0.1:8000/images/$inputImageName");
-//        $croped=imagecreatetruecolor($fin_width, $fin_height);
-//        imagecopy($croped, $source, 0, 0, , $y, $width, $height);
-//
-//        $inputImageName=time().'.'.$croped->getClientOriginalExtension();
-//        $destinatonPath='images/';
-//        $croped->move($destinatonPath, $inputImageName);
-//        $img = new image;
-//        $img->image_url=url("/images/$inputImageName");
-//        $user_id=auth()->user()->id;
-//        $img->user_id=$user_id;
-//        $img->save();
-//        return 1;
-//
-//    }
+    public function crop_pic(Request $request){
+        $x=$request->input('x');
+        $y=$request->input('y');
+        $width=$request->input('width');
+        $height=$request->input('height');
+        $http_src =$request->input('src');
+        $path = substr($http_src, 21);
+        $img = imagecreatefromstring(file_get_contents(public_path() . $path));
+        $im2 = imagecrop($img, ['x' => $x, 'y' => $y, 'width' => $width, 'height' => $height]);
+        $name=public_path() .'/images/'.time().'.png';
+        if ($im2 !== FALSE) {
+            imagepng($im2, $name);
+            imagedestroy($im2);
+        }
+        imagedestroy($img);
+      $name=substr($name,-22);
+        return response()->json(['name'=>$name]);
+
+    }
 }
