@@ -206,8 +206,8 @@ class CategoriesController extends Controller
             $user_id=-1;
         }
         $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
-            $query->where('share','1')->orwhere('user_id',$user_id);
-        })->get()->count('id');        $last=ceil($num/$perpage_num);
+            $query->where('share','1')->orwhere('user_id',$user_id);})->get()->count('id');
+        $last=ceil($num/$perpage_num);
         if(!$last)$last=1;
         $down=$up=0;
         if ($current>$last||$current==$last){
@@ -237,7 +237,6 @@ class CategoriesController extends Controller
         return view('categories-5',compact('data','writer','current','last','up','down','user_num','article_num','new_article'));
 
     }
-
     public function categories6(){
 //全部
         $category = '*';
@@ -279,6 +278,273 @@ class CategoriesController extends Controller
         $new_article=$article->where('update','like',$time.'%')->get()->count('id');
         return view('categories-6',compact('data','writer','current','last','up','down','user_num','article_num','new_article'));
     }
+
+    public function category(Request $request){
+        $article = new Article();
+        $user = new User();
+        if(auth()->user()){
+            $user_id=auth()->user()->id;
+        }
+        else{
+            $user_id=-1;
+        }
+        $perpage_num=6;
+        $next_page=true;
+        $pre_page=true;
+        $category_val=$request->input('category_val');
+        $sorter_val=$request->input('sorter_val');
+        $page=$request->input('page');
+        $asc=$request->input('asc')[$sorter_val-1];
+        $user_num=$user->get()->count('id');
+        $article_num=$article->get()->count('id');
+        date_default_timezone_set("PRC");
+        $time=date('Y-m-d',time());
+        $new_article=$article->where('update','like',$time.'%')->get()->count('id');
+        if($category_val==6){
+            $num=$article->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->get()->count('id');
+            $last=ceil($num/$perpage_num);
+            if($page>=$last){
+                $next_page=false;
+            }
+            if($page==1){
+                $pre_page=false;
+            }
+            if($sorter_val==1){
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('title','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('title','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }else if($sorter_val==2){
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('update','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('update','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }else{
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('click_num','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('share','1')->where('valid',1)->orwhere('user_id',$user_id)->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('click_num','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);            }
+        }
+        else if($category_val==5){
+            $category = '教育文化';
+            $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                $query->where('share','1')->orwhere('user_id',$user_id);})->get()->count('id');
+            $last=ceil($num/$perpage_num);
+            if($page>=$last){
+                $next_page=false;
+            }
+            if($page==1){
+                $pre_page=false;
+            }
+            if($sorter_val==1){
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('title','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('title','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }else if($sorter_val==2){
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('update','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('update','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }else{
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('click_num','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('click_num','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }
+        }
+        else if($category_val==4){
+            $category = '技术博客';
+            $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                $query->where('share','1')->orwhere('user_id',$user_id);})->get()->count('id');
+            $last=ceil($num/$perpage_num);
+            if($page>=$last){
+                $next_page=false;
+            }
+            if($page==1){
+                $pre_page=false;
+            }
+            if($sorter_val==1){
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('title','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('title','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }else if($sorter_val==2){
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('update','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('update','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }else{
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('click_num','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('click_num','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }
+        }
+        else if($category_val==3){
+            $category = '时事评论';
+            $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                $query->where('share','1')->orwhere('user_id',$user_id);})->get()->count('id');
+            $last=ceil($num/$perpage_num);
+            if($page>=$last){
+                $next_page=false;
+            }
+            if($page==1){
+                $pre_page=false;
+            }
+            if($sorter_val==1){
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('title','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('title','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }else if($sorter_val==2){
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('update','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('update','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }else{
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('click_num','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('click_num','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }
+        }
+        else if($category_val==2){
+            $category = '军事分析';
+            $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                $query->where('share','1')->orwhere('user_id',$user_id);})->get()->count('id');
+            $last=ceil($num/$perpage_num);
+            if($page>=$last){
+                $next_page=false;
+            }
+            if($page==1){
+                $pre_page=false;
+            }
+            if($sorter_val==1){
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('title','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('title','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }else if($sorter_val==2){
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('update','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('update','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }else{
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('click_num','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('click_num','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }
+        }
+        else{
+            $category = '文娱点评';
+            $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                $query->where('share','1')->orwhere('user_id',$user_id);})->get()->count('id');
+            $last=ceil($num/$perpage_num);
+            if($page>=$last){
+                $next_page=false;
+            }
+            if($page==1){
+                $pre_page=false;
+            }
+            if($sorter_val==1){
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('title','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('title','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }else if($sorter_val==2){
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('update','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('update','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }else{
+                if(!$asc)
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('click_num','desc')->get();
+                else
+                    $data=DB::table('users')->join('articles','users.id','=','user_id')->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
+                        $query->where('share','1')->orwhere('user_id',$user_id);
+                    })->offset(($page-1)*$perpage_num)->limit($perpage_num)->orderby('click_num','asc')->get();
+                return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);
+            }
+        }
+    }
+
 
     public function article(){
 //具体文章

@@ -28,6 +28,7 @@ Route::any('/categories', function(){
     return view('categories');
 });
 //具体分类
+Route::post('categories/sorter','CategoriesController@category');
 Route::any('/categories-1','CategoriesController@categories1');
 Route::any('/categories-2','CategoriesController@categories2');
 Route::any('/categories-3','CategoriesController@categories3');
