@@ -20,7 +20,7 @@ class ModelController extends Controller
     }
     public function BingImageSearch(Request $request){
         // Replace with a valid subscription key from your Azure account.
-        $accessKey = '3f478837b17641d8bfef316abc8355b1';
+        $accessKey = 'fc57283355aa4fbfa62702ae298044cb';
         $endpoint = 'https://api.cognitive.microsoft.com/bing/v7.0/images/search';
         $term = $request->input('query');
         function BingImageSearch ($url, $key, $query) {

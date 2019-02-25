@@ -60,15 +60,15 @@
                                 <a id="index" href="index">主页</a>
                             </li>
                             <li class="submenu">
-                                <a id="categories" href="#">发现想法</a>
-                                <ul class="sub-menu">
-                                    <li><a href="categories-1?page=1">文娱点评</a></li>
-                                    <li><a href="categories-2?page=1">军事分析</a></li>
-                                    <li><a href="categories-3?page=1">时事评论</a></li>
-                                    <li><a href="categories-4?page=1">技术博客</a></li>
-                                    <li><a href="categories-5?page=1">教育文化</a></li>
-                                    <li><a href="categories-6?page=1">全部分类</a></li>
-                                </ul>
+                                <a id="categories" href="categories">发现想法</a>
+                                {{--<ul class="sub-menu">--}}
+                                    {{--<li><a href="categories-1?page=1">文娱点评</a></li>--}}
+                                    {{--<li><a href="categories-2?page=1">军事分析</a></li>--}}
+                                    {{--<li><a href="categories-3?page=1">时事评论</a></li>--}}
+                                    {{--<li><a href="categories-4?page=1">技术博客</a></li>--}}
+                                    {{--<li><a href="categories-5?page=1">教育文化</a></li>--}}
+                                    {{--<li><a href="categories-6?page=1">全部分类</a></li>--}}
+                                {{--</ul>--}}
                             </li>
                             <li>
                                 <a id="editor" href="edit">发表看法</a>
