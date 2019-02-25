@@ -41,6 +41,7 @@
             var img = document.getElementById("preview-img");
             // 图片路径设置为读取的图片
             img.src = event.target.result;
+            //console.log(event.target.result);
             smartcrop.crop(img, { width: 100, height: 100 }).then(function(result) {
                 console.log(result.topCrop);
                 {{--var x=result.topCrop.x;--}}

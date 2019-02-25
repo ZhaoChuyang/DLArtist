@@ -27,14 +27,7 @@ if ($html->find('img .important')) {
 //title
 $title = $content[0]->title;
 
-$description = "<p><em>Laker</em> is built on top of the
-                Basically it's a set of files, styles, tips and tricks for building digital publications with HTML5.</p>
-            <p>This publication demonstrates the main features of <em>Laker</em>. Take a look at the code and the
-                documentation on to
-                see how it's done. It's not that hard! ;) <br/>
-            </p>
-            <hr/>
-            <br/></p>";
+$description = "<p>this is description</p>";
 
 //slideShow
 $slideShow = 0;
@@ -163,83 +156,35 @@ if ($dossier_bg) {
 
         {{--DESCRIPTION--}}
         <?php
-
+            echo "
+            <div class=\"large-column float-left\" id=\"description\">
+            $description
+            <hr/>
+            <br/>
+        </div>";
         ?>
         <div class="small-column float-right">
-            <p>Class: <br/>
-                &quot;small-column float-right&quot;<br/>
-                Integer eu elit massa. Morbi vestibulum lacus a quam sagittis pulvinar tristique arcu posuere. Aliquam
-                sollicitudin risus risus, at semper neque.</p>
+
         </div><!--small-column float-right-->
 
 
-        <div class="large-column float-left">
-            <p>Class: &quot;large-column float-left&quot;<br/>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas velit tortor, ullamcorper id laoreet
-                vel, ultricies ut lorem. Curabitur porta orci ut lacus vestibulum porttitor. Suspendisse potenti. Donec
-                sodales ante eu dui molestie euismod ultricies nisl sollicitudin. Phasellus eget mauris eu velit mollis
-                consectetur a in elit. Pellentesque eu lorem nunc. Integer eu elit massa. Morbi vestibulum lacus a quam
-                sagittis pulvinar tristique arcu posuere. Aliquam sollicitudin risus risus, at semper neque. Aliquam
-                rhoncus rhoncus ultrices. Aliquam erat volutpat. Aenean in nibh vitae leo placerat viverra. Pellentesque
-                non sapien ac orci fermentum molestie in vitae purus. Cras lacinia turpis nec orci blandit adipiscing.
-                Morbi tempor commodo leo, quis scelerisque risus pretium quis. Cras suscipit magna eget tortor sagittis
-                fringilla. Praesent arcu justo, ultrices eu interdum nec, ornare aliquam urna. Vivamus cursus posuere
-                erat id faucibus.</p>
-            <br/>
-        </div><!--large-column float-left-->
-
-        <!--Align text block on the right-->
-        <div class="large-column float-right">
-            <h1>Pellentesque vitae elit et enim tristique porta porttitor at dolor</h1>
-        </div><!--Div large-column float-right-->
-
-        <!--Small-Column left-->
-        <div class="small-column float-left">
-            <p>Class: "small-column float-left"<br/>Ut scelerisque cursus leo, id consectetur est semper a.</p>
-        </div><!-- Div small-column float-left-->
-
-        <div class="large-column float-right">
-            <p>Class: "large-column float-right"<br/>Aliquam fermentum nibh quis risus placerat ultrices. Nulla congue
-                lacus sed ligula commodo tincidunt. Aliquam erat volutpat. Nunc porta, velit non gravida pharetra, nisl
-                dolor ultricies urna, at feugiat est nunc in mi. Fusce sagittis felis quis magna aliquam nec venenatis
-                libero sodales. Fusce lacus metus, scelerisque at cursus in, sollicitudin et urna. Praesent in sodales
-                nisl. Pellentesque ut dolor eget velit scelerisque faucibus quis hendrerit magna. Phasellus malesuada
-                malesuada arcu, consequat pharetra odio bibendum ac. Curabitur sodales cursus eros luctus mattis.
-                Quisque iaculis, quam eget egestas vestibulum, purus tellus ultrices elit, id dictum quam nisl in augue.
-                Sed non mauris at sapien suscipit condimentum sed id leo. Maecenas vitae arcu lectus. Pellentesque
-                pulvinar suscipit quam, sit amet lacinia nibh aliquam eget. Vivamus ornare ligula eget metus aliquet nec
-                vehicula sapien suscipit. Ut scelerisque cursus leo, id consectetur est semper a.</p>
-            <br/><br/>
-        </div><!--Div large-column float-right-->
-
-
         <div class="full-column">
-            <h1>Class: "full-column" – <br/>This headline uses the whole page width.</h1>
-        </div><!--Div full-column-->
 
-        <div class="medium-column float-left">
-            <p>Class: "medium-column float-left"<br/>
-                Morbi semper ultrices porta. Aenean dignissim, sapien eget sodales mollis, massa urna malesuada elit,
-                sit amet vulputate justo augue in massa. Praesent mattis accumsan blandit. Mauris nec enim ante. Sed
-                fringilla interdum eros, nec lacinia turpis iaculis vel. Vestibulum leo ipsum, consequat a dignissim sit
-                amet, egestas in urna. Donec nisl velit, pulvinar id ullamcorper vitae, imperdiet et leo. Donec
-                ultricies cursus varius. Pellentesque elit arcu, pulvinar in fermentum non, faucibus eu quam.
-                Suspendisse mollis aliquam sagittis. Vestibulum pellentesque accumsan arcu, vitae mattis tellus luctus
-                id. Vivamus sed condimentum leo.</p>
-        </div><!--Div medium-column float-left-->
+            <?php
 
-        <div class="medium-column float-right">
-            <p>Class: "medium-column float-right"<br/> Aliquam fermentum nibh quis risus placerat ultrices. Nulla congue
-                lacus sed ligula commodo tincidunt. Aliquam erat volutpat. Nunc porta, velit non gravida pharetra, nisl
-                dolor ultricies urna, at feugiat est nunc in mi. Fusce sagittis felis quis magna aliquam nec venenatis
-                libero sodales. Fusce lacus metus, scelerisque at cursus in, sollicitudin et urna. Praesent in sodales
-                nisl. Pellentesque ut dolor eget velit scelerisque faucibus quis hendrerit magna. Phasellus malesuada
-                malesuada arcu, consequat pharetra odio bibendum ac. Curabitur sodales cursus eros luctus mattis.
-                Quisque iaculis, quam eget egestas vestibulum, purus tellus ultrices elit, id dictum quam nisl in augue.
-                Sed non mauris at sapien suscipit condimentum sed id leo. Maecenas vitae arcu lectus. Pellentesque
-                pulvinar suscipit quam, sit amet lacinia nibh aliquam eget. Vivamus ornare ligula eget metus aliquet nec
-                vehicula sapien suscipit. Ut scelerisque cursus leo, id consectetur est semper a.</p>
-        </div><!--Div medium-column float-left-->
+                $allElement=$html->find('*');
+                foreach($allElement as $element){
+                    if($element->find ('img', 0)==null){
+                        echo $element;
+                    }
+                    else if($element->find ('img', 0)!=null && strpos($element->find ('img', 0)->class, 'important') == false){
+                        $img=$element->find('img', 0);
+                        echo "<img src=\"$img->src\" alt=\"\" style=\"float: right; padding: 20px; max-width: 250px; max-height: 400px;\"/>";
+                    }
+                }
+            ?>
+
+        </div><!--large-column float-left-->
 
     </div><!--Div content-element-->
 
