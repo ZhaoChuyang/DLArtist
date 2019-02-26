@@ -13,11 +13,11 @@
 * Go to localhost:8000
 
 # 依赖问题
-1. `composer require kub-at/php-simple-html-dom-parser`
-2. `use KubAT\PhpSimple\HtmlDomParser;`
+1. php-simple-html-dom-parser
+`use KubAT\PhpSimple\HtmlDomParser;`
 
-3. `composer require symfony/process`用来在laravel项目中调用python脚本
-4. `use Symfony\Component\Process\Process;`
-5. `use Symfony\Component\Process\Exception\ProcessFailedException;`
+2. symfony 用来在laravel项目中调用python脚本
+`use Symfony\Component\Process\Process;`
+`use Symfony\Component\Process\Exception\ProcessFailedException;`
 
 
