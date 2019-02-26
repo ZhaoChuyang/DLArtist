@@ -1367,7 +1367,7 @@
                             method: "get",
                             success: function (data) {
                                 var plan_id=i+1;
-                                $('#compose_plan').append('<a href="/compose_plan/' + data + '/' + plan_id + '" target="_blank"><img style="height: 282px; width: 200px; " src="#" alt="plan' + response.plan[i] + '" class="img-thumbnail"></a>')
+                                $('#compose_plan').append('<a href="/compose_plan/' + data + '/' + plan_id + '" target="_blank"><img style="height: 282px; width: 200px; " src="/images/mode_' +plan_id+'.png" alt="plan' + response.plan[i] + '" class="img-thumbnail ml-2"></a>')
                             }
                         })
 
