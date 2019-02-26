@@ -12,6 +12,6 @@
 * Run `php artisan serve`
 * Go to localhost:8000
 
-#依赖问题
+# 依赖问题
 1. `composer require kub-at/php-simple-html-dom-parser`
 2. `use KubAT\PhpSimple\HtmlDomParser;`
