@@ -527,9 +527,64 @@
                 </div>
 
                 <div id="compose_view">
-                    <button class="btn btn-primary w-50" id="compose">自动排版</button>
-                    <div id="compose_plan">
+                    <style>
+                        .product-device {
+                            position: absolute;
+                            right: 10%;
+                            bottom: -30%;
+                            width: 300px;
+                            height: 540px;
+                            background-color: #333;
+                            border-radius: 21px;
+                            -webkit-transform: rotate(30deg);
+                            transform: rotate(30deg);
+                        }
 
+                        .product-device::before {
+                            position: absolute;
+                            top: 10%;
+                            right: 10px;
+                            bottom: 10%;
+                            left: 10px;
+                            content: "";
+                            background-color: rgba(255, 255, 255, .1);
+                            border-radius: 5px;
+                        }
+
+                        .product-device-2 {
+                            top: -25%;
+                            right: auto;
+                            bottom: 0;
+                            left: 5%;
+                            background-color: #e5e5e5;
+                        }
+
+
+                        /*
+                         * Extra utilities
+                         */
+
+                        .flex-equal > * {
+                            -ms-flex: 1;
+                            flex: 1;
+                        }
+                        @media (min-width: 768px) {
+                            .flex-md-equal > * {
+                                -ms-flex: 1;
+                                flex: 1;
+                            }
+                        }
+
+                        .overflow-hidden { overflow: hidden; }
+                    </style>
+                    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+                        <div class="col-md-5 p-lg-5 mx-auto my-5">
+                            <h1 class="display-4 font-weight-normal">智能排版</h1>
+                            <p class="lead font-weight-normal">And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple’s marketing pages.</p>
+                            <a class="btn btn-outline-secondary" href="#" id="compose" data-toggle="modal" data-target="#compose_modal">开始排版</a>
+                        </div>
+                        <div class="product-device shadow-sm d-none d-md-block"></div>
+                        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
                     </div>
                 </div>
 
@@ -599,6 +654,31 @@
                             onclick="$('#modalImg').empty()">Close
                     </button>
                     {{--<button type="button" class="btn btn-primary">Save changes</button>--}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg" id="compose_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">排版方案</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body" id="">
+                    <div class="progress" id="progressDiv">
+                        <div id="progressBar"class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                    </div>
+                    <div id="compose_plan">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -685,6 +765,12 @@
     <script src="modelFile/mobilenet.js"></script>
 
     <script>
+
+
+        $('#compose').click(function(){
+
+        });
+
 
         //window loader
         $(window).load(function(){
@@ -1280,7 +1366,8 @@
                             },
                             method: "get",
                             success: function (data) {
-                                $('#compose_plan').append('<a href="/compose_plan/' + data + '" target="_blank"><img src="#" alt="plan' + response.plan[i] + '" class="img-thumbnail"></a>')
+                                var plan_id=i+1;
+                                $('#compose_plan').append('<a href="/compose_plan/' + data + '/' + plan_id + '" target="_blank"><img style="height: 282px; width: 200px; " src="#" alt="plan' + response.plan[i] + '" class="img-thumbnail"></a>')
                             }
                         })
 
@@ -1340,7 +1427,26 @@
         $('#compose').click(function () {
             $('#compose_plan').empty();
             composeFlag = 1;
-            $("#send").trigger('click');
+            $('#progressDiv').show();
+            pb = $('[role="progressbar"]')
+            pb.css('transition', 'none'); // if not already done in your css
+            pb.animate({
+                width: "100%"
+            }, {
+                duration: 3 * 1000, // 5 seconds
+                easing: 'linear',
+                step: function( now, fx ) {
+                    var current_percent = Math.round(now);
+                    pb.attr('aria-valuenow', current_percent);
+                    pb.text(current_percent+ '%');
+                },
+                complete: function() {
+                    $('#progressDiv').hide();
+                    pb.attr('style', 'width: 0%;');
+                    $("#send").trigger('click');
+                }
+            });
+
         });
 
         // $('#cover_upload').click(function(){

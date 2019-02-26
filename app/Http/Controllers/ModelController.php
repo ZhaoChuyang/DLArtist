@@ -64,7 +64,7 @@ class ModelController extends Controller
         }
     }
 
-    public function sendArticle($id){
+    public function sendArticle($id,$plan_id){
         $article_id=Crypt::decrypt($id);
         $article=new Article();
         $user_id=auth()->user()->id;
@@ -72,7 +72,13 @@ class ModelController extends Controller
         date_default_timezone_set("PRC");
         $update=date('Y-m-d H:i:s',time());
         $content=$article->where('id',$article_id)->get();
-        return view('article_mode1',compact('content','user_name','update'));
+        if($plan_id==1){
+            return view('article_mode1',compact('content','user_name','update'));
+        }else if($plan_id==2){
+            return view('article_mode2',compact('content','user_name','update'));
+        }else if($plan_id==3){
+            return view('article_mode3',compact('content','user_name','update'));
+        }
     }
 
     public function encrypt(Request $request){

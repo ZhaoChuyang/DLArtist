@@ -87,12 +87,9 @@
                                     </li>
                                 @endif
                             @else
-                                <li>
-                                    <a href="contacts.html">消息</a>
-                                </li>
                                 <li class="submenu">
                                     <a href="/account">{{ Auth::user()->name }}</a>
-                                    
+
                                 </li>
 
                             @endguest
