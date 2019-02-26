@@ -12,7 +12,7 @@ $section_num=$img_num;
 if($section_num)
     for($i=1;$i<=$section_num;$i++){
     $article_section[$i]=substr($content,($i-1)*(1/$section_num)*$length,$i*(1/$section_num)*$length);
-}
+}else $article_section[1]=$content;
 $bg='https://unsplash.it/g/800/?image=491';
 if ($img_num)$bg=$img[1][0];
 for($i=1;$i<$img_num;$i++){
