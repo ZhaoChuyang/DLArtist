@@ -362,4 +362,20 @@ class imageController extends Controller
         }
         return $dataCollection;
     }
+
+    public function saveAttn(Request $request){
+        $newName=time().'.png';
+        rename(public_path().'/images/0_s_0_g2.png', public_path().'/images/'.$newName);
+        $img = new image;
+
+        $img->image_url=url("/images/".$newName);
+
+        $user_id=auth()->user()->id;
+
+        $img->user_id=$user_id;
+
+        $img->save();
+
+        return url("/images/".$newName);
+    }
 }

@@ -13,7 +13,8 @@
         "kub-at/php-simple-html-dom-parser": "^1.7",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
-        "sunra/php-simple-html-dom-parser": "1.5.2"
+        "sunra/php-simple-html-dom-parser": "1.5.2",
+        "symfony/process": "^4.2"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

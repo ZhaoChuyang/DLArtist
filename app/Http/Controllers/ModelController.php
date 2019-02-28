@@ -10,6 +10,9 @@ use Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 use DLArtist\image;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\InputStream;
 
 class ModelController extends Controller
 {
@@ -101,8 +104,40 @@ class ModelController extends Controller
             imagedestroy($im2);
         }
         imagedestroy($img);
-      $name=substr($name,-22);
+        $name=substr($name,-22);
+        sleep(1);
         return response()->json(['name'=>$name]);
 
+    }
+
+    public function attnGan(Request $request){
+//        $input = new InputStream();
+//        $input->write('一只红色的猫');
+//        //'/anaconda3/envs/attngan/bin/python','fine.py','--str','一只红色的猫'
+//        $process = new Process(['ls','.']);
+//        $process->setInput($input);
+//        $process->start();
+
+// ... read process output or do other things
+
+        //$input->write('bar');
+//        $input->close();
+//
+//        $process->wait();
+// will echo: foobar
+//        echo $process->getOutput();
+//
+//        // executes after the command finishes
+//        if (!$process->isSuccessful()) {
+//            throw new ProcessFailedException($process);
+//        }
+
+        //echo $process->getOutput();
+//        echo shell_exec('source activate attngan && ');
+        $str=$request->input('str');
+        $output = passthru("source activate attngan && cd AttnGAN/code && python fine.py --str $str");
+        //$newName=time().'.png';
+        //rename(public_path().'/AttnGAN/0_s_0_g2.png', public_path().'/images/a.png');
+        return response()->json(['output'=>$output]);
     }
 }
