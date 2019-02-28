@@ -276,7 +276,7 @@ for($i=1;$i<$img_num;$i++){
         for ($i=2;$i<=$section_num;$i++){
     ?>
     <figure>
-        <img src="<?php echo $sub_img[$i-1]?>" alt="" />
+        <img src="<?php echo $sub_img[$i-1]?>" alt="" style="width: 100%;" />
         <figcaption>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus.</figcaption>
     </figure>
     <p><?php echo $article_section[$i]?></p>

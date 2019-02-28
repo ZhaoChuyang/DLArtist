@@ -94,3 +94,7 @@ Route::post('/image/class', 'imageController@classify')->middleware(['auth','ver
 
 Route::post('/image/image_management', 'imageController@imageManagement')->middleware(['auth','verified']);
 
+Route::get('/generateImage','ModelController@attnGan')->middleware(['auth','verified']);
+
+Route::get('/image/saveAttn', 'imageController@saveAttn')->middleware(['auth','verified']);
+

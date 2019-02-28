@@ -19,16 +19,17 @@ $img_num = sizeof($html->find('img'));
 
 //$dossier_background
 $dossier_bg = 0;
-if ($html->find('img .important')) {
+if ($html->find('img[class*=important]')) {
     $dossier_bg = 1;
-    $dossier_bg_src = $html->find('img .important')->src;
+    $dossier_bg_src = $html->find('img[class*=important]', 0)->src;
+
 }
 
 //title
 $title = $content[0]->title;
 
-$description = "<p>this is description</p>";
-
+$description = "<p>每当我走近那片小树林，便很自然地放慢晨练的速度，悄悄地，轻轻地走近它，生怕惊扰了鸟儿们的酣梦，也怕惊动树木生长的灵性。</p>";
+//
 //slideShow
 $slideShow = 0;
 //用过的图片
@@ -130,9 +131,6 @@ if ($dossier_bg) {
     <div class=\"dossier-start-bg\">
         <!--(if you want to place something on top of the picture, place it here-->
     </div>
-    <script>
-    $(\".dossier-start-bg\").css('background-image','url($dossier_bg_src)')
-    </script>
     ";
 }
 
@@ -168,18 +166,30 @@ if ($dossier_bg) {
         </div><!--small-column float-right-->
 
 
-        <div class="full-column">
+        <div class="large-column float-left">
+            <div style="clear: both;"></div>
 
             <?php
-
+                $current_text=0;
                 $allElement=$html->find('*');
+                $allImg=$html->find('img');
                 foreach($allElement as $element){
+                    if($current_text>200){
+                        $current_Img=$html->find('img', $imgUsed++);
+
+                        $current_text=0;
+                    }
                     if($element->find ('img', 0)==null){
                         echo $element;
+                        $current_text+=strlen($element->plaintext);
                     }
                     else if($element->find ('img', 0)!=null && strpos($element->find ('img', 0)->class, 'important') == false){
                         $img=$element->find('img', 0);
-                        echo "<img src=\"$img->src\" alt=\"\" style=\"float: right; padding: 20px; max-width: 250px; max-height: 400px;\"/>";
+                        echo "<p>$element->plaintext</p>";
+                        echo "<div class=\"media-right\">
+    <img src=\"$img->src\" alt=\"\" width=\"400\" height=\"600\" /></div>";
+                        $current_text+=strlen($element->plaintext);
+
                     }
                 }
             ?>
@@ -244,7 +254,9 @@ End Footer #################################################################
 <script>
     $(document).ready(function () {
         currentSlide(1);
+
     });
+    <?php if($dossier_bg) {?>$(".dossier-start-bg").css('background-image',"url(<?php echo $dossier_bg_src;?>)");<?php } ?>
 </script>
 
 

@@ -497,7 +497,7 @@
                                     </label>
                                     <br>
                                     <img id="style" src="#" alt="your image" class="border p-2 rounded collapse"
-                                         style="max-width: 300px; max-height: 300px;"/>
+                                         style="max-width: 800px; max-height: 800px;"/>
                                 </form>
                             </div>
                             <div id="step-3" class="ml-3">
@@ -659,6 +659,8 @@
         </div>
     </div>
 
+
+
     <div class="modal fade bd-example-modal-lg" id="compose_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
@@ -683,6 +685,32 @@
             </div>
         </div>
     </div>
+
+    <!-- Button trigger modal -->
+    <button type="button" id="showAttn" class="btn btn-primary" data-toggle="modal" data-target="#attn_modal" >
+        Launch demo modal
+    </button>
+    <div class="modal fade bd-example-modal" id="attn_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">出图结果</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body" id="">
+                    <img src="#" id="attn_img" class="img-thumbnail" style="width: 200px; height: 200px;display:block;
+    margin:auto;">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <img src="images/dog.jpg" id="img" hidden>
     <img src="#" id="img_rec" crossorigin="anonymous" hidden>
@@ -1096,7 +1124,7 @@
 
         // Define popup buttons.
         $.extend($.FroalaEditor.DEFAULTS, {
-            popupButtons: ['popupClose', '|', 'popupButton1', 'popupButton2', 'image_important'],
+            popupButtons: ['popupClose', '|', 'popupButton1', 'popupButton2', 'image_important','|','generateImage'],
         });
 
         // The custom popup is defined inside a plugin (new or existing).
@@ -1259,6 +1287,47 @@
             }
         });
 
+        //圈字出图
+        $.FroalaEditor.DefineIcon('generateImage', {NAME: 'star'});
+        $.FroalaEditor.RegisterCommand('generateImage', {
+            title: '圈字出图',
+            undo: false,
+            focus: false,
+            callback: function () {
+                var text = $('#edit').froalaEditor('selection.text');
+                console.log(text);
+                $.ajax({
+                    url: "/generateImage",
+                    method: 'get',
+                    data:{
+                        'str': text,
+                    },
+                    dataType: 'json',
+                    success: function(response){
+                        console.log(response);
+
+                    },
+                    error: function(xhr){
+                        console.log(xhr);
+                        $.ajax({
+                            url:'/image/saveAttn',
+                            method: 'get',
+                            data: 'a',
+                            success: function(response){
+                                console.log(response);
+                                $('#attn_img').attr('src', response);
+                                $('#showAttn').trigger('click');
+                            },
+                            error: function(xhr){
+                                console.log(xhr);
+                            }
+                        });
+                    }
+                });
+
+            }
+        });
+
         $('#edit').froalaEditor({
             iframe: true,
             toolbarButtons: ['myButton', 'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'fontAwesome', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'getPDF', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', '|', 'wirisEditor', 'wirisChemistry', 'clear', 'insert'],
@@ -1354,7 +1423,7 @@
                 }
                 uploadFlag = 0;
                 if (response.status[0]) {
-                    alert("上传成功");
+                    //alert("上传成功");
                 }
 
                 if (typeof response.plan !== 'undefined') {
