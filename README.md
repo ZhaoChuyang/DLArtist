@@ -1,23 +1,34 @@
 # DLArtist
-1. [图标库](https://ionicons.com/)  
-使用ios style的
-2. 本地使用方法
-* Clone your project
-* Go to the folder application using cd command on your cmd or terminal
-* Run `composer install` on your cmd or terminal
-* Copy .env.example file to .env on the root folder. You can type `copy .env.example .env` if using command prompt Windows or `cp .env.example .env` if using terminal, Ubuntu
-* Open your .env file and change the database name (DB_DATABASE) to whatever you have, username (DB_USERNAME) and password (DB_PASSWORD) field correspond to your configuration. 
-* Run `php artisan key:generate`
-* Run `php artisan migrate`
-* Run `php artisan serve`
-* Go to localhost:8000
 
-# 依赖问题
-1. php-simple-html-dom-parser
-`use KubAT\PhpSimple\HtmlDomParser;`
+DLArtist是一个基于人工智能的，对用户输入的文章进行自动排版，图片进行智能裁剪，并且提供插图自动生成的排版设计网站。
 
-2. symfony 用来在laravel项目中调用python脚本
-`use Symfony\Component\Process\Process;`
-`use Symfony\Component\Process\Exception\ProcessFailedException;`
+## 开始部署
 
+这些说明将为您提供在本地计算机上启动和运行的项目副本，以进行开发和测试。有关如何在实时系统上部署项目的说明，请参阅部署。
+
+### 配置要求
+
+布置该项目前需要安装好这些环境
+
+```
+1. Ubuntu 16.04 LTS
+2. apache2
+3. mysql 5.7
+4. php 7.2
+5. composer
+6. npm
+7. python 2.7和python 3.6
+```
+
+### 安装
+
+1. clone该项目到你的本地目录下
+2. 在你的终端中用`cd`进入到项目文件夹下
+3. 在你的终端中运行`composer install`
+4. 将`.env.emample`文件复制到项目主目录下的`.env`文件
+5. 打开`.env`文件，并将DB_DATABASE改成你相应的数据库名称，DB_USERNAME改成相应的数据库用户名, DB_PASSWORD改成相应的用户密码
+6. 运行 `php artisan key:generate`
+7. 运行 `php artisan migrate`
+8. 运行 `php artisan serve`
+9. 浏览器访问`localost:8000`
 
