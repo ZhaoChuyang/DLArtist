@@ -175,6 +175,8 @@ return [
         DLArtist\Providers\EventServiceProvider::class,
         DLArtist\Providers\RouteServiceProvider::class,
 
+        SwooleTW\Http\LaravelServiceProvider::class,
+
     ],
 
     /*

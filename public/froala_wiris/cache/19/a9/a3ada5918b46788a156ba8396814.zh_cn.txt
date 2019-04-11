@@ -1,0 +1,1 @@
+{"result":{"text":"H 下標 2 O and O 下標 2 等於 H 下標 2 上標 1 1 的 1 次方"},"status":"ok"}
