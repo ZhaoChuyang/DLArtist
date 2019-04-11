@@ -18,6 +18,7 @@ DLArtist是一个基于人工智能的，对用户输入的文章进行自动排
 5. composer
 6. npm
 7. python 2.7和python 3.6
+8. swoole
 ```
 
 ### 安装
