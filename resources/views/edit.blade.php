@@ -15,7 +15,6 @@
             text-align: center;
         }
 
-
         #loading-image {
 
             /*vertical-align: middle;*/
@@ -32,7 +31,7 @@
     </style>
 
     <div id="loader">
-        <img id="loading-image"  src="images/preloader_3.gif" alt="Loading..." />
+        <img id="loading-image" src="images/preloader_3.gif" alt="Loading..."/>
     </div>
 @endsection
 
@@ -158,6 +157,7 @@
             border-color: transparent;
             box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
         }
+
 
     </style>
 
@@ -369,16 +369,19 @@
                         <h1 class="h2 ml-4">Edit</h1>
                         <div class="btn-toolbar mb-2 mb-md-0">
                             <div class="btn-group mr-2">
-                                <label class="btn btn-outline-secondary btn-sm" id="show_cover" data-toggle="modal" data-target="#exampleModal1">
+                                <label class="btn btn-outline-secondary btn-sm" id="show_cover" data-toggle="modal"
+                                       data-target="#exampleModal1">
                                     查看封面
                                 </label>
 
-                                <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel">文章封面</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
@@ -428,7 +431,8 @@
                         <div class="form-group row">
                             <label for="title" class="col-sm-1 col-form-label"><strong>标题</strong></label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control w-50" id="title" placeholder="请输入标题">
+                                <input type="text" class="form-control w-50" id="title" placeholder="请输入标题"
+                                       style="border: 0;">
                             </div>
                         </div>
                         <div class="form-group row mt-4">
@@ -559,7 +563,6 @@
                             background-color: #e5e5e5;
                         }
 
-
                         /*
                          * Extra utilities
                          */
@@ -568,6 +571,7 @@
                             -ms-flex: 1;
                             flex: 1;
                         }
+
                         @media (min-width: 768px) {
                             .flex-md-equal > * {
                                 -ms-flex: 1;
@@ -575,13 +579,17 @@
                             }
                         }
 
-                        .overflow-hidden { overflow: hidden; }
+                        .overflow-hidden {
+                            overflow: hidden;
+                        }
                     </style>
                     <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
                         <div class="col-md-5 p-lg-5 mx-auto my-5">
                             <h1 class="display-4 font-weight-normal">智能排版</h1>
-                            <p class="lead font-weight-normal">And an even wittier subheading to boot. Jumpstart your marketing efforts with this example based on Apple’s marketing pages.</p>
-                            <a class="btn btn-outline-secondary" href="#" id="compose" data-toggle="modal" data-target="#compose_modal">开始排版</a>
+                            <p class="lead font-weight-normal">And an even wittier subheading to boot. Jumpstart your
+                                marketing efforts with this example based on Apple’s marketing pages.</p>
+                            <a class="btn btn-outline-secondary" href="#" id="compose" data-toggle="modal"
+                               data-target="#compose_modal">开始排版</a>
                         </div>
                         <div class="product-device shadow-sm d-none d-md-block"></div>
                         <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
@@ -591,33 +599,48 @@
                 <div id="image_manage_view">
                     <div class="row ml-4 mt-4">
                         <div class="col-2 ">
-                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">人物</a>
-                                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">动物</a>
-                                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">食物</a>
-                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">物品</a>
-                                <a class="nav-link" id="v-pills-person-tab" data-toggle="pill" href="#v-pills-person" role="tab" aria-controls="v-pills-person" aria-selected="false">出行</a>
-                                <a class="nav-link" id="v-pills-undef-tab" data-toggle="pill" href="#v-pills-undef" role="tab" aria-controls="v-pills-undef" aria-selected="false">默认</a>
+                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist"
+                                 aria-orientation="vertical">
+                                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home"
+                                   role="tab" aria-controls="v-pills-home" aria-selected="true">人物</a>
+                                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile"
+                                   role="tab" aria-controls="v-pills-profile" aria-selected="false">动物</a>
+                                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill"
+                                   href="#v-pills-messages" role="tab" aria-controls="v-pills-messages"
+                                   aria-selected="false">食物</a>
+                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill"
+                                   href="#v-pills-settings" role="tab" aria-controls="v-pills-settings"
+                                   aria-selected="false">物品</a>
+                                <a class="nav-link" id="v-pills-person-tab" data-toggle="pill" href="#v-pills-person"
+                                   role="tab" aria-controls="v-pills-person" aria-selected="false">出行</a>
+                                <a class="nav-link" id="v-pills-undef-tab" data-toggle="pill" href="#v-pills-undef"
+                                   role="tab" aria-controls="v-pills-undef" aria-selected="false">默认</a>
                             </div>
                         </div>
                         <div class="col-9  border-left">
                             <div class="tab-content" id="v-pills-tabContent">
-                                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                                     aria-labelledby="v-pills-home-tab">
 
                                 </div>
-                                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
+                                     aria-labelledby="v-pills-profile-tab">
 
                                 </div>
-                                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                                     aria-labelledby="v-pills-messages-tab">
 
                                 </div>
-                                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
+                                     aria-labelledby="v-pills-settings-tab">
 
                                 </div>
-                                <div class="tab-pane fade" id="v-pills-person" role="tabpanel" aria-labelledby="v-pills-person-tab">
+                                <div class="tab-pane fade" id="v-pills-person" role="tabpanel"
+                                     aria-labelledby="v-pills-person-tab">
 
                                 </div>
-                                <div class="tab-pane fade" id="v-pills-undef" role="tabpanel" aria-labelledby="v-pills-person-tab">
+                                <div class="tab-pane fade" id="v-pills-undef" role="tabpanel"
+                                     aria-labelledby="v-pills-person-tab">
 
                                 </div>
                             </div>
@@ -661,7 +684,8 @@
 
 
 
-    <div class="modal fade bd-example-modal-lg" id="compose_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade bd-example-modal-lg" id="compose_modal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -673,7 +697,9 @@
 
                 <div class="modal-body" id="">
                     <div class="progress" id="progressDiv">
-                        <div id="progressBar"class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                        <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated"
+                             role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
+                             style="width: 0%"></div>
                     </div>
                     <div id="compose_plan">
 
@@ -687,10 +713,11 @@
     </div>
 
     <!-- Button trigger modal -->
-    <button type="button" id="showAttn" class="btn btn-primary" data-toggle="modal" data-target="#attn_modal" >
+    <button type="button" id="showAttn" class="btn btn-primary" data-toggle="modal" data-target="#attn_modal">
         Launch demo modal
     </button>
-    <div class="modal fade bd-example-modal" id="attn_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade bd-example-modal" id="attn_modal" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -712,12 +739,118 @@
     </div>
 
 
+
     <img src="images/dog.jpg" id="img" hidden>
     <img src="#" id="img_rec" crossorigin="anonymous" hidden>
     <input type="text" id="result" value="None" style="display: none"></input>
 
+    <div class="col-3 offset-3">
+        <style>
+            .box9 {
+                background: #000;
+                text-align: center;
+                position: relative
+            }
 
+            .box9 img {
+                width: 100%;
+                height: auto
+            }
 
+            .box9:hover img {
+                opacity: .5
+            }
+
+            .box9 .box-content {
+                padding: 30px 10px 30px 0;
+                background: rgba(0, 0, 0, .65);
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                opacity: 0
+            }
+
+            .box9:hover .box-content {
+                top: 10px;
+                left: 10px;
+                bottom: 10px;
+                right: 10px;
+                opacity: 1
+            }
+
+            .box9 .title {
+                font-weight: 700;
+                color: #fff;
+                line-height: 17px;
+                margin: 5px 0;
+                position: absolute;
+                bottom: 55%
+            }
+
+            .box10 .icon li a, .box9 .icon li a {
+                line-height: 35px;
+                border-radius: 50%
+            }
+
+            .box9 .icon {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                position: absolute;
+                top: 50%
+            }
+
+            .box9 .icon li {
+                display: inline-block;
+                opacity: 0;
+                transform: translateY(40px)
+            }
+
+            .box9:hover .icon li {
+                opacity: 1;
+                transform: translateY(0)
+            }
+
+            .box9:hover .icon li:first-child {
+                transition-delay: .0s
+            }
+
+            .box9:hover .icon li:nth-child(2) {
+                transition-delay: .0s
+            }
+
+            .box9 .icon li a {
+                display: block;
+                width: 35px;
+                height: 35px;
+                background: #f39c12;
+                font-size: 20px;
+                color: #000;
+                margin-right: 5px;
+                transition: all .35s ease 0s
+            }
+
+            .box9 .icon a:hover {
+                background: #fff
+            }
+
+            @media only screen and (max-width: 990px) {
+                .box9 {
+                    margin-bottom: 20px
+                }
+            }
+        </style>
+        <div class="box9">
+            <img src="http://bestjquery.com/tutorial/hover-effect/demo147/images/img-1.jpg">
+            <div class="box-content">
+                <ul class="icon">
+                    <li><a href="#"><i class="fa fa-search"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -795,13 +928,13 @@
     <script>
 
 
-        $('#compose').click(function(){
+        $('#compose').click(function () {
 
         });
 
 
         //window loader
-        $(window).load(function(){
+        $(window).load(function () {
             // PAGE IS FULLY LOADED
             // FADE OUT YOUR OVERLAYING DIV
             $('#loader').fadeOut();
@@ -925,7 +1058,7 @@
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
 
-                reader.onload = function(e) {
+                reader.onload = function (e) {
                     $('#cover_img_preview').attr('src', e.target.result);
                 }
 
@@ -933,11 +1066,11 @@
             }
         }
 
-        $("#cover_file").change(function() {
+        $("#cover_file").change(function () {
             readURL3(this);
         });
 
-        function loadImageManagement(){
+        function loadImageManagement() {
 
             $('#v-pills-tabContent div').empty();
 
@@ -948,32 +1081,32 @@
                     "_token": '{{csrf_token()}}',
                 },
                 dataType: "json",
-                success: function(response){
+                success: function (response) {
                     console.log(response);
-                    for(var i=0; i<response.length; i++){
-                        var clas=response[i].class;
-                        var src=response[i].src;
-                        if(clas==='person'){
+                    for (var i = 0; i < response.length; i++) {
+                        var clas = response[i].class;
+                        var src = response[i].src;
+                        if (clas === 'person') {
                             $('#v-pills-home').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
                         }
-                        if(clas==='animal'){
+                        if (clas === 'animal') {
                             $('#v-pills-profile').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
                         }
-                        if(clas==='food'){
+                        if (clas === 'food') {
                             $('#v-pills-messages').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
                         }
-                        if(clas==='item'){
+                        if (clas === 'item') {
                             $('#v-pills-settings').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
                         }
-                        if(clas==='traffic'){
+                        if (clas === 'traffic') {
                             $('#v-pills-person').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
                         }
-                        if(clas==='undefined'){
+                        if (clas === 'undefined') {
                             $('#v-pills-undef').append('<a href="' + clas + '" target="_blank"><img src="' + src + '" class="img-thumbnail ml-2 mt-2" style="height: 200px; width: 200px;"></a>')
                         }
                     }
                 },
-                error: function(xhr){
+                error: function (xhr) {
                     console.log(xhr);
                 }
             });
@@ -1097,7 +1230,7 @@
 
         });
 
-        $('#image_manage_button').click(function(){
+        $('#image_manage_button').click(function () {
             $("#sideNav a[class*='active']").removeClass('active');
             $('#image_manage_button').addClass('active');
             $('#image_view').hide();
@@ -1124,7 +1257,7 @@
 
         // Define popup buttons.
         $.extend($.FroalaEditor.DEFAULTS, {
-            popupButtons: ['popupClose', '|', 'popupButton1', 'popupButton2', 'image_important','|','generateImage'],
+            popupButtons: ['popupClose', '|', 'popupButton1', 'popupButton2', 'image_important', '|', 'generateImage'],
         });
 
         // The custom popup is defined inside a plugin (new or existing).
@@ -1299,26 +1432,26 @@
                 $.ajax({
                     url: "/generateImage",
                     method: 'get',
-                    data:{
+                    data: {
                         'str': text,
                     },
                     dataType: 'json',
-                    success: function(response){
+                    success: function (response) {
                         console.log(response);
 
                     },
-                    error: function(xhr){
+                    error: function (xhr) {
                         console.log(xhr);
                         $.ajax({
-                            url:'/image/saveAttn',
+                            url: '/image/saveAttn',
                             method: 'get',
                             data: 'a',
-                            success: function(response){
+                            success: function (response) {
                                 console.log(response);
                                 $('#attn_img').attr('src', response);
                                 $('#showAttn').trigger('click');
                             },
-                            error: function(xhr){
+                            error: function (xhr) {
                                 console.log(xhr);
                             }
                         });
@@ -1330,7 +1463,7 @@
 
         $('#edit').froalaEditor({
             iframe: true,
-            toolbarButtons: ['myButton', 'fullscreen', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'fontFamily', 'fontSize', 'color', 'inlineClass', 'inlineStyle', 'paragraphStyle', 'lineHeight', '|', 'paragraphFormat', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertFile', 'insertTable', '|', 'fontAwesome', 'specialCharacters', 'insertHR', 'selectAll', 'clearFormatting', '|', 'print', 'getPDF', 'spellChecker', 'help', 'html', '|', 'undo', 'redo', '|', 'wirisEditor', 'wirisChemistry', 'clear', 'insert'],
+            toolbarButtons: ['myButton', 'fullscreen', '|', 'bold', 'italic', 'underline', 'strikeThrough', 'fontFamily', 'paragraphFormat', 'formatOL', 'formatUL', 'quote', 'insertLink', 'insertImage', '|', 'insertHR', 'clearFormatting', 'html', 'wirisEditor', 'wirisChemistry'],
             // Add [MW] buttons to Image Toolbar.
             imageEditButtons: ['imageReplace', 'imageAlign', 'imageCaption', 'imageRemove', 'imageLink', 'imageDisplay', 'imageStyle', 'imageAlt', 'imageSize', 'imageTUI', 'image_important', 'image_recommendation'],
             //documentReady: true,
@@ -1435,8 +1568,8 @@
                             },
                             method: "get",
                             success: function (data) {
-                                var plan_id=i+1;
-                                $('#compose_plan').append('<a href="/compose_plan/' + data + '/' + plan_id + '" target="_blank"><img style="height: 282px; width: 200px; " src="/images/mode_' +plan_id+'.png" alt="plan' + response.plan[i] + '" class="img-thumbnail ml-3"></a>')
+                                var plan_id = i + 1;
+                                $('#compose_plan').append('<a href="/compose_plan/' + data + '/' + plan_id + '" target="_blank"><img style="height: 282px; width: 200px; " src="/images/mode_' + plan_id + '.png" alt="plan' + response.plan[i] + '" class="img-thumbnail ml-3"></a>')
                             }
                         })
 
@@ -1504,12 +1637,12 @@
             }, {
                 duration: 3 * 1000, // 5 seconds
                 easing: 'linear',
-                step: function( now, fx ) {
+                step: function (now, fx) {
                     var current_percent = Math.round(now);
                     pb.attr('aria-valuenow', current_percent);
-                    pb.text(current_percent+ '%');
+                    pb.text(current_percent + '%');
                 },
-                complete: function() {
+                complete: function () {
                     $('#progressDiv').hide();
                     pb.attr('style', 'width: 0%;');
                     $("#send").trigger('click');
