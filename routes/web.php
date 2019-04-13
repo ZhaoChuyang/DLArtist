@@ -67,9 +67,7 @@ Route::post('/cover_upload', 'ArticleController@cover');
 
 Route::post('/send', 'EmailController@send');
 
-Route::get('/test', function (){
-    return view('test');
-});
+Route::get('/redis/{id}', 'HomeController@showArticle')->where('id', '[0-9]+');
 
 Route::get('/test3', function (){
     return view('test3');

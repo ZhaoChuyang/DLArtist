@@ -9,9 +9,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="assets/css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="{{mix('/css/bootstrap.all.css')}}">
     <!-- Optional theme -->
-    <link rel="stylesheet" href="assets/css/bootstrap/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{{mix('/css/bootstrap.all.css')}}">
     <!-- Custom css -->
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- Font Awesome -->
