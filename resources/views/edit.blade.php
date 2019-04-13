@@ -909,8 +909,8 @@
     <!-- Include TUI plugin. -->
     <script type="text/javascript" src="froala_editor_2.9.1/js/third_party/image_tui.min.js"></script>
     <!--Math Type-->
-    <script src="froala_wiris/wiris.js"></script>
-    <script src="froala_wiris/WIRISplugin.js"></script>
+    {{--<script src="froala_wiris/wiris.js"></script>--}}
+    {{--<script src="froala_wiris/WIRISplugin.js"></script>--}}
 
     <!--smart wizard-->
     <script src="smart_wizard/jquery.smartWizard.min.js"></script>

@@ -134,8 +134,11 @@ class ModelController extends Controller
 
         //echo $process->getOutput();
 //        echo shell_exec('source activate attngan && ');
+        //swoole
         $str=$request->input('str');
-        $output = passthru("source activate attngan && cd AttnGAN/code && python fine.py --str $str");
+        $output=passthru("source activate attngan && cd public/AttnGAN/code && python fine.py --str $str");
+        //apache
+        //$output = passthru("source activate attngan && cd AttnGAN/code && python fine.py --str $str");
         //$newName=time().'.png';
         //rename(public_path().'/AttnGAN/0_s_0_g2.png', public_path().'/images/a.png');
         return response()->json(['output'=>$output]);

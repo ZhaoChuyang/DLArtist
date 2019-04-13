@@ -69,10 +69,6 @@ Route::post('/send', 'EmailController@send');
 
 Route::get('/redis/{id}', 'HomeController@showArticle')->where('id', '[0-9]+');
 
-Route::get('/test3', function (){
-    return view('test3');
-});
-
 Route::post('/model/image','ModelController@BingImageSearch');
 Route::post('/model/crop','ModelController@crop_pic');
 
@@ -95,4 +91,6 @@ Route::post('/image/image_management', 'imageController@imageManagement')->middl
 Route::get('/generateImage','ModelController@attnGan')->middleware(['auth','verified']);
 
 Route::get('/image/saveAttn', 'imageController@saveAttn')->middleware(['auth','verified']);
+
+Route::get('/test', 'HomeController@chutu');
 

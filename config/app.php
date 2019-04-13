@@ -177,6 +177,8 @@ return [
 
         SwooleTW\Http\LaravelServiceProvider::class,
 
+        Barryvdh\Debugbar\ServiceProvider::class,
+
     ],
 
     /*
@@ -226,6 +228,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Input' => Illuminate\Support\Facades\input::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];
