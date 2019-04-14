@@ -11,14 +11,14 @@ DLArtist是一个基于人工智能的，对用户输入的文章进行自动排
 布置该项目前需要安装好这些环境
 
 ```
-1. Ubuntu 16.04 LTS
-2. apache2
-3. mysql 5.7
-4. php 7.2
-5. composer
-6. npm
-7. python 2.7和python 3.6
-8. swoole
+1. Ubuntu 16.04+
+2. nginx
+3. swoole
+4. mysql 5.5+
+5. php 7.1+
+6. composer
+7. npm
+8. python 2.7 & python 3.6
 ```
 
 ### .env配置
