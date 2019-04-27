@@ -6,15 +6,33 @@ use DLArtist\DB\Comment;
 use DLArtist\DB\reply;
 use Illuminate\Http\Request;
 use DLArtist\DB\Article;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class ArticleController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth','verified']);
+    }
+
+    public function getNextId(){
+
+        //最大article_id
+        $max_id=0;
+
+        //当cache中没有当前可用的最大文章id的缓存时
+        if(!Cache::has('max_article_id')){
+            $max_id=DB::table('articles')->max('id')+1;
+            Cache::put('max_article_id', $max_id, 1440);
+        }
+
+        $max_id=Cache::get('max_article_id');
+        Cache::increment('max_article_id');
+
+        return $max_id;
     }
 
     public function edit()
@@ -29,10 +47,10 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $validator=Validator:: make($request->all(),[
+            'article_id' => 'required',
             'title' => 'required',
             'category' => 'required|not_in:0',
             'shareStatus'=>'required',
-            'uploadFlag' => 'required|in:1',
         ]);
 
         if($validator->fails()){
@@ -43,22 +61,28 @@ class ArticleController extends Controller
 
         try {
 
-            $composeFlag=$request->input('composeFlag');
             $title=$request->input('title');
             $user_id=auth()->user()->id;
+            $cover_url=$request->input('cover_url');
+            $article_id=$request->input('article_id');
+
+            //设置时区
             date_default_timezone_set("PRC");
             $update=date('Y-m-d H:i:s',time());
+
             $content=$request->input('content');
             $category=$request->input('category');
             $shareStatus=$request->input('shareStatus');
 
             $article=new Article();
+            $article->id=$article_id;
             $article->share=$shareStatus;
             $article->user_id=$user_id;
             $article->title=$title;
             $article->content=$content;
             $article->category=$category;
             $article->update=$update;
+            $article->cover_url=$cover_url;
 
 //            $data=[
 //                "title"=>$title,
@@ -69,14 +93,18 @@ class ArticleController extends Controller
 //                "share"=>$shareStatus
 //            ];
 
-
-
-            $article->save();
-            DB::commit();
-            if($composeFlag==1){
-                return response()->json(['status'=>[1], 'msg'=>['upload success'], 'article_id'=>$article->id, 'plan'=>[1,2,3]]);
+            $images = Cache::get('article:'.$article_id.':images');
+            foreach($images as $img){
+                $img->valid=1;
+                $img->save();
             }
-            return response()->json(['status'=>[1], 'msg'=>['upload success'], 'article_id'=>$article->id]);
+
+            Cache::forget('article:'.$article_id.':images');
+            $article->save();
+
+            DB::commit();
+
+            return response()->json(['status'=>[1], 'msg'=>['upload success']]);
 
         } catch (\Exception $ex) {
             DB::rollback();
@@ -129,12 +157,26 @@ class ArticleController extends Controller
     public function cover(Request $request){
         $validator=Validator:: make($request->all(),[
             'cover' => 'nullable|image',
-            'article_id'=>'required'
         ]);
 
         if($validator->fails()){
             return $validator->errors()->add('status', 0);
         }
+
+        //获取图片
+        $image=$request->file('cover');
+
+        //存储路径
+        $destinatonPath='image/cover';
+
+        //设置图片名
+        $inputImageName='&'.auth()->user()->id.time().'.'.$image->getClientOriginalExtension();
+
+        //存储图片
+        $path=$image->storeAs($destinatonPath, $inputImageName);
+
+        //返回文件名
+        return $inputImageName;
 
         DB::beginTransaction();
 

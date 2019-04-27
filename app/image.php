@@ -17,15 +17,3 @@ class image extends Model
     }
 }
 
-class FileUpload extends Model
-{
-    use SoftDeletes;
-    protected $table = 'fileUploads';
-    protected $fillable = [
-        'title',
-        'path'
-    ];
-    protected $dates = [
-        'deleted_at'
-    ];
-}

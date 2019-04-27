@@ -13,23 +13,23 @@
     <!-- Optional theme -->
     <link rel="stylesheet" href="{{mix('/css/bootstrap.all.css')}}">
     <!-- Custom css -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/ionicons.min.css">
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/ionicons.min.css">
     <!-- Flexslider -->
-    <link rel="stylesheet" href="assets/css/flexslider.css">
+    <link rel="stylesheet" href="/assets/css/flexslider.css">
     <!-- Owl -->
-    <link rel="stylesheet" href="assets/css/owl.carousel.css">
+    <link rel="stylesheet" href="/assets/css/owl.carousel.css">
     <!-- Magnific Popup -->
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="/assets/js/jquery-3.2.1.min.js"></script>
     @yield('head')
 
 
@@ -47,8 +47,8 @@
                 <!--  Header Logo  -->
                 <div id="logo">
                     <a class="navbar-brand" href="index">
-                        <img src="assets/img/LOGO.png" class="normal" alt="logo">
-                        <img src="assets/img/LOGO_text.png" class="retina" alt="logo">
+                        <img src="/assets/img/LOGO.png" class="normal" alt="logo">
+                        <img src="/assets/img/LOGO_text.png" class="retina" alt="logo">
                     </a>
                 </div>
                 <!--  END Header Logo  -->
@@ -57,10 +57,10 @@
                     <div class="menu-holder">
                         <ul>
                             <li>
-                                <a id="index" href="index">主页</a>
+                                <a id="index" href="/index">主页</a>
                             </li>
                             <li class="submenu">
-                                <a id="categories" href="categories">发现想法</a>
+                                <a id="categories" href="/categories">发现想法</a>
                                 {{--<ul class="sub-menu">--}}
                                     {{--<li><a href="categories-1?page=1">文娱点评</a></li>--}}
                                     {{--<li><a href="categories-2?page=1">军事分析</a></li>--}}
@@ -71,10 +71,10 @@
                                 {{--</ul>--}}
                             </li>
                             <li>
-                                <a id="editor" href="edit">发表看法</a>
+                                <a id="editor" href="/edit">发表看法</a>
                             </li>
                             <li>
-                                <a href="contacts.html">消息</a>
+                                <a href="/contacts.html">消息</a>
                             </li>
                             <!-- Authentication Links -->
                             @guest
@@ -149,23 +149,23 @@
 <!-- icons-->
 <script src="https://unpkg.com/ionicons@4.5.1/dist/ionicons.js"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.min.js"></script>
 <!-- All js library -->
-<script src="assets/js/bootstrap/bootstrap.min.js"></script>
-<script src="assets/js/jquery.flexslider-min.js"></script>
-<script src="assets/js/owl.carousel.min.js"></script>
-<script src="assets/js/isotope.min.js"></script>
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
+<script src="/assets/js/bootstrap/bootstrap.min.js"></script>
+<script src="/assets/js/jquery.flexslider-min.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+<script src="/assets/js/isotope.min.js"></script>
+<script src="/assets/js/jquery.magnific-popup.min.js"></script>
 {{--<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=false"></script>--}}
-<script src="assets/js/jquery.scrollTo.min.js"></script>
-<script src="assets/js/smooth.scroll.min.js"></script>
-<script src="assets/js/jquery.appear.js"></script>
-<script src="assets/js/jquery.countTo.js"></script>
-<script src="assets/js/jquery.scrolly.js"></script>
-<script src="assets/js/plugins-scroll.js"></script>
-<script src="assets/js/imagesloaded.min.js"></script>
-<script src="assets/js/pace.min.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="/assets/js/jquery.scrollTo.min.js"></script>
+<script src="/assets/js/smooth.scroll.min.js"></script>
+<script src="/assets/js/jquery.appear.js"></script>
+<script src="/assets/js/jquery.countTo.js"></script>
+<script src="/assets/js/jquery.scrolly.js"></script>
+<script src="/assets/js/plugins-scroll.js"></script>
+<script src="/assets/js/imagesloaded.min.js"></script>
+<script src="/assets/js/pace.min.js"></script>
+<script src="/assets/js/main.js"></script>
 
 
 @yield('script')

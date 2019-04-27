@@ -1,3 +1,6 @@
+<?php
+use DLArtist\Http\Controllers\accounts;
+?>
 @if($info=='publicInfo')
     <h5 class="mb-3 border-bottom" style="padding-bottom: 15px;">个人信息</h5>
     <div class="row ">
@@ -22,11 +25,13 @@
                 <label for="">性别<span class="text-muted">(可选)</span></label>
                 <br>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input" value="0">
+                    <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input"
+                           value="0">
                     <label class="custom-control-label" for="customRadioInline1">男</label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input" value="1">
+                    <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input"
+                           value="1">
                     <label class="custom-control-label" for="customRadioInline2">女</label>
                 </div>
             </div>
@@ -34,13 +39,13 @@
             <div class="mb-3">
                 <label for="birthday">生日<span class="text-muted">(可选)</span></label>
                 <input type="date" class="form-control" id="birthday" placeholder="1901-01-01"
-                       value={{auth()->user()->birthday}}>
+                       value=<?php echo accounts::showInfo(1) ?>>
             </div>
 
             <div class="mb-3">
                 <label for="bio">个人简介 <span class="text-muted">(可选)</span></label>
                 <textarea class="form-control" style="height: 100px;" id="bio" placeholder="介绍一下你自己"
-                          >{{auth()->user()->bio}}</textarea>
+                >{{auth()->user()->bio}}</textarea>
             </div>
             <hr class="mb-4">
             <button class="btn btn-primary btn-lg btn-block" type="submit" id="save">更新信息</button>
@@ -51,7 +56,11 @@
                 <img id="curAvatar"
                      class="border"
                      style="display: inline-block;line-height: 1;overflow: hidden;vertical-align: middle;border-radius: 6px!important;"
-                     src="{!! \DLArtist\User::find($user_id)->avatar_url !!}"
+                     src="<?php
+                     echo accounts::showAvatar();
+                     ?>"
+                     {{--src="{{ accounts::showAvatar }}"--}}
+                     {{--src="{!! \DLArtist\User::find($user_id)->avatar_url !!}"--}}
                      width="200" height="200" alt="{{Auth::user()->name}}">
                 <form method="post" id="avatarForm">
                     {{ csrf_field() }}
@@ -70,14 +79,14 @@
     <script src="assets/js/jquery-3.2.1.min.js"></script>
 
     <script>
-        $(document).ready(function(){
-           var gender="{!! \DLArtist\User::find($user_id)->gender !!}";
-           if(gender==0){
-               $('#customRadioInline1').attr('checked', true);
-           }
-           else{
-               $('#customRadioInline2').attr('checked', true);
-           }
+        $(document).ready(function () {
+            var gender = "<?php echo accounts::showInfo(0) ?>";
+            if (gender == 0) {
+                $('#customRadioInline1').attr('checked', true);
+            }
+            else {
+                $('#customRadioInline2').attr('checked', true);
+            }
         });
         $("#avatar").change(function () {
             var form = $('#avatarForm')[0];
@@ -94,7 +103,7 @@
                     console.log('上传成功');
                 }
             })
-        })
+        });
         $("#save").click(function () {
 
             $.ajax({
@@ -185,10 +194,10 @@
                 dataType: 'json',
                 success: function (response) {
                     console.log(response);
-                    if (response.status[0]===1) {
+                    if (response.status[0] === 1) {
                         alert("password changed successful");
                     }
-                    else if(response.status[0]===0) {
+                    else if (response.status[0] === 0) {
                         if (typeof response.password !== 'undefined') {
                             for (let i = 0; i < response.password.length; i++) {
                                 console.log(response.password[i]);
@@ -206,7 +215,7 @@
                         }
 
                     }
-                    else if(response.status[0]===2){
+                    else if (response.status[0] === 2) {
                         console.log(response);
                     }
                 },

@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'cloud' => env('FILESYSTEM_CLOUD', 's3'),
+    'cloud' => env('FILESYSTEM_CLOUD', 'ftp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -62,6 +62,20 @@ return [
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
+        ],
+
+        'ftp' => [
+            'driver'   => 'ftp',
+            'host'     => '101.76.253.145',
+            'username' => 'Administrator',
+            'password' => 'Aa123456.',
+
+            // Optional FTP Settings...
+            'port'     => 2050,
+            'root'     => '/',
+            // 'passive'  => true,
+            // 'ssl'      => true,
+            // 'timeout'  => 30,
         ],
 
     ],

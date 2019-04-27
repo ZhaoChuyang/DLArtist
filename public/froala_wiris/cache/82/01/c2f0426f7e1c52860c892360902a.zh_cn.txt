@@ -1,1 +1,0 @@
-{"result":{"text":"A 加 B 等於 C"},"status":"ok"}

@@ -1,55 +1,72 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.11.7"> </script>
-    <script src="assets/js/jquery-3.2.1.min.js"></script>
-    <!--Load the MobileNet model. -->
-    <!--<script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet@0.1.1"> </script>-->
-    <script src="modelFile/mobilenet.js"></script>
-    <script>
-        async function func()
-        {
-            const img = document.getElementById('img');
-            mobilenet.load().then(model => {
-                // Classify the image.
-                model.classify(img).then(predictions => {
-                    //predictions是一个对象数组
-                    //数组中的每一个对象 的属性是className、probably ... 
-                    //可使用 console控制台打印查看详细信息
-                    top0 = predictions[0];
-                    res = document.getElementById("result");
-                    res.value = top0.className;
-                    $.ajax({
-                        type: "post",
-                        url: "/model/image",
-                        data: {
-                            "_token": '{{csrf_token()}}',
-                            "query" :$("#result").val()
-                        },
-                        dataType: 'json',
-                        success: function (response) {
-                            // console.log(response.value);
-                            var temp;
-                            for(var i=0;i<10;i++){
-                                console.log(response.value[i].contentUrl);
-                            }
-                        },
-                        error: function (xhr) {
-                            console.log(xhr);
-                        }
-                    })
-                });
-            });
+@extends('layouts.edit')
 
+@section('head')
+
+@endsection
+
+@section('content')
+    <style>
+        .carousel-item {
+            height: 100vh;
+            min-height: 350px;
+            background: no-repeat center center scroll;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
         }
+    </style>
+    <header>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <!-- Slide One - Set the background image for this slide in the line below -->
+                <div class="carousel-item active" style="background-image: url('https://source.unsplash.com/LAaSoL0LrYs/1920x1080')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2 class="display-4">First Slide</h2>
+                        <p class="lead">This is a description for the first slide.</p>
 
-    </script>
-</head>
-<body>
-<img id="img" src="images/th.jpg" width=224 height=224 crossorigin="anonymous"/>
-<button type="button" onclick="func()">推断</button>
-<input type="text" id="result" value="None" style="display: none"></input>
-</body>
-</html>
+                        <a href="/edit_1" class="btn btn-outline-light ">See details</a>
 
+                    </div>
+                </div>
+                <!-- Slide Two - Set the background image for this slide in the line below -->
+                <div class="carousel-item" style="background-image: url('https://source.unsplash.com/bF2vsubyHcQ/1920x1080')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2 class="display-4">Second Slide</h2>
+                        <p class="lead">This is a description for the second slide.</p>
+                        <a href="#" class="btn btn-outline-light ">See details</a>
+                    </div>
+                </div>
+                <!-- Slide Three - Set the background image for this slide in the line below -->
+                <div class="carousel-item" style="background-image: url('https://source.unsplash.com/szFUQoyvrxM/1920x1080')">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h2 class="display-4">Third Slide</h2>
+                        <p class="lead">This is a description for the third slide.</p>
+                        <a href="#" class="btn btn-outline-light ">See details</a>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Page Content -->
+    {{--<section class="py-5">--}}
+        {{--<div class="container">--}}
+            {{--<h1 class="display-4">Full Page Image Slider</h1>--}}
+            {{--<p class="lead">The background images for the slider are set directly in the HTML using inline CSS. The images in this snippet are from <a href="https://unsplash.com">Unsplash</a>, taken by <a href="https://unsplash.com/@joannakosinska">Joanna Kosinska</a>!</p>--}}
+        {{--</div>--}}
+    {{--</section>--}}
+@endsection

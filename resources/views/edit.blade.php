@@ -53,118 +53,143 @@
     <!-- Include TUI Froala Editor CSS. -->
     <link rel="stylesheet" href="froala_editor_2.9.1/css/third_party/image_tui.min.css">
 
-    <!--smart wizard-->
-    <link rel="stylesheet" href="smart_wizard/smart_wizard.css">
-    <link rel="stylesheet" href="smart_wizard/smart_wizard_theme_arrows.min.css">
-    <link rel="stylesheet" href="smart_wizard/smart_wizard_theme_dots.min.css">
 
-    <style>
-        body {
-            font-size: .875rem;
-        }
+    {{--<style>--}}
+        {{--body {--}}
+            {{--font-size: .875rem;--}}
+        {{--}--}}
 
-        .feather {
-            width: 16px;
-            height: 16px;
-            vertical-align: text-bottom;
-        }
+        {{--.feather {--}}
+            {{--width: 16px;--}}
+            {{--height: 16px;--}}
+            {{--vertical-align: text-bottom;--}}
+        {{--}--}}
 
-        /*
-         * Sidebar
-         */
+        {{--/*--}}
+         {{--* Sidebar--}}
+         {{--*/--}}
 
-        .sidebar {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            z-index: 100; /* Behind the navbar */
-            padding: 48px 0 0; /* Height of navbar */
-            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-        }
+        {{--.sidebar {--}}
+            {{--position: fixed;--}}
+            {{--top: 0;--}}
+            {{--bottom: 0;--}}
+            {{--left: 0;--}}
+            {{--z-index: 100; /* Behind the navbar */--}}
+            {{--padding: 48px 0 0; /* Height of navbar */--}}
+            {{--box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);--}}
+        {{--}--}}
 
-        .sidebar-sticky {
-            position: relative;
-            top: 0;
-            height: calc(100vh - 48px);
-            padding-top: .5rem;
-            overflow-x: hidden;
-            overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-        }
+        {{--.sidebar-sticky {--}}
+            {{--position: relative;--}}
+            {{--top: 0;--}}
+            {{--height: calc(100vh - 48px);--}}
+            {{--padding-top: .5rem;--}}
+            {{--overflow-x: hidden;--}}
+            {{--overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */--}}
+        {{--}--}}
 
-        @supports ((position: -webkit-sticky) or (position: sticky)) {
-            .sidebar-sticky {
-                position: -webkit-sticky;
-                position: sticky;
-            }
-        }
+        {{--@supports ((position: -webkit-sticky) or (position: sticky)) {--}}
+            {{--.sidebar-sticky {--}}
+                {{--position: -webkit-sticky;--}}
+                {{--position: sticky;--}}
+            {{--}--}}
+        {{--}--}}
 
-        .sidebar .nav-link {
-            font-weight: 500;
-            color: #333;
-        }
+        {{--.sidebar .nav-link {--}}
+            {{--font-weight: 500;--}}
+            {{--color: #333;--}}
+        {{--}--}}
 
-        .sidebar .nav-link .feather {
-            margin-right: 4px;
-            color: #999;
-        }
+        {{--.sidebar .nav-link .feather {--}}
+            {{--margin-right: 4px;--}}
+            {{--color: #999;--}}
+        {{--}--}}
 
-        .sidebar .nav-link.active {
-            color: #007bff;
-        }
+        {{--.sidebar .nav-link.active {--}}
+            {{--color: #007bff;--}}
+        {{--}--}}
 
-        .sidebar .nav-link:hover .feather,
-        .sidebar .nav-link.active .feather {
-            color: inherit;
-        }
+        {{--.sidebar .nav-link:hover .feather,--}}
+        {{--.sidebar .nav-link.active .feather {--}}
+            {{--color: inherit;--}}
+        {{--}--}}
 
-        .sidebar-heading {
-            font-size: .75rem;
-            text-transform: uppercase;
-        }
+        {{--.sidebar-heading {--}}
+            {{--font-size: .75rem;--}}
+            {{--text-transform: uppercase;--}}
+        {{--}--}}
 
-        /*
-         * Content
-         */
+        {{--/*--}}
+         {{--* Content--}}
+         {{--*/--}}
 
-        [role="main"] {
-            padding-top: 48px; /* Space for fixed navbar */
-        }
+        {{--[role="main"] {--}}
+            {{--padding-top: 48px; /* Space for fixed navbar */--}}
+        {{--}--}}
 
-        /*
-         * Navbar
-         */
+        {{--/*--}}
+         {{--* Navbar--}}
+         {{--*/--}}
 
-        .navbar-brand {
-            padding-top: .75rem;
-            padding-bottom: .75rem;
-            font-size: 1rem;
-        }
+        {{--.navbar-brand {--}}
+            {{--padding-top: .75rem;--}}
+            {{--padding-bottom: .75rem;--}}
+            {{--font-size: 1rem;--}}
+        {{--}--}}
 
-        .navbar .form-control {
-            padding: .75rem 1rem;
-            border-width: 0;
-            border-radius: 0;
-        }
+        {{--.navbar .form-control {--}}
+            {{--padding: .75rem 1rem;--}}
+            {{--border-width: 0;--}}
+            {{--border-radius: 0;--}}
+        {{--}--}}
 
-        .form-control-dark {
-            color: #fff;
-            background-color: rgba(255, 255, 255, .1);
-            border-color: rgba(255, 255, 255, .1);
-        }
+        {{--.form-control-dark {--}}
+            {{--color: #fff;--}}
+            {{--background-color: rgba(255, 255, 255, .1);--}}
+            {{--border-color: rgba(255, 255, 255, .1);--}}
+        {{--}--}}
 
-        .form-control-dark:focus {
-            border-color: transparent;
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
-        }
-
-
-    </style>
+        {{--.form-control-dark:focus {--}}
+            {{--border-color: transparent;--}}
+            {{--box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);--}}
+        {{--}--}}
+    {{--</style>--}}
 
 @endsection
 
 @section('content')
 
+    <section class="fdb-block" style="background-image: url(svg/red.svg);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-7 col-xl-5 text-center">
+                    <div class="fdb-box">
+                        <div class="row">
+                            <div class="col">
+                                <h1>Log In</h1>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col">
+                                <input type="password" class="form-control mb-1" placeholder="Password">
+                                <p class="text-right"><a href="https://www.froala.com">Recover Password</a></p>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col">
+                                <button class="btn btn-outline-secondary" type="button">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <div class="container-fluid">
         <div class="row">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar mt-2">
@@ -257,35 +282,35 @@
                         </a>
                     </h6>
                     <ul class="nav flex-column mb-2">
-                        {{--<li>--}}
-                        {{--<a href="#" data-toggle="collapse" data-target="#submenu-1" class="nav-link">--}}
-                        {{--<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"--}}
-                        {{--fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"--}}
-                        {{--stroke-linejoin="round" class="feather feather-plus-circle">--}}
-                        {{--<circle cx="12" cy="12" r="10"></circle>--}}
-                        {{--<line x1="12" y1="8" x2="12" y2="16"></line>--}}
-                        {{--<line x1="8" y1="12" x2="16" y2="12"></line>--}}
-                        {{--</svg>--}}
-                        {{--下拉菜单--}}
-                        {{--</a>--}}
-                        {{--<ul id="submenu-1" class="collapse">--}}
-                        {{--<li class="nav-item">--}}
-                        {{--<a class="nav-link" href="#">--}}
-                        {{--Current month--}}
-                        {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="nav-item">--}}
-                        {{--<a class="nav-link" href="#">--}}
-                        {{--Current month--}}
-                        {{--</a>--}}
-                        {{--</li>--}}
-                        {{--<li class="nav-item">--}}
-                        {{--<a class="nav-link" href="#">--}}
-                        {{--Current month--}}
-                        {{--</a>--}}
-                        {{--</li>--}}
-                        {{--</ul>--}}
-                        {{--</li>--}}
+                        <li>
+                        <a href="#" data-toggle="collapse" data-target="#submenu-1" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="feather feather-plus-circle">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="16"></line>
+                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                        </svg>
+                        下拉菜单
+                        </a>
+                        <ul id="submenu-1" class="collapse">
+                        <li class="nav-item">
+                        <a class="nav-link" href="#">
+                        Current month
+                        </a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="#">
+                        Current month
+                        </a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="#">
+                        Current month
+                        </a>
+                        </li>
+                        </ul>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -346,7 +371,7 @@
                 </div>
             </nav>
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 mt-5">
+            <main role="main" class="offset-md-2 col-md-8" style="margin-top: 150px;" >
                 <div class="chartjs-size-monitor"
                      style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
                     <div class="chartjs-size-monitor-expand"
@@ -358,7 +383,7 @@
                         <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
                     </div>
                 </div>
-                {{--消息提醒--}}
+                消息提醒
                 <div class="alert alert-info alert-dismissible collapse" role="alert" id="cover">封面已上传
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -366,7 +391,6 @@
                 </div>
                 <div id="edit_view">
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-                        <h1 class="h2 ml-4">Edit</h1>
                         <div class="btn-toolbar mb-2 mb-md-0">
                             <div class="btn-group mr-2">
                                 <label class="btn btn-outline-secondary btn-sm" id="show_cover" data-toggle="modal"
@@ -427,18 +451,17 @@
                         </div>
                     </div>
 
-                    <form class="ml-4">
-                        <div class="form-group row">
-                            <label for="title" class="col-sm-1 col-form-label"><strong>标题</strong></label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control w-50" id="title" placeholder="请输入标题"
+                    <form>
+                        <div class="form-group">
+
+
+                                <input type="text" class="form-control" id="title" placeholder="请输入标题"
                                        style="border: 0;">
-                            </div>
+
                         </div>
-                        <div class="form-group row mt-4">
-                            <label for="category" class="col-sm-1 col-form-label"><strong>分类</strong></label>
-                            <div class="col-sm-10">
-                                <select id="category" class="custom-select w-50">
+                        <div class="form-group mt-4">
+
+                                <select id="category" class="custom-select">
                                     <option value="0" selected>请选择类别</option>
                                     <option value="文娱点评">文娱点评</option>
                                     <option value="军事分析">军事分析</option>
@@ -446,16 +469,16 @@
                                     <option value="技术博客">技术博客</option>
                                     <option value="教育文化">教育文化</option>
                                 </select>
-                            </div>
+
                         </div>
-                        <div class="form-group row mt-4">
-                            <label for="edit" class="col-sm-1 col-form-label"><strong>内容</strong></label>
-                            <div class="col-sm-10">
+                        <div class="form-group mt-4">
+                            <label for="edit" class=" col-form-label"><strong>内容</strong></label>
+
                                 <textarea id="edit" name="content"></textarea>
-                            </div>
+
                         </div>
                         <div class="form-group row mt-4">
-                            <label class="col-sm-1 col-form-label"></label>
+                            <label class=" col-form-label"></label>
                             <div class="col-sm-10">
                                 <button type="button" class="btn btn-primary" id="send">发表文章</button>
                                 <br>
@@ -505,17 +528,17 @@
                                 </form>
                             </div>
                             <div id="step-3" class="ml-3">
-                                {{--<div class="row">--}}
-                                {{--<div class="col">--}}
-                                {{--<img id="content_copy" src="#" alt="your image" class="border p-2 rounded" style="max-width: 300px; max-height: 300px;"/>--}}
-                                {{--</div>--}}
-                                {{--<div class="col">--}}
-                                {{--<img id="style_copy"src="#" alt="your image" class="border p-2 rounded" style="max-width: 300px; max-height: 300px;"/>--}}
-                                {{--</div>--}}
-                                {{--<div class="col">--}}
-                                {{--<canvas id="stylized" width="192" height="256" class="image mt-2 border p-2 rounded"></canvas>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
+                                <div class="row">
+                                <div class="col">
+                                <img id="content_copy" src="#" alt="your image" class="border p-2 rounded" style="max-width: 300px; max-height: 300px;"/>
+                                </div>
+                                <div class="col">
+                                <img id="style_copy"src="#" alt="your image" class="border p-2 rounded" style="max-width: 300px; max-height: 300px;"/>
+                                </div>
+                                <div class="col">
+                                <canvas id="stylized" width="192" height="256" class="image mt-2 border p-2 rounded"></canvas>
+                                </div>
+                                </div>
                                 <h3 class="border-bottom border-gray pb-2">Step 3 生成图片</h3>
                                 <button id="stylize" class="btn btn-outline-secondary btn-sm">提交图片</button>
                                 <br>
@@ -652,7 +675,7 @@
         </div>
     </div>
 
-    <!-- Button trigger modal -->
+    {{--<!-- Button trigger modal -->--}}
     <button type="button" id="showModal" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" hidden>
         Launch demo modal
     </button>
@@ -744,113 +767,6 @@
     <img src="#" id="img_rec" crossorigin="anonymous" hidden>
     <input type="text" id="result" value="None" style="display: none"></input>
 
-    <div class="col-3 offset-3">
-        <style>
-            .box9 {
-                background: #000;
-                text-align: center;
-                position: relative
-            }
-
-            .box9 img {
-                width: 100%;
-                height: auto
-            }
-
-            .box9:hover img {
-                opacity: .5
-            }
-
-            .box9 .box-content {
-                padding: 30px 10px 30px 0;
-                background: rgba(0, 0, 0, .65);
-                position: absolute;
-                top: 0;
-                left: 0;
-                bottom: 0;
-                right: 0;
-                opacity: 0
-            }
-
-            .box9:hover .box-content {
-                top: 10px;
-                left: 10px;
-                bottom: 10px;
-                right: 10px;
-                opacity: 1
-            }
-
-            .box9 .title {
-                font-weight: 700;
-                color: #fff;
-                line-height: 17px;
-                margin: 5px 0;
-                position: absolute;
-                bottom: 55%
-            }
-
-            .box10 .icon li a, .box9 .icon li a {
-                line-height: 35px;
-                border-radius: 50%
-            }
-
-            .box9 .icon {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-                position: absolute;
-                top: 50%
-            }
-
-            .box9 .icon li {
-                display: inline-block;
-                opacity: 0;
-                transform: translateY(40px)
-            }
-
-            .box9:hover .icon li {
-                opacity: 1;
-                transform: translateY(0)
-            }
-
-            .box9:hover .icon li:first-child {
-                transition-delay: .0s
-            }
-
-            .box9:hover .icon li:nth-child(2) {
-                transition-delay: .0s
-            }
-
-            .box9 .icon li a {
-                display: block;
-                width: 35px;
-                height: 35px;
-                background: #f39c12;
-                font-size: 20px;
-                color: #000;
-                margin-right: 5px;
-                transition: all .35s ease 0s
-            }
-
-            .box9 .icon a:hover {
-                background: #fff
-            }
-
-            @media only screen and (max-width: 990px) {
-                .box9 {
-                    margin-bottom: 20px
-                }
-            }
-        </style>
-        <div class="box9">
-            <img src="http://bestjquery.com/tutorial/hover-effect/demo147/images/img-1.jpg">
-            <div class="box-content">
-                <ul class="icon">
-                    <li><a href="#"><i class="fa fa-search"></i></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
 
 
 
