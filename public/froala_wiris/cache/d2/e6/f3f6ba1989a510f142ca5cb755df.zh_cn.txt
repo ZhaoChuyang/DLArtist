@@ -1,1 +1,0 @@
-{"result":{"text":"3 加 1 等於 2 除以 4"},"status":"ok"}

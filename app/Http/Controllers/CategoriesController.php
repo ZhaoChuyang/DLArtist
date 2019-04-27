@@ -57,6 +57,7 @@ class CategoriesController extends Controller
         return view('categories-1',compact('data','writer','current','last','up','down','user_num','article_num','new_article'));
 
     }
+
     public function categories2(){
 //军事
         $category = '军事分析';
@@ -546,11 +547,11 @@ class CategoriesController extends Controller
     }
 
 
-    public function article(){
+    public function article($id){
 //具体文章
         $article=new Article();
         $comment=new Comment();
-        $id=$_GET['id'];
+
         $article->where('id',$id)->increment('click_num');
         $title=$article->where('id',$id)->select('title')->get();
         if(auth()->user())

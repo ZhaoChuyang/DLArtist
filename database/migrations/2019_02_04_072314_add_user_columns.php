@@ -14,7 +14,7 @@ class AddUserColumns extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table){
-           $table->string('avatar_url')->default("/avatar/default_avatar.png");
+           $table->string('avatar_url')->default("/avatar/default_avatar.jpg");
            $table->string('phone');
            $table->date('birthday')->default("1901-01-01");;
            $table->boolean('gender')->default(0);

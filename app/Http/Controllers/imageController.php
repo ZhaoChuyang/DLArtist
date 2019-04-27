@@ -7,8 +7,9 @@ use DLArtist\DB\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DLArtist\User;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 
 class imageController extends Controller
@@ -22,106 +23,55 @@ class imageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
-        /*
-        $input=$request->all();
-        $location=$input['location'];
-        $fileData=$request->file('image');
-        $fileName=$_FILES['image']['name'];
-        $targetPath='images/';
-        $request->file('image')->move($targetPath, $fileName);
-        $completePath=url('/'.$targetPath.$fileName);
-        $fileUpLoad=new FileUpload;
-        $fileUpLoad->title = $fileName;
-        $fileUpLoad->path = $completePath;
-        $fileUpLoad->save();
-         */
+        //验证请求
         $this->validate($request, [
-            'image'=>'required|image|max:10240'
+            'image'=>'required|image|max:10240',
+            'article_id'=>'required|not_in:0',
         ]);
+
+        //获取图片和文章id
         $image=$request->file('image');
-        $inputImageName=time().'.'.$image->getClientOriginalExtension();
-        $destinatonPath='images/';
-        $image->move($destinatonPath, $inputImageName);
+        $article_id=$request->input('article_id');
 
-        $img = new image;
+        //设置图片名
+        $inputImageName='&'.auth()->user()->id.time().'.'.$image->getClientOriginalExtension();
 
-        $img->image_url=url("/images/$inputImageName");
+        //目标地址
+        $destinatonPath='image/raw';
 
+        //存图片，获取地址
+        $path=$image->storeAs($destinatonPath, $inputImageName);//记住改成ftp服务器,添加第三个参数'ftp'
+
+        //图片对象
+        $img = new image();
+        $img->image_url=$inputImageName;
         $user_id=auth()->user()->id;
-
         $img->user_id=$user_id;
+        $img->valid=0;
+        $img->article_id=$article_id;
 
-        $img->save();
-        //return response()->json(['link' => url("/images/$inputImageName")]);
+        $images=array();
 
-        return stripslashes(response()->json(['link' => url("/images/$inputImageName")])->content());
+        //先将图片按各自从属的文章存到cache里面，最后一起保存到数据库
+        if(!Cache::has('article:'.$article_id.':images')){
+            array_push($images, $img);
+            Cache::put('article:'.$article_id.':images', $images, 1440);
+        }else{
+            $images=Cache::get('article:'.$article_id.':images');
+            array_push($images, $img);
+            Cache::put('article:'.$article_id.':images', $images, 1440);
+        }
+
+        //返回指向地址的json
+        return response()->json(['link' => url("/image/raw/$inputImageName")]);
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \DLArtist\image  $image
-     * @return \Illuminate\Http\Response
-     */
-    public function show(image $image)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \DLArtist\image  $image
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(image $image)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \DLArtist\image  $image
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, image $image)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \DLArtist\image  $image
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request)
     {
         $this->validate($request,[
@@ -129,40 +79,51 @@ class imageController extends Controller
         ]);
         $src=$request->input('src');
 
+        $match=array();
+
+        //正则匹配出url中的地址字段
+        preg_match('/&.*/', $src, $match, PREG_OFFSET_CAPTURE);
+        $src=$match[0][0];
+
+        //图片设置为无效，之后一并删除
+        $user_id=auth()->user()->id;
         $img=image::where('image_url', $src)->update(['valid'=>false]);
-
-        //删除本地文件
-        $all_deserted_img=image::where('valid', 0)->get();
-
-        foreach($all_deserted_img as $deserted_img){
-            $url=$deserted_img->image_url;
-            $url=substr($url, 21);
-            $url=public_path().$url;
-            //检查图片是否存在
-            if(file_exists($url)){
-                unlink($url);
-            }else{
-                continue;
-            }
-        }
+        Cache::forget('user:'.$user_id.':imageList');
 
         return "image deleted";
     }
 
+    public function cleanImages(){
+        //定时一起删除本地文件
+        $all_deserted_img=image::where('valid', 0)->get();
+
+        foreach($all_deserted_img as $deserted_img){
+            $url=$deserted_img->image_url;
+            $url='image/raw/'.$url;
+            Storage::delete($url);
+        }
+    }
+
     public function list(Request $request){
+
         $user_id=auth()->user()->id;
-        $all_image=image::where('valid', 1)->where('user_id', $user_id)->get();
         $data=[];
+        //获取用户现在所有图片
         $dataCollection=[];
         $i=0;
-        foreach($all_image as $img){
-            $url=$img->image_url;
+        //将取到的结果存在cache中
+        $images_in_db=Cache::remember('user:'.$user_id.':imageList', 1440, function(){
+            return DB::table('images')->where('valid', 1)->where('user_id', auth()->user()->id)->get();
+        });
+        //$images_in_db=image::where('valid', 1)->where('user_id', $user_id)->get();
+        foreach($images_in_db as $img){
+            $image_name=$img->image_url;
+            $url=url('/image/raw/'.$image_name);
             $data['url']=$url;
             $data['thumb']=$url;
             $dataCollection[$i]=$data;
             $i++;
         }
-
         return response()->json($dataCollection);
     }
 
@@ -365,7 +326,7 @@ class imageController extends Controller
 
     public function saveAttn(Request $request){
         $newName=time().'.png';
-        rename(public_path().'/images/0_s_0_g2.png', public_path().'/images/'.$newName);
+        rename(resource_path().'/AttnGAN/images/0_s_0_g2.png', public_path().'/images/'.$newName);
         $img = new image;
 
         $img->image_url=url("/images/".$newName);

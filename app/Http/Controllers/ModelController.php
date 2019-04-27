@@ -136,7 +136,7 @@ class ModelController extends Controller
 //        echo shell_exec('source activate attngan && ');
         //swoole
         $str=$request->input('str');
-        $output=passthru("source activate attngan && cd public/AttnGAN/code && python fine.py --str $str");
+        $output=passthru("source activate attngan && cd /resources/AttnGAN/code && python fine.py --str $str --name ");
         //apache
         //$output = passthru("source activate attngan && cd AttnGAN/code && python fine.py --str $str");
         //$newName=time().'.png';

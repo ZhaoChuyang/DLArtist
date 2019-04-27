@@ -277,7 +277,7 @@
                         $("div[name='article']>article>img").eq(i).attr('src',data[i]. cover_url);
                         $("div[name='article']>article>div>h3").eq(i).html(data[i].title);
                         $("div[name='article']>article>div>p").eq(i).html("作者："+data[i].name+"<br>发表于："+data[i].update);
-                        $("div[name='article']>article>div>a").eq(i).attr('href',"article?id="+data[i].id);
+                        $("div[name='article']>article>div>a").eq(i).attr('href',"/article/"+data[i].id);
                     }
                     for(var j=data.length;j<6;j++){
                         $("div[name='article']").eq(j).hide();

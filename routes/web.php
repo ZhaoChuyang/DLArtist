@@ -10,7 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 Route::any('/', function () {
     return view('index');
@@ -29,19 +31,14 @@ Route::any('/categories', function(){
 });
 //具体分类
 Route::post('categories/sorter','CategoriesController@category');
-Route::any('/categories-1','CategoriesController@categories1');
-Route::any('/categories-2','CategoriesController@categories2');
-Route::any('/categories-3','CategoriesController@categories3');
-Route::any('/categories-4','CategoriesController@categories4');
-Route::any('/categories-5','CategoriesController@categories5');
-Route::any('/categories-6','CategoriesController@categories6');
+
 //文章
-Route::get('/article','CategoriesController@article');
+Route::get('/article/{id}','CategoriesController@article');
 //编辑页面
-Route::get('/edit','ArticleController@edit');
+Route::get('/edit','ArticleController@edit')->middleware(['auth','verified']);
 //图片处理
 Route::post('/image','imageController@store');
-Route::delete('image','imageController@destroy');
+Route::delete('/image','imageController@destroy');
 //发表文章
 Route::post('/article', 'ArticleController@store');
 
@@ -67,8 +64,6 @@ Route::post('/cover_upload', 'ArticleController@cover');
 
 Route::post('/send', 'EmailController@send');
 
-Route::get('/redis/{id}', 'HomeController@showArticle')->where('id', '[0-9]+');
-
 Route::post('/model/image','ModelController@BingImageSearch');
 Route::post('/model/crop','ModelController@crop_pic');
 
@@ -92,5 +87,37 @@ Route::get('/generateImage','ModelController@attnGan')->middleware(['auth','veri
 
 Route::get('/image/saveAttn', 'imageController@saveAttn')->middleware(['auth','verified']);
 
-Route::get('/test', 'HomeController@chutu');
+Route::get('/test', function(){
+    return view('test');
+});
+
+Route::get('/edit_1', function(){
+    return view('edit_1');
+});
+
+Route::get('/ftp', 'HomeController@ftp');
+
+Route::get('/image/raw/{filename}', function ($filename)
+{
+
+    $path = storage_path().'/app/image/raw/'.$filename;
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+//    $file = File::get($path);
+//    $type = File::mimeType($path);
+
+    return response()->file($path);
+});
+
+Route::post('/article/getId', 'ArticleController@getNextId');
+
+Route::get('/testCompose', function(){
+    return view('testCompose');
+});
+
+Route::get('/compose', 'TypeSettingController@main');
+
 
