@@ -10,10 +10,15 @@ use DLArtist\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 
 class imageController extends Controller
 {
+
+    static public $category_collection=[17, 18, 7, 16, 11, 11, 11, 3, 7, 0, 14, 11, 19, 7, 17, 6, 15, 11, 11, 11, 1, 15, 10, 17, 4, 6, 14, 15, 0, 18, 17, 17, 17, 12, 15, 4, 14, 7, 12, 0, 14, 100, 4, 14, 10, 7, 9, 15, 15, 15, 0, 0, 17, 16, 0, 7, 16, 12, 0, 0, 7, 14, 0, 11, 20, 8, 0, 0, 14, 16, 1, 6, 17, 20, 20, 17, 12, 7, 15, 11, 8, 13, 11, 0, 7, 14, 20, 0, 0, 20, 0, 11, 0, 0, 8, 6, 4, 0, 8, 13, 7, 8, 8, 8, 0, 15, 17, 6, 11, 0, 0, 17, 13, 7, 19, 4, 1, 0, 0, 13, 0, 14, 6, 10, 15, 0, 17, 17, 0, 19, 19, 15, 19, 0, 17, 20, 7, 9, 0, 7, 8, 9, 7, 15, 7, 19, 15, 20, 0, 17, 17, 6, 0, 16, 0, 0, 0, 15, 6, 15, 19, 15, 0, 1, 7, 15, 7, 12, 0, 7, 4, 20, 0, 19, 9, 15, 18, 18, 15, 12, 11, 9, 17, 4, 19, 17, 7, 19, 8, 12, 0, 20, 20, 4, 4, 7, 17, 11, 16, 14, 13, 17, 4, 14, 10, 0, 17, 11, 6, 1, 13, 0, 19, 18, 19, 16, 8, 14, 12, 19, 20, 11, 11, 11, 16, 19, 0, 15, 13, 10, 16, 17, 20, 17, 11, 0, 17, 4, 10, 8, 7, 7, 0, 15, 15, 15, 16, 9, 13, 19, 17, 20, 14, 8, 16, 12, 0];
+    static public $category_map=["动物", "人", "动物", "昆虫", "动物", "植物"];
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -39,7 +44,7 @@ class imageController extends Controller
         $article_id=$request->input('article_id');
 
         //设置图片名
-        $inputImageName='&'.auth()->user()->id.time().'.'.$image->getClientOriginalExtension();
+        $inputImageName=']'.auth()->user()->id.time().'.'.$image->getClientOriginalExtension();
 
         //目标地址
         $destinatonPath='image/raw';
@@ -82,7 +87,7 @@ class imageController extends Controller
         $match=array();
 
         //正则匹配出url中的地址字段
-        preg_match('/&.*/', $src, $match, PREG_OFFSET_CAPTURE);
+        preg_match('/].*/', $src, $match, PREG_OFFSET_CAPTURE);
         $src=$match[0][0];
 
         //图片设置为无效，之后一并删除
@@ -102,6 +107,63 @@ class imageController extends Controller
             $url='image/raw/'.$url;
             Storage::delete($url);
         }
+
+        //清理redis中的文章图片缓存
+        $max_article_id=Cache::get('max_article_id');
+
+        for($i=1; $i<=$max_article_id; $i++){
+            if(Cache::has('article:'.$i.':images')){
+                $images=Cache::get('article:'.$i.':images');
+                Cache::forget('article:'.$i.':images');
+                foreach($images as $img){
+                    if($img->valid==0){
+                        $url=$img->image_url;
+                        $url='image/raw/'.$url;
+                        Storage::delete($url);
+                    }
+                }
+            }
+        }
+
+    }
+
+    public function imageClassify(Request $request){
+
+        $category_collection=[17, 18, 7, 16, 11, 11, 11, 1, 7, 0, 14, 11, 19, 7, 17, 6, 15, 11, 11, 11, 1, 15, 10, 17, 4, 6, 14, 15, 0, 18, 17, 17, 17, 12, 15, 4, 14, 7, 12, 0, 14, 100, 4, 14, 10, 7, 9, 15, 15, 15, 0, 0, 17, 16, 0, 7, 16, 12, 0, 0, 7, 14, 0, 11, 20, 8, 0, 0, 14, 16, 1, 6, 17, 20, 20, 17, 12, 7, 15, 11, 8, 13, 11, 0, 7, 14, 20, 0, 0, 20, 0, 11, 0, 0, 8, 6, 4, 0, 8, 13, 7, 8, 8, 8, 0, 15, 17, 6, 11, 0, 0, 17, 13, 7, 19, 4, 1, 0, 0, 13, 0, 14, 6, 10, 15, 0, 17, 17, 0, 19, 19, 15, 19, 0, 17, 20, 7, 9, 0, 7, 8, 9, 7, 15, 7, 19, 15, 20, 0, 17, 17, 6, 0, 16, 0, 0, 0, 15, 6, 15, 19, 15, 0, 1, 7, 15, 7, 12, 0, 7, 4, 20, 0, 19, 9, 15, 18, 18, 15, 12, 11, 9, 17, 4, 19, 17, 7, 19, 8, 12, 0, 20, 20, 4, 4, 7, 17, 11, 16, 14, 13, 17, 4, 14, 10, 0, 17, 11, 6, 1, 13, 0, 19, 18, 19, 16, 8, 14, 12, 19, 20, 11, 11, 11, 16, 19, 0, 15, 13, 10, 16, 17, 20, 17, 11, 0, 17, 4, 10, 8, 7, 7, 0, 15, 15, 15, 16, 9, 13, 19, 17, 20, 14, 8, 16, 12, 0];
+        $category_map=["动物", "人","","", "昆虫", "", "植物", "家具,日用", "音乐", "自然", "宗教", "体育", "娱乐,游戏", "食物", "食品用具","电子用品,电器", "外饰", "交通", "武器", "工具","建筑"];
+
+        $validator = Validator:: make($request->all(), [
+            'article_id'=>'required|not_in:0',
+            'src'=>'required',
+            'category'=>'required',
+        ]);
+        if ($validator->fails()) {
+            return $validator->errors()->add('status', 0);
+        }
+
+        $article_id=$request->input('article_id');
+
+        $src=$request->input('src');
+
+        $match=array();
+
+        //正则匹配出url中的地址字段
+        preg_match('/].*/', $src, $match, PREG_OFFSET_CAPTURE);
+        $src=$match[0][0];
+
+        $category=$request->input('category');
+
+        $images = Cache::get('article:'.$article_id.':images');
+
+        for($i=0; $i<sizeof($images); $i++){
+            if($images[$i]->image_url==$src){
+                $images[$i]->category=$category_map[$category_collection[$category]];
+                Cache::forget('article:'.$article_id.':images');
+                Cache::put('article:'.$article_id.':images', $images, 1440);
+                return $images[$i]->category;
+            }
+        }
+
     }
 
     public function list(Request $request){
@@ -121,193 +183,11 @@ class imageController extends Controller
             $url=url('/image/raw/'.$image_name);
             $data['url']=$url;
             $data['thumb']=$url;
+            $data['tag']=$img->category;
             $dataCollection[$i]=$data;
             $i++;
         }
         return response()->json($dataCollection);
-    }
-
-    public function classify(Request $request){
-        $validator = Validator:: make($request->all(), [
-            'src'=>'required',
-            'class'=>'required',
-        ]);
-        if ($validator->fails()) {
-            return $validator->errors()->add('status', 0);
-        }
-
-        $src=$request->input('src');
-        $class=$request->input('class');
-
-        if($class=='person')
-            $class='person';
-        else if($class=='bicycle')
-            $class='traffic';
-        else if($class=='car')
-            $class='traffic';
-        else if($class=='motorcycle')
-            $class='traffic';
-        else if($class=='airplane')
-            $class='traffic';
-        else if($class=='bus')
-            $class='traffic';
-        else if($class=='train')
-            $class='traffic';
-        else if($class=='truck')
-            $class='traffic';
-        else if($class=='boat')
-            $class='traffic';
-        else if($class=='traffic light')
-            $class='traffic';
-        else if($class=='fire hydrant')
-            $class='traffic';
-        else if($class=='stop sign')
-            $class='traffic';
-        else if($class=='parking meter')
-            $class='traffic';
-        else if($class=='bench')
-            $class='item';
-        else if($class=='bird')
-            $class='animal';
-        else if($class=='cat')
-            $class='animal';
-        else if($class=='dog')
-            $class='animal';
-        else if($class=='horse')
-            $class='animal';
-        else if($class=='sheep')
-            $class='animal';
-        else if($class=='cow')
-            $class='animal';
-        else if($class=='elephant')
-            $class='animal';
-        else if($class=='bear')
-            $class='animal';
-        else if($class=='zebra')
-            $class='animal';
-        else if($class=='giraffe')
-            $class='animal';
-        else if($class=='backpack')
-            $class='item';
-        else if($class=='umbrella')
-            $class='item';
-        else if($class=='handbag')
-            $class='item';
-        else if($class=='tie')
-            $class='item';
-        else if($class=='suitcase')
-            $class='bicycle';
-        else if($class=='frisbee')
-            $class='item';
-        else if($class=='skis')
-            $class='item';
-        else if($class=='snowboard')
-            $class='item';
-        else if($class=='sports ball')
-            $class='item';
-        else if($class=='kite')
-            $class='item';
-        else if($class=='baseball bat')
-            $class='item';
-        else if($class=='baseball glove')
-            $class='item';
-        else if($class=='skateboard')
-            $class='item';
-        else if($class=='surfboard')
-            $class='item';
-        else if($class=='tennis racket')
-            $class='item';
-        else if($class=='bottle')
-            $class='item';
-        else if($class=='wine glass')
-            $class='item';
-        else if($class=='cup')
-            $class='item';
-        else if($class=='fork')
-            $class='item';
-        else if($class=='knife')
-            $class='item';
-        else if($class=='spoon')
-            $class='item';
-        else if($class=='bowl')
-            $class='item';
-        else if($class=='banana')
-            $class='food';
-        else if($class=='apple')
-            $class='food';
-        else if($class=='sandwich')
-            $class='food';
-        else if($class=='orange')
-            $class='food';
-        else if($class=='broccoli')
-            $class='food';
-        else if($class=='carrot')
-            $class='food';
-        else if($class=='hot dog')
-            $class='food';
-        else if($class=='pizza')
-            $class='food';
-        else if($class=='donut')
-            $class='food';
-        else if($class=='cake')
-            $class='food';
-        else if($class=='chair')
-            $class='item';
-        else if($class=='couch')
-            $class='item';
-        else if($class=='potted plant')
-            $class='item';
-        else if($class=='bed')
-            $class='item';
-        else if($class=='dining table')
-            $class='item';
-        else if($class=='tv')
-            $class='item';
-        else if($class=='laptop')
-            $class='item';
-        else if($class=='mouse')
-            $class='item';
-        else if($class=='remote')
-            $class='item';
-        else if($class=='keyboard')
-            $class='item';
-        else if($class=='cell phone')
-            $class='food';
-        else if($class=='microwave')
-            $class='food';
-        else if($class=='oven')
-            $class='food';
-        else if($class=='toaster')
-            $class='food';
-        else if($class=='sink')
-            $class='food';
-        else if($class=='refrigerator')
-            $class='item';
-        else if($class=='book')
-            $class='item';
-        else if($class=='clock')
-            $class='item';
-        else if($class=='vase')
-            $class='item';
-        else if($class=='scissors')
-            $class='item';
-        else if($class=='teddy bear')
-            $class='item';
-        else if($class=='hair drier')
-            $class='item';
-        else if($class=='toothbrush')
-            $class='item';
-
-        DB::beginTransaction();
-
-        try {
-            $img=image::where('image_url', $src)->update(['category'=>$class]);
-            DB::commit();
-            return response()->json("image class uploaded");
-        } catch (\Exception $ex) {
-            DB::rollback();
-            return response()->json(['error' => $ex->getMessage()], 500);
-        }
     }
 
     public function imageManagement(Request $request){

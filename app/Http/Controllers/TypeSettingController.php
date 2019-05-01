@@ -3,6 +3,12 @@
 namespace DLArtist\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use SoapClient;
 
 class TypeSettingController extends Controller
 {
@@ -11,12 +17,7 @@ class TypeSettingController extends Controller
         $data=preg_replace($html,'',$str);
         return $data;
     }
-//    private static function cmp($a, $b) {
-//        if ($a->text_number == $b->text_number) {
-//            return 0;
-//        }
-//        return ($a->text_number < $b->text_number) ? -1 : 1;
-//    }
+
     public function re_duplicate($a){
         for($i=1;$i<sizeof($a);$i++){
             $pre=$a[$i-1];$lat=$a[$i];
@@ -365,15 +366,105 @@ class TypeSettingController extends Controller
             if (sizeof($result) && $ans->score < $result[$i]->score) $ans = $result[$i];
         }
         if ($ans->score){
-            return $ans->chose;
+            $image=array();
+            $ch=$ans->chose;
+
+            while($ch){
+                $q=$ch%$n;
+                $ch=(int)($ch/$n);
+                if($q==1){
+                    for($i=0;$i<$model_1->image_number;$i++){
+                        $image_cell=[];
+                        array_push($image_cell, $model_1->image_h[$i]);
+                        array_push($image_cell, $model_1->image_w[$i]);
+                        array_push($image, $image_cell);
+                    }
+                }
+                if($q==2){
+                    for($i=0;$i<$model_2->image_number;$i++){
+                        $image_cell=[];
+                        array_push($image_cell,$model_2->image_h[$i]);
+                        array_push($image_cell,$model_2->image_w[$i]);
+                        array_push($image, $image_cell);
+                    }
+                }
+                if($q==3){
+                    for($i=0;$i<$model_3->image_number;$i++){
+                        $image_cell=[];
+                        array_push($image_cell, $model_3->image_h[$i]);
+                        array_push($image_cell, $model_3->image_w[$i]);
+                        array_push($image, $image_cell);
+                    }
+                }
+                if($q==4){
+                    for($i=0;$i<$model_4->image_number;$i++){
+                        $image_cell=[];
+                        array_push($image_cell, $model_4->image_h[$i]);
+                        array_push($image_cell, $model_4->image_w[$i]);
+                        array_push($image, $image_cell);
+                    }
+                }
+                if($q==5){
+                    for($i=0;$i<$model_5->image_number;$i++){
+                        $image_cell=[];
+                        array_push($image_cell, $model_5->image_h[$i]);
+                        array_push($image_cell, $model_5->image_w[$i]);
+                        array_push($image, $image_cell);
+                    }
+                }
+                if($q==6){
+                    for($i=0;$i<$model_6->image_number;$i++){
+                        $image_cell=[];
+                        array_push($image_cell, $model_6->image_h[$i]);
+                        array_push($image_cell, $model_6->image_w[$i]);
+                        array_push($image, $image_cell);
+                    }
+                }
+                if($q==7){
+                    for($i=0;$i<$model_7->image_number;$i++){
+                        $image_cell=[];
+                        array_push($image_cell, $model_7->image_h[$i]);
+                        array_push($image_cell, $model_7->image_w[$i]);
+                        array_push($image, $image_cell);
+                    }
+                }
+            }
+            return array('chose'=>$ans->chose,"image"=>$image);
         }
     }
 
     public function main(Request $request){
 
-        $o_content=$request->input('content');
+        $validator = Validator::make($request->all(), [
+            'article_id'=>'required|not_in:0',
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors()->add('status', 0);
+        }
+
+
+        $article_id=$request->input('article_id');
+        $user_id=auth()->user()->id;
+
+        $article=null;
+
+        if(Cache::has('article:'.$article_id)){
+            $article=Cache::get('article:'.$article_id);
+        }
+        else{
+            $article=DB::table('articles')->find($article_id);
+            Cache::put('article:'.$article_id, $article, 720);
+        }
+
+        $content_path=$article->content;
+
+        $o_content=Storage::disk('ftp')->get('content/'.$content_path);
+
+        //$o_content=$request->input('content');
         preg_match_all('/<img[^>]*?src="([^"]*?)"[^>]*?>/i', $o_content, $img);
         $img_num = sizeof($img[1]);
+
         $content=htmlspecialchars_decode($o_content);
         $content=str_replace("&#39;", "'", $content);
         $content = strip_tags($content, '<p>');
@@ -383,25 +474,158 @@ class TypeSettingController extends Controller
         $content = strip_tags($content, '');
         $num=mb_strwidth($content, 'utf8')*1.2;
 
+        $needSummary=$article->needSummary;
 
-        $needSummary=$request->input('needSummary');
         $summary="";
-        if($needSummary){
-            $summary=$request->input('summary');
-        }
-        $title=$request->input('title');
-        $author=$request->input('author');
 
+        if($needSummary){
+            $summary=$article->summary;
+        }
+        $title=$article->title;
+        $author=$article->author;
         $ans=$this->typesetting($num, $img_num, $needSummary, $summary);
         $times=10;
         while($ans==""&&$times--)
             $ans=$this->typesetting($num, $img_num, $needSummary, $summary);
-        return $ans;
+
+        return response()->json(['ans'=>$ans, 'image_path'=>$img]);
     }
-//$ans=typesetting();
-//$times=10;
-//while($ans==""&&$times--)$ans=typesetting();
-//print_r($ans);
+
+    public function connectInDesign(Request $request){
+
+        $validator = Validator:: make($request->all(), [
+            'images'=>'required',
+            'article_id'=>'required|not_in:0',
+            'chose'=>'required',
+        ]);
+        if ($validator->fails()) {
+            return $validator->errors()->add('status', 0);
+        }
+
+
+        $article_id=$request->input('article_id');
+
+        $article=null;
+
+        if(Cache::has('article:'.$article_id)){
+            $article=Cache::get('article:'.$article_id);
+        }else{
+            $article=DB::table('articles')->find($article_id);
+            Cache::put('article:'.$article_id, $article, 1440);
+        }
+
+        //待传参数
+        $doDebug=false;
+        $chose=$request->input('chose');
+        $author=$article->author;
+        $summary=$article->summary;
+        $title=$article->title;
+        $content='/C/Users/Administrator/Desktop/ftp/content/'.$article->content;
+
+        $images=$request->input('images');
+        $image_num=sizeof($images);
+        $R=255;
+        $G=0;
+        $B=0;
+        $imageString="";
+
+
+        foreach($images as $img){
+            $imageString=$imageString."q/C/Users/Administrator/Desktop/ftp/image/processed/".$img;
+        }
+
+        //服务器地址
+        $myHost = 'http://101.76.253.145:12345';
+        //wsdl地址
+        $myWSDL = "$myHost/Service?wsdl";
+        //script地址
+        $myScriptFile = resource_path().'/js/newspaperTemplate.js';
+        //脚本语言
+        $myScriptLanguage = "javascript";
+        //脚本内容
+        $myScriptText='';
+
+        //传参
+        $myScriptArgs=array();
+        $myScriptArgs[0]=array('name'=>'chose', 'value'=>$chose);
+        $myScriptArgs[1]=array('name'=>'get_image_num', 'value'=>$image_num);
+        $myScriptArgs[2]=array('name'=>'get_pic', 'value'=>$imageString);
+        $myScriptArgs[3]=array('name'=>'R', 'value'=>$R);
+        $myScriptArgs[4]=array('name'=>'G', 'value'=>$G);
+        $myScriptArgs[5]=array('name'=>'B', 'value'=>$B);
+        $myScriptArgs[6]=array('name'=>'text_title', 'value'=>$title);
+        $myScriptArgs[7]=array('name'=>'text_author', 'value'=>$author);
+        $myScriptArgs[8]=array('name'=>'text_content', 'value'=>$content);
+        $myScriptArgs[9]=array('name'=>'text_summary', 'value'=>$summary);
+
+        //读入script内容
+//        $fh = fopen($myScriptFile, 'r');
+//        $theSize = filesize($myScriptFile);
+//        if ($theSize > 0) {
+//            $myScriptText = fread($fh, $theSize);
+//        } else {
+//            $myScriptText = '';
+//        }
+//        fclose($fh);
+
+        $myScriptText = File::get(resource_path('js/newspaperTemplate.js'));
+        //return $myScriptText;
+        // send script file path as empty since we're sending the text of the script
+        $myScriptFile = '';
+
+        // CALL RunScript
+        $myResult = $this->phpRunScript($myWSDL, $myHost, $myScriptFile, $myScriptText, $myScriptLanguage, $myScriptArgs, $doDebug);
+        return $myResult;
+    }
+
+
+    private function phpRunScript($wsdl, $host, $scriptFile, $scriptText, $scriptLanguage, $scriptArgs, $printDebugInfo)
+    {
+        $result = '';
+
+        try
+        {
+            // SOAP CLIENT
+            // To target a specific instance of InDesign Server, you must modify the
+            // host uri specified by the WSDL.  You can do this one of two ways:
+            //		* edit the "SOAP:address location=" section of IDSP.wsdl, or
+            //		* pass the target in the location parameter to SoapClient()
+            // use trace to generate debug info; encoding set to utf-8; location overrides the WSDL's location
+            if ($host != '') {
+                $client = new SoapClient($wsdl, array('trace' => $printDebugInfo, 'encoding' => 'utf-8', 'location' => $host));
+            } else {
+                $client = new SoapClient($wsdl, array('trace' => $printDebugInfo, 'encoding' => 'utf-8'));
+            }
+
+            // CALL RunScript
+            $scriptParams = array(	'scriptText' 		=> $scriptText,
+                'scriptLanguage' 	=> $scriptLanguage,
+                'scriptFile'		=> $scriptFile,
+                'scriptArgs'		=> $scriptArgs);
+            $runScriptParams = array ('runScriptParameters' => $scriptParams);
+
+            $result = $client->RunScript($runScriptParams);
+
+            // DISPLAY RESULTS
+            if ($printDebugInfo) {
+                print_r($result);
+            }
+
+            // RELEASE the client
+            unset($client);
+
+        }
+        catch (SoapFault $exception)
+        {
+            if ($printDebugInfo) {
+                print_r($exception);
+            }
+            $result = $exception;
+        }
+
+        return $result;
+    }
+
 }
 
 class first_template{

@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
+
 Route::any('/', function () {
     return view('index');
 });
@@ -118,6 +119,24 @@ Route::get('/testCompose', function(){
     return view('testCompose');
 });
 
-Route::get('/compose', 'TypeSettingController@main');
+Route::post('/compose', 'TypeSettingController@main');
+
+Route::get('/tfjs_quan_1/{filename}', function($filename){
+
+   $path = resource_path().'/tfjsClassify/'.$filename;
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path);
+});
+
+Route::get('/clean', 'imageController@cleanImages');
+
+Route::get('/image/classify', 'imageController@imageClassify');
+
+Route::post('/inDesign', 'typeSettingController@connectIndesign');
+
 
 

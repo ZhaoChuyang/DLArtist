@@ -9,6 +9,8 @@ use DLArtist\DB\Article;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
+use DLArtist\Jobs\IOTasks;
 
 class ArticleController extends Controller
 {
@@ -44,6 +46,10 @@ class ArticleController extends Controller
 
     }
 
+    public function append(){
+
+    }
+
     public function store(Request $request)
     {
         $validator=Validator:: make($request->all(),[
@@ -74,15 +80,25 @@ class ArticleController extends Controller
             $category=$request->input('category');
             $shareStatus=$request->input('shareStatus');
 
+//
+//            $fp=fopen($newFileName, 'w');
+//            fwrite($fp, $content);
+//            fclose($fp);
+
+            $newFileName=$user_id.$article_id."content.txt";
+
+            Storage::disk('ftp')->append('content/'.$newFileName, $content);//保存到ftp上，Storage::disk('ftp')->append('/content/'.$newFileName, $content);
+
             $article=new Article();
             $article->id=$article_id;
             $article->share=$shareStatus;
             $article->user_id=$user_id;
             $article->title=$title;
-            $article->content=$content;
+            $article->content=$newFileName;
             $article->category=$category;
             $article->update=$update;
             $article->cover_url=$cover_url;
+            $article->author=auth()->user()->name;
 
 //            $data=[
 //                "title"=>$title,
@@ -93,13 +109,16 @@ class ArticleController extends Controller
 //                "share"=>$shareStatus
 //            ];
 
-            $images = Cache::get('article:'.$article_id.':images');
-            foreach($images as $img){
-                $img->valid=1;
-                $img->save();
+            if(Cache::has('article:'.$article_id.':images')){
+                $images = Cache::get('article:'.$article_id.':images');
+                foreach($images as $img){
+                    $img->valid=1;
+                    $img->save();
+                }
+                Cache::forget('user:'.auth()->user()->id.':imageList');
+                Cache::forget('article:'.$article_id.':images');
             }
 
-            Cache::forget('article:'.$article_id.':images');
             $article->save();
 
             DB::commit();

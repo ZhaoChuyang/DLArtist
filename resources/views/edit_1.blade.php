@@ -656,7 +656,7 @@
                             <div class="col">
                                 <button type="button" class="btn btn-outline-secondary" id="next">Next</button>
                                 <!-- Link to open the modal -->
-
+                                <p id="con"></p>
                             </div>
                         </div>
                     </div>
@@ -673,7 +673,8 @@
     <script type="text/javascript"
             src="https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/js/froala_editor.pkgd.min.js"></script>
     <script type="text/javascript" src="froala_editor_2.9.1/js/froala_editor.min.js"></script>
-    <!--forla's plugin-->
+
+    <!--froala's plugin file-->
     <script type="text/javascript" src="froala_editor_2.9.1/js/plugins/char_counter.min.js"></script>
     <script type="text/javascript" src="froala_editor_2.9.1/js/plugins/code_view.min.js"></script>
     <script type="text/javascript" src="froala_editor_2.9.1/js/plugins/font_family.min.js"></script>
@@ -689,6 +690,15 @@
     <script type="text/javascript" src="froala_editor_2.9.1/js/plugins/url.min.js"></script>
     <script type="text/javascript" src="froala_editor_2.9.1/js/languages/zh_cn.js"></script>
 
+    <!--图片智能分类的tensorflow依赖-->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+
+    <!--智能裁剪的js函数-->
+    <script src="/smartcrop/js/smartcrop.js"></script>
+    <script src="/smartcrop/js/smartcrop-debug.js"></script>
+    <script src="/smartcrop/js/jquery.facedetection.min.js"></script>
+
     <!--external js file-->
     <!-- Include external JS libs. -->
     {{--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>--}}
@@ -703,13 +713,14 @@
 
         /*****全局变量*****/
 
-        //文章id
+            //文章id
         var article_id = 0;
         //是否共享
         var shared = 0;
         //是否上传封面
-        var uploadCover=0;
+        var uploadCover = 0;
         /*****************/
+
 
         //加载进该页面时的初始化工作
         $(document).ready(function () {
@@ -731,6 +742,62 @@
             });
         });
 
+        //保存文章
+        $('#savePassage').click(function () {
+            $('#edit').froalaEditor('save.save');
+
+        });
+
+        //图片类别预测
+        async function predictClass(image, article_id, str) {
+            const MODEL_URL = '/tfjs_quan_1/tensorflowjs_model.pb';
+            const WEIGHTS_URL = '/tfjs_quan_1/weights_manifest.json';
+
+            const model = await tf.loadFrozenModel(MODEL_URL, WEIGHTS_URL);
+            const img = image;
+
+            var imgdata = tf.fromPixels(img);
+            imgdata = tf.reshape(imgdata, [1, 224, 224, 3]);
+            imgdata = imgdata.cast('float32');
+
+            //图像归一化
+            const std = tf.scalar(255.0);
+            imgdata = imgdata.div(std);
+
+            //预测结果
+            var out = model.predict(imgdata);
+
+            out = tf.squeeze(out);
+            //获取可能性最大的那个
+            var index = out.argMax().cast('int32');
+
+            //将tensor转成array
+            const values = index.dataSync();
+            const arr = Array.from(values);
+
+            //返回结果
+            const cate = arr[0];
+
+            //修改图片的类型
+            $.ajax({
+                url: "/image/classify",
+                method: "get",
+                data: {
+                    article_id: article_id,
+                    src: str,
+                    category: cate,
+                },
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                }
+            })
+
+        }
+
+        /*****文章封面部分开始*****/
         //当选择封面之后，就取出封面的src，以便浏览更换后的封面
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -747,7 +814,7 @@
         //更换封面点击事件
         $("#cover_file").change(function () {
             readURL(this);
-            uploadCover=1;
+            uploadCover = 1;
         });
 
         //隐藏文件输入框之后，获取封面图片的地址
@@ -755,7 +822,10 @@
             document.getElementById('cover_file').click();
         }
 
+        /***************/
 
+
+        /*****modal部分开始*****/
         //next按钮点击事件，弹出modal窗口给用户进一步选择
         $('#next').click(function () {
             $("#modal_next").modal({
@@ -765,11 +835,6 @@
                 fadeDuration: 300
 
             });
-        });
-
-        //保存文章
-        $('#savePassage').click(function () {
-            $('#edit').froalaEditor('save.save');
         });
 
         //NextModal的js部分
@@ -792,6 +857,8 @@
                 }
             });
         });
+
+        /***************/
 
 
         //编辑器的js部分
@@ -846,6 +913,7 @@
             //额外的参数
             saveParams: {}
         })
+
             .on('froalaEditor.imageManager.beforeDeleteImage', function (e, editor, $img) {
                 $.extend(editor.opts.imageManagerDeleteParams, {
                     src: $img.attr('src'),
@@ -858,17 +926,18 @@
                 console.log('Images have been loaded.');
                 //console.log(data);
             })
+
             //保存文章前的准备工作
             .on('froalaEditor.save.before', function (e, editor) {
                 //获取文章权限
-                shared=$('input[name=r1]:checked', '#shareDiv').val();
+                shared = $('input[name=r1]:checked', '#shareDiv').val();
 
                 var cover_url;
 
                 //是否需要上传封面
-                if(uploadCover){
+                if (uploadCover) {
                     //新建封面文件对象
-                    var fd=new FormData();
+                    var fd = new FormData();
 
                     fd.append('cover', $('#cover_file').get(0).files[0]);
                     fd.append('_token', "{{csrf_token()}}");
@@ -885,13 +954,18 @@
                             console.log(response);
 
                             //取得封面地址
-                            cover_url=response;
+                            cover_url = response;
 
                         }
                     });
                 }
                 else
-                    cover_url="https://cdn.dribbble.com/users/329207/screenshots/4836512/bemocs_wsj_01.jpg";
+                    cover_url = "https://cdn.dribbble.com/users/329207/screenshots/4836512/bemocs_wsj_01.jpg";
+
+                var needSummary = 0;
+                if ($('#need_summary').is(":checked")) {
+                    needSummary = 1;
+                }
 
                 //添加文章一些其他属性
                 $.extend(editor.opts.saveParams, {
@@ -900,6 +974,7 @@
                     _token: "{{ csrf_token() }}",
                     category: $("#category").val(),
                     cover_url: cover_url,
+                    needSummary: needSummary,
                     shareStatus: shared,
 
                 });
@@ -909,50 +984,107 @@
             })
             //文章保存完成后的工作
             .on('froalaEditor.save.after', function (e, editor, response) {
+                uploadCover = 0;//封面上传变量重置
 
-                //setFormSubmitting();
                 console.log(response);
-                //var article_id = response.article_id;
-                {{--lastUploadArticle = article_id;--}}
-                {{--if (uploadFlag) {--}}
-                    {{--var fd = new FormData();--}}
-                    {{--fd.append('cover', $("#cover_file").get(0).files[0]);--}}
-                    {{--fd.append('_token', "{{csrf_token()}}");--}}
-                    {{--fd.append('article_id', article_id);--}}
-                    {{--$.ajax({--}}
-                        {{--method: "post",--}}
-                        {{--url: "/cover_upload",--}}
-                        {{--data: fd,--}}
-                        {{--contentType: false,--}}
-                        {{--processData: false,--}}
-                        {{--success: function (response) {--}}
-                            {{--console.log(response);--}}
-                        {{--}--}}
-                    {{--});--}}
-                {{--}--}}
-                {{--uploadFlag = 0;--}}
-                if (response.status[0]) {
-                    //alert("上传成功");
+
+                //当前保存的文章的id
+                var thisArticleId = article_id;
+
+                //当文章保存成功时调用排版
+                if (response.status[0] !== 0) {
+
+                    $.ajax({
+                        url: "/compose",
+                        method: "post",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            article_id: thisArticleId,
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response);
+                            //选择的排版方案
+                            var chose=response.ans.chose;
+                            //用到的图片路径
+                            var images = response.image_path[1];
+                            var image_para = response.ans.image;
+                            var image_processed = [];
+
+                            var total_images=images.length;
+                            var current_images=0;
+                            for (var i = 0; i < images.length; i++) {
+                                var image_src = images[i];
+                                var width = image_para[i][1];
+                                var height = image_para[i][0];
+
+                                var img = new Image();
+                                img.src = image_src;
+                                //裁剪图片
+                                smartcrop.crop(img, {width: width, height: height}).then(function (result) {
+                                    console.log("裁剪结果" + result.topCrop);
+                                    var xl, yl, widthl, heightl;
+                                    xl = result.topCrop.x;
+                                    yl = result.topCrop.y;
+                                    widthl = result.topCrop.width;
+                                    heightl = result.topCrop.height;
+                                    $.ajax({
+                                        url: "/model/crop",
+                                        type: 'post',
+
+                                        data: {
+                                            "_token": '{{csrf_token()}}',
+                                            'src': img.src,
+                                            'x': xl,
+                                            'y': yl,
+                                            'width': widthl,
+                                            'height': heightl
+                                        },
+                                        dataType: 'json',
+                                        success: function (response) {
+                                            image_processed.push(response.imageName);
+                                            current_images++;
+                                            if(current_images===total_images){
+                                                console.log('image_processed'+image_processed);
+                                                $.ajax({
+                                                    url: "/inDesign",
+                                                    method: "post",
+
+                                                    data: {
+                                                        "_token": '{{csrf_token()}}',
+                                                        "images": image_processed,
+                                                        "article_id": thisArticleId,
+                                                        "chose": chose,
+                                                    },
+
+                                                    success: function (response) {
+                                                        console.log('indesign_response:\t'+response);
+                                                    },
+                                                    error: function(xhr){
+                                                        console.log('indesign_error:\t'+xhr);
+                                                    }
+                                                });
+                                            }
+                                        },
+                                        error: function (xhr) {
+                                            console.log(xhr);
+                                        }
+                                    })
+                                })
+
+                            }
+
+                        },
+                        error: function (xhr) {
+                            console.log(xhr);
+                        }
+                    });
+
                 }
 
-                // if (typeof response.plan !== 'undefined') {
-                //     for (let i = 0; i < response.plan.length; i++) {
-                //         $.ajax({
-                //             url: "/encrypt",
-                //             data: {
-                //                 data: article_id,
-                //             },
-                //             method: "get",
-                //             success: function (data) {
-                //                 var plan_id = i + 1;
-                //                 $('#compose_plan').append('<a href="/compose_plan/' + data + '/' + plan_id + '" target="_blank"><img style="height: 282px; width: 200px; " src="/images/mode_' + plan_id + '.png" alt="plan' + response.plan[i] + '" class="img-thumbnail ml-3"></a>')
-                //             }
-                //         })
-                //
-                //     }
-                // }
 
-                else {
+                //保存过程中的错误信息
+                if (!response.status[0]) {
                     if (typeof response.title !== 'undefined') {
                         for (let i = 0; i < response.title.length; i++) {
                             console.log(response.title[i]);
@@ -973,18 +1105,74 @@
                             console.log(response.msg[i]);
                         }
                     }
-
                 }
+
+                $.ajax({
+                    type: "post",
+                    url: "/article/getId",
+                    data: {
+                        "_token": '{{csrf_token()}}',
+                    },
+                    success: function (response) {
+                        article_id = response;
+                        console.log(response);
+                    },
+                    error: function (xhr) {
+                        //window.location.replace("/abort/404");//重定向去错误页
+                        console.log(xhr);
+                    }
+
+                });
             })
             //文章保存出错时
             .on('froalaEditor.save.error', function (e, editor, error) {
                 console.log(error);
+                $.ajax({
+                    type: "post",
+                    url: "/article/getId",
+                    data: {
+                        "_token": '{{csrf_token()}}',
+                    },
+                    success: function (response) {
+                        article_id = response;
+                        console.log(response);
+                    },
+                    error: function (xhr) {
+                        //window.location.replace("/abort/404");//重定向去错误页
+                        console.log(xhr);
+                    }
+
+                });
+            })
+            //插入图片时
+            .on('froalaEditor.image.inserted', function (e, editor, $img, response) {
+                //console.log($img);
+                //var data=predictClass($img);
+                //console.log(data);
+            })
+            //上传图片前，调用模型预测，获取图片的分类
+            .on('froalaEditor.image.beforeUpload', function (e, editor, images) {
+
             })
             //图片上传完成时
             .on('froalaEditor.image.uploaded', function (e, editor, response) {
                 console.log(response);
+                console.log(response.substring(9, response.length - 2));
 
-                //console.log(response.substring(9, response.length - 2));
+                var image = new Image(224, 224);
+                var str = response.substring(9, response.length - 2);
+                var re = /\\/g;
+                var newStr = str.replace(re, '');
+                image.src = newStr;
+                console.log(newStr);
+
+                const img_class = predictClass(image, article_id, str);
+
+
+                //console.log(data);
+                // data.then(function(value){
+                //     console.log(value);
+                // })
                 //$('#img').attr('src', response.substring(9, response.length - 2));
                 //func();
             })
@@ -994,7 +1182,7 @@
                 console.log(article_id);
             })
             //在图片保存前添加保存参数-文章id，保证文章id是查询后的正确id
-            .on('froalaEditor.image.beforeUpload', function (e, editor, images){
+            .on('froalaEditor.image.beforeUpload', function (e, editor, images) {
                 $.extend(editor.opts.imageUploadParams, {
                     article_id: article_id,
                 });
