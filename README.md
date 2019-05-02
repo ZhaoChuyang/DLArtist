@@ -23,6 +23,9 @@ DLArtist是一个基于人工智能的，对用户输入的文章进行自动排
 
 ### 修改cron文件
 ```
+用该命令打开cron目录
+crontab -e
+
 Here is the only Cron entry you need to add to your server:
 
 * * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1
