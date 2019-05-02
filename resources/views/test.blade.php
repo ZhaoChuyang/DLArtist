@@ -1,6 +1,16 @@
-@extends('layouts.edit')
+@extends('layouts.personal')
 
 @section('head')
+    <!--jQuery-->
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+
+    <!--JQuery Modal-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 @endsection
 
@@ -27,7 +37,7 @@
                 <!-- Slide One - Set the background image for this slide in the line below -->
                 <div class="carousel-item active" style="background-image: url('https://source.unsplash.com/LAaSoL0LrYs/1920x1080')">
                     <div class="carousel-caption d-none d-md-block">
-                        <h2 class="display-4">First Slide</h2>
+                        <h2 class="display-4" style="color:white">First Slide</h2>
                         <p class="lead">This is a description for the first slide.</p>
 
                         <a href="/edit_1" class="btn btn-outline-light ">See details</a>
@@ -37,7 +47,7 @@
                 <!-- Slide Two - Set the background image for this slide in the line below -->
                 <div class="carousel-item" style="background-image: url('https://source.unsplash.com/bF2vsubyHcQ/1920x1080')">
                     <div class="carousel-caption d-none d-md-block">
-                        <h2 class="display-4">Second Slide</h2>
+                        <h2 class="display-4" style="color:white">Second Slide</h2>
                         <p class="lead">This is a description for the second slide.</p>
                         <a href="#" class="btn btn-outline-light ">See details</a>
                     </div>
@@ -45,7 +55,7 @@
                 <!-- Slide Three - Set the background image for this slide in the line below -->
                 <div class="carousel-item" style="background-image: url('https://source.unsplash.com/szFUQoyvrxM/1920x1080')">
                     <div class="carousel-caption d-none d-md-block">
-                        <h2 class="display-4">Third Slide</h2>
+                        <h2 class="display-4" style="color:white">Third Slide</h2>
                         <p class="lead">This is a description for the third slide.</p>
                         <a href="#" class="btn btn-outline-light ">See details</a>
                     </div>

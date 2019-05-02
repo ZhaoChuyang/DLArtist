@@ -1,4 +1,4 @@
-@extends('layouts.edit')
+@extends('layouts.personal')
 
 @section('head')
     <link type="text/css" rel="stylesheet"
@@ -20,9 +20,16 @@
     <!-- Include TUI Froala Editor CSS. -->
     <link rel="stylesheet" href="froala_editor_2.9.1/css/third_party/image_tui.min.css">
 
+    <!--jQuery-->
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+
     <!--JQuery Modal-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
 @endsection
 
@@ -669,6 +676,8 @@
 @endsection
 
 @section('script')
+
+
     <!--froala's js file-->
     <script type="text/javascript"
             src="https://cdn.jsdelivr.net/npm/froala-editor@2.9.1/js/froala_editor.pkgd.min.js"></script>

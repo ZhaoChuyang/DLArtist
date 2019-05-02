@@ -231,4 +231,5 @@ class ArticleController extends Controller
             return response()->json(['error' => $ex->getMessage()], 500);
         }
     }
+
 }

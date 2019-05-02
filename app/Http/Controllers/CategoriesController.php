@@ -7,7 +7,8 @@ use DLArtist\User;
 use Illuminate\Http\Request;
 use DLArtist\DB\Article;
 use Illuminate\Support\Facades\Input;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 class CategoriesController extends Controller
 {
     //
@@ -553,6 +554,19 @@ class CategoriesController extends Controller
         $comment=new Comment();
 
         $article->where('id',$id)->increment('click_num');
+
+        $cate=DB::table('articles')->find($id)->category;
+
+        if(Cache::has('user:'.auth()->user()->id.':cate:'.$cate)){
+            Cache::increment('user:'.auth()->user()->id.':cate:'.$cate);
+        }
+        else{
+            $csv = array_map('str_getcsv', file(resource_path().'/recommendation/data/data.csv'));
+            $thisRecord = (auth()->user()->id-1)*6+$cate;
+            $click_num = $csv[$thisRecord][2];
+            Cache::put('user:'.auth()->user()->id.':cate:'.$cate, $click_num+1, 1440);
+        }
+
         $title=$article->where('id',$id)->select('title')->get();
         if(auth()->user())
             $user_id=auth()->user()->id;

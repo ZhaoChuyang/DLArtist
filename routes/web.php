@@ -23,9 +23,7 @@ Auth::routes(['verify' => true]);
 
 Route::any('/home', 'HomeController@index')->name('home');
 
-Route::any('/index', function(){
-    return view('index');
-});
+Route::get('/index', 'HomeController@index');
 //分类
 Route::any('/categories', function(){
     return view('categories');
@@ -137,6 +135,12 @@ Route::get('/clean', 'imageController@cleanImages');
 Route::get('/image/classify', 'imageController@imageClassify');
 
 Route::post('/inDesign', 'typeSettingController@connectIndesign');
+
+Route::get('index1', function(){
+    return view('index1');
+});
+
+Route::get('csv', 'HomeController@showArticle');
 
 
 

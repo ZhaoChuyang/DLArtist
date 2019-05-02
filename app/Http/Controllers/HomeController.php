@@ -6,22 +6,65 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth');
+
     }
     public function index(){
-        return view('index');
+
+
+        $articles=null;
+        if(Cache::has('articlesToAll')){
+            $articles=Cache::get('articlesToAll');
+
+        }
+        else{
+            $articles=DB::table('articles')->where('share', 1)->orderBy('click_num')->limit(6)->get();
+            //每半天更新一次推荐列表文章
+            Cache::put('articlesToAll', $articles, 720);
+
+        }
+        //若是用户已经登录
+        if(Auth::check()){
+            $user_id=auth()->user()->id;
+            //Apache的指令，换成Swoole需要更改
+
+            for($i=1; $i<=6; $i++){
+                if(Cache::has('user:'.$user_id.':cate:'.$i)){
+                    $click_num=Cache::get('user:'.$user_id.':cate:'.$i);
+                    $fp = fopen(resource_path().'/recommendation/data/data.csv', 'w');
+
+                    fclose($fp);
+                }
+            }
+
+            $output=shell_exec("cd ../resources/recommendation/recommend && python cf_run.py $user_id");
+
+        }
+        else{
+
+        }
+        return view('index1');
     }
 
-    public function showArticle($id){
-        //$redis=Redis::connection();
-        //$redis->set("a", "123");
-        Cache::put('redis',5, 10);
-        return Cache::get('redis', 4);
-        return $redis->get("a");
+    public function showArticle(){
+        $csv = array_map('str_getcsv', file(resource_path().'/recommendation/data/data.csv'));
+
+        $fp = fopen(resource_path().'/recommendation/data/data.csv', 'w');
+        $list=array('UserID', 'KindID', 'Rating');
+        fputcsv($fp, $list);
+
+        for($user_id=1; $user_id<=1000; $user_id++){
+            for($kind_id=1; $kind_id<=6; $kind_id++){
+                $list = array($user_id, $kind_id, 0);
+                fputcsv($fp, $list);
+            }
+        }
+        fclose($fp);
     }
 
     public function chutu(){

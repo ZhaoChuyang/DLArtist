@@ -22,7 +22,7 @@
     <!-- Owl -->
     <link rel="stylesheet" href="/assets/css/owl.carousel.css">
     <!-- Magnific Popup -->
-    <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+    {{--<link rel="stylesheet" href="/assets/css/magnific-popup.css">--}}
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -57,10 +57,10 @@
                     <div class="menu-holder">
                         <ul>
                             <li>
-                                <a id="index" href="/index">主页</a>
+                                <a id="index" href="/index">HOME</a>
                             </li>
                             <li class="submenu">
-                                <a id="categories" href="/categories">发现想法</a>
+                                <a id="categories" href="/categories">ARTICLES</a>
                                 {{--<ul class="sub-menu">--}}
                                     {{--<li><a href="categories-1?page=1">文娱点评</a></li>--}}
                                     {{--<li><a href="categories-2?page=1">军事分析</a></li>--}}
@@ -71,19 +71,19 @@
                                 {{--</ul>--}}
                             </li>
                             <li>
-                                <a id="editor" href="/edit">发表看法</a>
+                                <a id="editor" href="/edit">EDITOR</a>
                             </li>
                             <li>
-                                <a href="/contacts.html">消息</a>
+                                <a href="/contacts.html">NOTIFICATION</a>
                             </li>
                             <!-- Authentication Links -->
                             @guest
                                 <li>
-                                    <a class="nav-link" href="{{ route('login') }}">登录</a>
+                                    <a class="nav-link" href="{{ route('login') }}">LOGIN</a>
                                 </li>
                                 @if (Route::has('register'))
                                     <li>
-                                        <a class="nav-link" href="{{ route('register') }}">注册</a>
+                                        <a class="nav-link" href="{{ route('register') }}">REGISTER</a>
                                     </li>
                                 @endif
                             @else
