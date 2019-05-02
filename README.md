@@ -21,6 +21,15 @@ DLArtist是一个基于人工智能的，对用户输入的文章进行自动排
 8. python 2.7 & python 3.6
 ```
 
+### 修改cron文件
+```
+Here is the only Cron entry you need to add to your server:
+
+* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1
+
+This Cron will call the Laravel command scheduler every minute. Then, Laravel evaluates your scheduled tasks and runs the tasks that are due.
+```
+
 ### .env配置
 ```
 APP_NAME=DLArtist
