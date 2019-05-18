@@ -1,4 +1,4 @@
-@extends('layouts.edit')
+@extends('layouts.personal')
 
 @section('content')
 <div class="container" style="margin-top: 100px;">

@@ -1,3 +1,6 @@
+<?php
+use DLArtist\User;
+?>
 @extends('layouts.personal')
 
 @section('head')
@@ -15,7 +18,7 @@
                     <p>
                         这是一个基于人工智能以及web技术，为用户提供文字编辑，智能排版，插图处理，文章发布，社区浏览，相似推荐等系列功能的综合性创意设计网站。
                     </p>
-                    <a href="#" class="primary-btn text-uppercase">discover now</a>
+                    <a href="/categories" class="primary-btn text-uppercase">discover now</a>
                 </div>
                 <div class="col-lg-6 col-md-6 banner-right d-flex align-self-end">
                     <img class="img-fluid" src="images/book.png" alt="">
@@ -36,7 +39,7 @@
                     <h6>About DLArtist</h6>
                     <h1 class="text-uppercase">Website Details</h1>
                     <p>
-                        Here, I focus on a range of items and features that we use in life without giving them a second thought. such as Coca Cola. Dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+                        DLArtist是一个结合人工智能技术和Web技术同时在文字排版和图像处理方面提供一种新的用户体验和使用场景的文章创作与阅读平台。DLArtist提供的具体功能有，智能排版，图像处理，社区功能。
                     </p>
                     <a href="#" class="primary-btn text-uppercase">View Full Details</a>
                 </div>
@@ -147,7 +150,7 @@
             <div class="row d-flex justify-content-center">
                 <div class="menu-content pb-70 col-lg-8">
                     <div class="title text-center">
-                        <h1 class="mb-10">Our Latest Featured Articles</h1>
+                        <h1 class="mb-10">最热门文章</h1>
                         <p>Who are in extremely love with eco friendly system.</p>
                     </div>
                 </div>
@@ -156,121 +159,40 @@
             <div class="filters">
                 <ul>
                     <li class="active" data-filter="*">All</li>
-                    <li data-filter=".news">新闻</li>
-                    <li data-filter=".sports">体育</li>
-                    <li data-filter=".finance">财经</li>
-                    <li data-filter=".entertainment">娱乐</li>
-                    <li data-filter=".fashion">时尚</li>
-                    <li data-filter=".tech">科技</li>
+                    <li data-filter=".1">新闻</li>
+                    <li data-filter=".2">体育</li>
+                    <li data-filter=".3">财经</li>
+                    <li data-filter=".4">娱乐</li>
+                    <li data-filter=".5">时尚</li>
+                    <li data-filter=".6">科技</li>
                 </ul>
             </div>
 
             <div class="filters-content">
                 <div class="row grid">
                     <!--记得加代码,每次推荐六个-->
-                    <div class="single-portfolio col-sm-4 all news">
-                        <div class="relative">
-                            <div class="thumb">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="img/p1.jpg" alt="">
-                            </div>
-                            <a href="img/p1.jpg" class="img-pop-up">
-                                <div class="middle">
-                                    <div class="text align-self-center d-flex"><img src="img/preview.png" alt=""></div>
+                    @foreach($articlesForAll as $article)
+                        <div class="single-portfolio col-sm-4 all {{$article->category}}">
+                            <div class="relative">
+                                <div class="thumb">
+                                    <div class="overlay overlay-bg"></div>
+                                    <img class="image img-fluid" src={{$article->cover_url}} alt="">
                                 </div>
-                            </a>
-                        </div>
-                        <div class="p-inner">
-                            <h4>2D Vinyl Design</h4>
-                            <div class="cat">vector</div>
-                        </div>
-                    </div>
-                    <div class="single-portfolio col-sm-4 all sports">
-                        <div class="relative">
-                            <div class="thumb">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="img/p2.jpg" alt="">
+                                <a href="/article/{{$article->id}}">
+                                    <div class="middle">
+                                        <div class="text align-self-center d-flex"><img src="/images/preview.png" alt=""></div>
+                                    </div>
+                                </a>
                             </div>
-                            <a href="img/p2.jpg" class="img-pop-up">
-                                <div class="middle">
-                                    <div class="text align-self-center d-flex"><img src="img/preview.png" alt=""></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="p-inner">
-                            <h4>2D Vinyl Design</h4>
-                            <div class="cat">vector</div>
-                        </div>
-                    </div>
-                    <div class="single-portfolio col-sm-4 all finance">
-                        <div class="relative">
-                            <div class="thumb">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="img/p3.jpg" alt="">
+                            <div class="p-inner">
+                                <h4>{{$article->title}}</h4>
+                                <div class="cat">{{$article->author}}</div>
                             </div>
-                            <a href="img/p3.jpg" class="img-pop-up">
-                                <div class="middle">
-                                    <div class="text align-self-center d-flex"><img src="img/preview.png" alt=""></div>
-                                </div>
-                            </a>
+                        </div>
 
-                        </div>
-                        <div class="p-inner">
-                            <h4>Creative Poster Design</h4>
-                            <div class="cat">Agency</div>
-                        </div>
-                    </div>
-                    <div class="single-portfolio col-sm-4 all entertainment">
-                        <div class="relative">
-                            <div class="thumb">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="img/p4.jpg" alt="">
-                            </div>
-                            <a href="img/p4.jpg" class="img-pop-up">
-                                <div class="middle">
-                                    <div class="text align-self-center d-flex"><img src="img/preview.png" alt=""></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="p-inner">
-                            <h4>Embosed Logo Design</h4>
-                            <div class="cat">Portal</div>
-                        </div>
-                    </div>
-                    <div class="single-portfolio col-sm-4 all fashion">
-                        <div class="relative">
-                            <div class="thumb">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="img/p5.jpg" alt="">
-                            </div>
-                            <a href="img/p5.jpg" class="img-pop-up">
-                                <div class="middle">
-                                    <div class="text align-self-center d-flex"><img src="img/preview.png" alt=""></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="p-inner">
-                            <h4>3D Helmet Design</h4>
-                            <div class="cat">vector</div>
-                        </div>
-                    </div>
-                    <div class="single-portfolio col-sm-4 all tech">
-                        <div class="relative">
-                            <div class="thumb">
-                                <div class="overlay overlay-bg"></div>
-                                <img class="image img-fluid" src="img/p6.jpg" alt="">
-                            </div>
-                            <a href="img/p6.jpg" class="img-pop-up">
-                                <div class="middle">
-                                    <div class="text align-self-center d-flex"><img src="img/preview.png" alt=""></div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="p-inner">
-                            <h4>2D Vinyl Design</h4>
-                            <div class="cat">raster</div>
-                        </div>
-                    </div>
+                    @endforeach
+
+
                 </div>
             </div>
 
@@ -287,84 +209,40 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 pb-30 header-text">
-                    <h1>Articles recommended for you</h1>
+                    <h1>为您推荐</h1>
                     <p>
                         According to your browser history, we recommend these articles for you.
                     </p>
                 </div>
             </div>
             <div class="row">
+                <!--修改代码, 根据推荐系统推荐-->
 
-                <div class="single-recent-blog col-lg-4 col-md-4">
-                    <!--修改代码, 根据推荐系统推荐-->
-                    <div class="thumb">
-                        <img class="f-img img-fluid mx-auto" src="https://cdn.dribbble.com/users/329207/screenshots/4836512/bemocs_wsj_01.jpg" alt="">
-                    </div>
-                    <div class="bottom d-flex justify-content-between align-items-center flex-wrap">
-                        <div>
-                            <img class="img-fluid" src="img/user.png" alt="">
-                            <a href="#"><span>Mark Wiens</span></a>
+                @foreach($articlesForYou as $article)
+                    <div class="single-recent-blog col-lg-4 col-md-4">
+
+                        <div class="thumb">
+                            <img class="f-img img-fluid mx-auto" src={{$article->cover_url}} alt="">
                         </div>
-                        <div class="meta">
-                            13th Dec
-                            <span class="lnr lnr-heart"></span> 15
-                            <span class="lnr lnr-bubble"></span> 04
+                        <div class="bottom d-flex justify-content-between align-items-center flex-wrap">
+                            <div>
+                                <img class="img-fluid" src="storage{{User::find($article->user_id)->avatar_url}}" width="32.269" height="32.269"alt="">
+                                <a href="#"><span>{{User::find($article->user_id)->name}}</span></a>
+                            </div>
+                            <div class="meta">
+                                {{$article->update}}
+                                <span class="lnr lnr-heart"></span> {{$article->click_num}}
+                                <span class="lnr lnr-bubble"></span> 04
+                            </div>
                         </div>
+                        <a href="/article/{{$article->id}}">
+                            <h4>{{$article->title}}</h4>
+                        </a>
+                        <p>
+                            {{$article->summary}}
+                        </p>
                     </div>
-                    <a href="#">
-                        <h4>Break Through Self Doubt
-                            And Fear</h4>
-                    </a>
-                    <p>
-                        Dream interpretation has many forms; it can be done be done for the sake of fun, hobby or can be taken up as a serious career.
-                    </p>
-                </div>
-                <div class="single-recent-blog col-lg-4 col-md-4">
-                    <div class="thumb">
-                        <img class="f-img img-fluid mx-auto" src="img/b2.jpg" alt="">
-                    </div>
-                    <div class="bottom d-flex justify-content-between align-items-center flex-wrap">
-                        <div>
-                            <img class="img-fluid" src="img/user.png" alt="">
-                            <a href="#"><span>Mark Wiens</span></a>
-                        </div>
-                        <div class="meta">
-                            13th Dec
-                            <span class="lnr lnr-heart"></span> 15
-                            <span class="lnr lnr-bubble"></span> 04
-                        </div>
-                    </div>
-                    <a href="#">
-                        <h4>Portable Fashion for
-                            young women</h4>
-                    </a>
-                    <p>
-                        You may be a skillful, effective employer but if you don’t trust your personnel and the opposite, then the chances of improving.
-                    </p>
-                </div>
-                <div class="single-recent-blog col-lg-4 col-md-4">
-                    <div class="thumb">
-                        <img class="f-img img-fluid mx-auto" src="img/b3.jpg" alt="">
-                    </div>
-                    <div class="bottom d-flex justify-content-between align-items-center flex-wrap">
-                        <div>
-                            <img class="img-fluid" src="img/user.png" alt="">
-                            <a href="#"><span>Mark Wiens</span></a>
-                        </div>
-                        <div class="meta">
-                            13th Dec
-                            <span class="lnr lnr-heart"></span> 15
-                            <span class="lnr lnr-bubble"></span> 04
-                        </div>
-                    </div>
-                    <a href="#">
-                        <h4>Do Dreams Serve As
-                            A Premonition</h4>
-                    </a>
-                    <p>
-                        So many of us are demotivated to achieve anything. Such people are not enthusiastic about anything. They don’t want to work involved.
-                    </p>
-                </div>
+                @endforeach
 
             </div>
         </div>

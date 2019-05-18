@@ -46,9 +46,9 @@
             <nav class="navbar navbar-default">
                 <!--  Header Logo  -->
                 <div id="logo">
-                    <a class="navbar-brand" href="index">
-                        <img src="/assets/img/LOGO.png" class="normal" alt="logo">
-                        <img src="/assets/img/LOGO_text.png" class="retina" alt="logo">
+                    <a class="navbar-brand" href="/index">
+                        <img src="/images/LOGO.png" class="normal" alt="logo">
+                        <img src="/images/LOGO_text.png" class="retina" alt="logo">
                     </a>
                 </div>
                 <!--  END Header Logo  -->
@@ -57,10 +57,10 @@
                     <div class="menu-holder">
                         <ul>
                             <li>
-                                <a id="index" href="/index">HOME</a>
+                                <a id="index" href="/index">主页</a>
                             </li>
                             <li class="submenu">
-                                <a id="categories" href="/categories">ARTICLES</a>
+                                <a id="categories" href="/categories">文章</a>
                                 {{--<ul class="sub-menu">--}}
                                     {{--<li><a href="categories-1?page=1">文娱点评</a></li>--}}
                                     {{--<li><a href="categories-2?page=1">军事分析</a></li>--}}
@@ -71,19 +71,19 @@
                                 {{--</ul>--}}
                             </li>
                             <li>
-                                <a id="editor" href="/edit">EDITOR</a>
+                                <a id="editor" href="/test">编辑</a>
                             </li>
                             <li>
-                                <a href="/contacts.html">NOTIFICATION</a>
+                                <a href="#">消息</a>
                             </li>
                             <!-- Authentication Links -->
                             @guest
                                 <li>
-                                    <a class="nav-link" href="{{ route('login') }}">LOGIN</a>
+                                    <a class="nav-link" href="{{ route('login') }}">登录</a>
                                 </li>
                                 @if (Route::has('register'))
                                     <li>
-                                        <a class="nav-link" href="{{ route('register') }}">REGISTER</a>
+                                        <a class="nav-link" href="{{ route('register') }}">注册</a>
                                     </li>
                                 @endif
                             @else

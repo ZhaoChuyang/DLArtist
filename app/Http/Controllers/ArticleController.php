@@ -11,13 +11,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use DLArtist\Jobs\IOTasks;
+use Illuminate\Support\Facades\Log;
 
 class ArticleController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware(['auth','verified']);
+        $this->middleware(['auth']);
     }
 
     public function getNextId(){
@@ -42,13 +43,6 @@ class ArticleController extends Controller
         return view('edit');
     }
 
-    public function compose($id){
-
-    }
-
-    public function append(){
-
-    }
 
     public function store(Request $request)
     {
@@ -79,7 +73,11 @@ class ArticleController extends Controller
             $content=$request->input('content');
             $category=$request->input('category');
             $shareStatus=$request->input('shareStatus');
+            $summary=$request->input('summary');
+            $needSummary=$request->input('needSummary');
 
+            $addImage=$request->input('addImage');
+            Cache::put($article_id.':addImage', $addImage, 720);
 //
 //            $fp=fopen($newFileName, 'w');
 //            fwrite($fp, $content);
@@ -88,6 +86,8 @@ class ArticleController extends Controller
             $newFileName=$user_id.$article_id."content.txt";
 
             Storage::disk('ftp')->append('content/'.$newFileName, $content);//保存到ftp上，Storage::disk('ftp')->append('/content/'.$newFileName, $content);
+
+            if($needSummary==0) $summary="";
 
             $article=new Article();
             $article->id=$article_id;
@@ -99,6 +99,9 @@ class ArticleController extends Controller
             $article->update=$update;
             $article->cover_url=$cover_url;
             $article->author=auth()->user()->name;
+            $article->summary=$summary;
+            $article->needSummary=$needSummary;
+
 
 //            $data=[
 //                "title"=>$title,
@@ -126,6 +129,7 @@ class ArticleController extends Controller
             return response()->json(['status'=>[1], 'msg'=>['upload success']]);
 
         } catch (\Exception $ex) {
+            Log::info($ex);
             DB::rollback();
             return response()->json(['error' => $ex->getMessage()], 500);
         }
@@ -137,11 +141,13 @@ class ArticleController extends Controller
         $validator=Validator:: make($request->all(),[
             'content' => 'required',
         ]);
+
             $content = $request->input('content');
             $user_id = $request->input('user_id');
             $article_id=$request->input('article_id');
             date_default_timezone_set("PRC");
             $update = date('Y-m-d H:i:s', time());
+
             $comment=new Comment();
             $comment->user_id=$user_id;
             $comment->update=$update;

@@ -68,12 +68,13 @@
                         <div class="col-sm-12 padding-leftright-null">
                             <div class="filter-wrap left">
                                 <ul class="col-md-12 filters uppercase padding-leftright-null" id="filter">
-                                    <li value='6' class="is-checked">所有文章</li>
-                                    <li value='1' class="">文娱点评</li>
-                                    <li value='2' class="">军事分析</li>
-                                    <li value='3' class="">时事评论</li>
-                                    <li value='4' class="">技术博客</li>
-                                    <li value='5' class="">教育文化</li>
+                                    <li value='7' class="is-checked">所有文章</li>
+                                    <li value='1' class="">新闻</li>
+                                    <li value='2' class="">体育</li>
+                                    <li value='3' class="">财经</li>
+                                    <li value='4' class="">娱乐</li>
+                                    <li value='5' class="">时尚</li>
+                                    <li value='6' class="">科技</li>
                                 </ul>
                             </div>
                         </div>
@@ -202,21 +203,21 @@
                                 <div class="col-sm-3 padding-md-leftright-null">
                                     <div class="statistic">
                                         <i class="material-icons color service">people</i>
-                                        <span data-from="0" data-to="}}">&nbsp;</span>
+                                        <span data-from="0" data-to="17">&nbsp;</span>
                                         <h3>用户</h3>
                                     </div>
                                 </div>
                                 <div class="col-sm-3 padding-md-leftright-null">
                                     <div class="statistic">
                                         <i class="material-icons color service">card_travel</i>
-                                        <span data-from="0" data-to="}}">&nbsp;</span>
+                                        <span data-from="0" data-to="67">&nbsp;</span>
                                         <h3>文章</h3>
                                     </div>
                                 </div>
                                 <div class="col-sm-3 padding-md-leftright-null">
                                     <div class="statistic">
                                         <i class="material-icons color service">trending_up</i>
-                                        <span data-from="0" data-to="}}">&nbsp;</span>
+                                        <span data-from="0" data-to="10">&nbsp;</span>
                                         <h3>新增</h3>
                                     </div>
                                 </div>

@@ -17,7 +17,7 @@ class accounts extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth']);
     }
 
     public static function showAvatar(){
@@ -75,10 +75,7 @@ class accounts extends Controller
                 $previousAvatar =  'public' . $previousAvatar;
                 Storage::delete($previousAvatar);
             }
-            //Storage::delete('public/avatar/'.$inputImageName);
-            //$user->avatar_url='/avatar/'.$inputImageName;
-            //$user->save();
-            //return $previousAvatar;
+
 
             DB::beginTransaction();
 

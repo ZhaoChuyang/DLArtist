@@ -91,11 +91,11 @@
                     </li>
 
                     <li class="nav-item dropdown mr-3">
-                        <a id="blogMenu"class="nav-link" href="categories">发现想法</a>
+                        <a id="blogMenu"class="nav-link" href="categories">文章</a>
                     </li>
 
                     <li id='editMenu' class="nav-item mr-3">
-                        <a class="nav-link" href="edit">发表看法</a>
+                        <a class="nav-link" href="/test">编辑</a>
                     </li>
 
                     <li class="nav-item mr-3">

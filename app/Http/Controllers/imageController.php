@@ -11,13 +11,14 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+
 
 
 class imageController extends Controller
 {
 
     static public $category_collection=[17, 18, 7, 16, 11, 11, 11, 3, 7, 0, 14, 11, 19, 7, 17, 6, 15, 11, 11, 11, 1, 15, 10, 17, 4, 6, 14, 15, 0, 18, 17, 17, 17, 12, 15, 4, 14, 7, 12, 0, 14, 100, 4, 14, 10, 7, 9, 15, 15, 15, 0, 0, 17, 16, 0, 7, 16, 12, 0, 0, 7, 14, 0, 11, 20, 8, 0, 0, 14, 16, 1, 6, 17, 20, 20, 17, 12, 7, 15, 11, 8, 13, 11, 0, 7, 14, 20, 0, 0, 20, 0, 11, 0, 0, 8, 6, 4, 0, 8, 13, 7, 8, 8, 8, 0, 15, 17, 6, 11, 0, 0, 17, 13, 7, 19, 4, 1, 0, 0, 13, 0, 14, 6, 10, 15, 0, 17, 17, 0, 19, 19, 15, 19, 0, 17, 20, 7, 9, 0, 7, 8, 9, 7, 15, 7, 19, 15, 20, 0, 17, 17, 6, 0, 16, 0, 0, 0, 15, 6, 15, 19, 15, 0, 1, 7, 15, 7, 12, 0, 7, 4, 20, 0, 19, 9, 15, 18, 18, 15, 12, 11, 9, 17, 4, 19, 17, 7, 19, 8, 12, 0, 20, 20, 4, 4, 7, 17, 11, 16, 14, 13, 17, 4, 14, 10, 0, 17, 11, 6, 1, 13, 0, 19, 18, 19, 16, 8, 14, 12, 19, 20, 11, 11, 11, 16, 19, 0, 15, 13, 10, 16, 17, 20, 17, 11, 0, 17, 4, 10, 8, 7, 7, 0, 15, 15, 15, 16, 9, 13, 19, 17, 20, 14, 8, 16, 12, 0];
-    static public $category_map=["动物", "人", "动物", "昆虫", "动物", "植物"];
 
     public function __construct()
     {
@@ -50,7 +51,7 @@ class imageController extends Controller
         $destinatonPath='image/raw';
 
         //存图片，获取地址
-        $path=$image->storeAs($destinatonPath, $inputImageName);//记住改成ftp服务器,添加第三个参数'ftp'
+        $path=$image->storeAs($destinatonPath, $inputImageName);//记住改成ftp服务器,添加第三个参数'ftp', 错误
 
         //图片对象
         $img = new image();
@@ -129,7 +130,7 @@ class imageController extends Controller
 
     public function imageClassify(Request $request){
 
-        $category_collection=[17, 18, 7, 16, 11, 11, 11, 1, 7, 0, 14, 11, 19, 7, 17, 6, 15, 11, 11, 11, 1, 15, 10, 17, 4, 6, 14, 15, 0, 18, 17, 17, 17, 12, 15, 4, 14, 7, 12, 0, 14, 100, 4, 14, 10, 7, 9, 15, 15, 15, 0, 0, 17, 16, 0, 7, 16, 12, 0, 0, 7, 14, 0, 11, 20, 8, 0, 0, 14, 16, 1, 6, 17, 20, 20, 17, 12, 7, 15, 11, 8, 13, 11, 0, 7, 14, 20, 0, 0, 20, 0, 11, 0, 0, 8, 6, 4, 0, 8, 13, 7, 8, 8, 8, 0, 15, 17, 6, 11, 0, 0, 17, 13, 7, 19, 4, 1, 0, 0, 13, 0, 14, 6, 10, 15, 0, 17, 17, 0, 19, 19, 15, 19, 0, 17, 20, 7, 9, 0, 7, 8, 9, 7, 15, 7, 19, 15, 20, 0, 17, 17, 6, 0, 16, 0, 0, 0, 15, 6, 15, 19, 15, 0, 1, 7, 15, 7, 12, 0, 7, 4, 20, 0, 19, 9, 15, 18, 18, 15, 12, 11, 9, 17, 4, 19, 17, 7, 19, 8, 12, 0, 20, 20, 4, 4, 7, 17, 11, 16, 14, 13, 17, 4, 14, 10, 0, 17, 11, 6, 1, 13, 0, 19, 18, 19, 16, 8, 14, 12, 19, 20, 11, 11, 11, 16, 19, 0, 15, 13, 10, 16, 17, 20, 17, 11, 0, 17, 4, 10, 8, 7, 7, 0, 15, 15, 15, 16, 9, 13, 19, 17, 20, 14, 8, 16, 12, 0];
+        $category_collection=[17, 18, 7, 16, 11, 11, 11, 1, 7, 0, 14, 11, 19, 7, 17, 6, 15, 11, 11, 11, 1, 15, 10, 17, 4, 6, 14, 15, 0, 18, 17, 17, 17, 12, 15, 4, 14, 7, 12, 0, 14, 20, 4, 14, 10, 7, 9, 15, 15, 15, 0, 0, 17, 16, 0, 7, 16, 12, 0, 0, 7, 14, 0, 11, 20, 8, 0, 0, 14, 16, 1, 6, 17, 20, 20, 17, 12, 7, 15, 11, 8, 13, 11, 0, 7, 14, 20, 0, 0, 20, 0, 11, 0, 0, 8, 6, 4, 0, 8, 13, 7, 8, 8, 8, 0, 15, 17, 6, 11, 0, 0, 17, 13, 7, 19, 4, 1, 0, 0, 13, 0, 14, 6, 10, 15, 0, 17, 17, 0, 19, 19, 15, 19, 0, 17, 20, 7, 9, 0, 7, 8, 9, 7, 15, 7, 19, 15, 20, 0, 17, 17, 6, 0, 16, 0, 0, 0, 15, 6, 15, 19, 15, 0, 1, 7, 15, 7, 12, 0, 7, 4, 20, 0, 19, 9, 15, 18, 18, 15, 12, 11, 9, 17, 4, 19, 17, 7, 19, 8, 12, 0, 20, 20, 4, 4, 7, 17, 11, 16, 14, 13, 17, 4, 14, 10, 0, 17, 11, 6, 1, 13, 0, 19, 18, 19, 16, 8, 14, 12, 19, 20, 11, 11, 11, 16, 19, 0, 15, 13, 10, 16, 17, 20, 17, 11, 0, 17, 4, 10, 8, 7, 7, 0, 15, 15, 15, 16, 9, 13, 19, 17, 20, 14, 8, 16, 12, 0];
         $category_map=["动物", "人","","", "昆虫", "", "植物", "家具,日用", "音乐", "自然", "宗教", "体育", "娱乐,游戏", "食物", "食品用具","电子用品,电器", "外饰", "交通", "武器", "工具","建筑"];
 
         $validator = Validator:: make($request->all(), [
@@ -157,6 +158,7 @@ class imageController extends Controller
 
         for($i=0; $i<sizeof($images); $i++){
             if($images[$i]->image_url==$src){
+                Log::info("category:$category, collection:$category_collection[$category], i:$i");
                 $images[$i]->category=$category_map[$category_collection[$category]];
                 Cache::forget('article:'.$article_id.':images');
                 Cache::put('article:'.$article_id.':images', $images, 1440);
@@ -218,5 +220,22 @@ class imageController extends Controller
         $img->save();
 
         return url("/images/".$newName);
+    }
+
+    public function recommendImage(Request $request){
+
+
+
+
+
+        $query_item = $request->input('query_item');
+
+        $pexels = new \Glooby\Pexels\Client("563492ad6f91700001000001fe0fbc76846d443c8b6d865a166f9c90");
+        $response = $pexels->search($query_item);
+
+        $photos = json_decode($response->getBody())->photos;
+
+        return $photos;
+
     }
 }
