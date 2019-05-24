@@ -27,13 +27,45 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
 
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <!-- Material Design Bootstrap -->
+    {{--<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.1/css/mdb.min.css" rel="stylesheet">--}}
+
+
 
 @endsection
 
 @section('content')
+
+    <!--loading animation-->
+    <style>
+        .hape_modal {
+            display:    none;
+            position:   fixed;
+            z-index:    1000;
+            top:        0;
+            left:       0;
+            height:     100%;
+            width:      100%;
+            background: rgba( 255, 255, 255, .8 )
+            url('images/FhHRx.gif')
+            50% 50%
+            no-repeat;
+        }
+
+        /* When the body has the loading class, we turn
+           the scrollbar off with overflow:hidden */
+        body.loading .hape_modal {
+            overflow: hidden;
+        }
+
+        /* Anytime the body has the loading class, our
+           modal element will be visible */
+        body.loading .hape_modal {
+            display: block;
+        }
+    </style>
+    <div class="hape_modal" id="loadingModal"><!-- Place at bottom of page --></div>
+
 
     <style>
         html {
@@ -172,6 +204,7 @@
         }
 
     </style>
+
     <!--弹出的modal部分-->
     <div class="container" id="modal_next" style="display:none">
         <style>
@@ -442,6 +475,7 @@
                     <li class="is-active">Step 1</li>
                     <li>Step 2</li>
                     <li>Step 3</li>
+                    <li>Step 4</li>
                 </ul>
                 <form class="form-wrapper">
                     <fieldset class="section is-active">
@@ -454,6 +488,66 @@
                                 需要摘要
                             </label>
                         </div>
+                        <div class="button">Next</div>
+                    </fieldset>
+
+                    <fieldset class="section">
+                        <h3 style="margin-bottom: 6.8px;">添加插图</h3>
+                        <!-- Search form -->
+                        <p class="mt-1">选择标签或直接输入关键词</p>
+                        <div class="md-form mt-0">
+                            <input id="imageCateText" class="form-control" type="text" placeholder="请输入关键词"
+                                   aria-label="Search">
+                        </div>
+
+                        <div class="row cf" style="margin-top: 10px;">
+                            <div class="three col">
+                                <input type="radio" name="c1" id="c1" value="黑白" style="height: 17px;">
+                                <label for="c1">
+                                    <h4 style="margin: 0;" id="h1">黑白</h4>
+                                </label>
+                            </div>
+                            <div class="three col">
+                                <input type="radio" name="c1" id="c2" value="笑容" style="height: 17px;">
+                                <label for="c2">
+                                    <h4 style="margin: 0;" id="h2">笑容</h4>
+                                </label>
+                            </div>
+                            <div class="three col">
+                                <input type="radio" name="c1" id="c3" value="家居" style="height: 17px;">
+                                <label for="c3">
+                                    <h4 style="margin: 0;" id="h3">家居</h4>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row cf">
+                            <div class="three col">
+                                <input type="radio" name="c1" id="c4" value="人群" style="height: 17px;">
+                                <label for="c4">
+                                    <h4 style="margin: 0;" id="h4">人群</h4>
+                                </label>
+                            </div>
+                            <div class="three col">
+                                <input type="radio" name="c1" id="c5" value="天空" style="height: 17px;">
+                                <label for="c5">
+                                    <h4 style="margin: 0;" id="h5">天空</h4>
+                                </label>
+                            </div>
+                            <div class="three col">
+                                <input type="radio" name="c1" id="c6" value="励志" style="height: 17px;">
+                                <label for="c6">
+                                    <h4 style="margin: 0;" id="h6">励志</h4>
+                                </label>
+                            </div>
+                        </div>
+
+
+                        <!--是否需要生成摘要-->
+                        <button id="changeTagBtn" class="btn btn-outline-primary "
+                                style="bottom: 20px; display: inline-block; left: 20px; position:absolute;">换一换
+                        </button>
+                        <input type="checkbox" aria-label="Checkbox for following text input" id="needPrettify">
+                        <label for="needPrettify">补充插图</label>
                         <div class="button">Next</div>
                     </fieldset>
 
@@ -494,15 +588,18 @@
 
                         <select class="custom-select mt-4" id="category">
                             <option value="0" selected>选择文章类型</option>
-                            <option value="1">文娱</option>
-                            <option value="2">科教</option>
-                            <option value="3">军事</option>
+                            <option value="1">新闻</option>
+                            <option value="2">体育</option>
+                            <option value="3">财经</option>
+                            <option value="4">娱乐</option>
+                            <option value="5">时尚</option>
+                            <option value="6">科技</option>
                         </select>
                         <input id="savePassage" class="submit button" type="submit" value="Finish">
                     </fieldset>
                     <fieldset class="section">
-                        <h3>Account Created!</h3>
-                        <p>Your account has now been created.</p>
+                        <h3>发布成功！</h3>
+                        <a id="result_href" href="/article/"><p>点击查看结果</p></a>
                         <a class="button" rel="modal:close" style="color: white;">Close</a>
                     </fieldset>
                 </form>
@@ -510,6 +607,65 @@
         </div>
     </div>
     <!--modal部分结束-->
+
+    <!--圈字出图弹出的modal-->
+    <div id="modal_genImage" class="modal" style="z-index: 100; position: relative;">
+        <img class="thumbnail" width="200" height="200" src="" id="genImage_img">
+    </div>
+    <!--modal结束-->
+
+    <!--相似推荐弹出的modal-->
+    <div id="modal_recImage" class="modal" style="z-index: 10000;">
+        <div class="card-columns" style="">
+            <div class="card">
+                <a href="" id="card_href_1" target="_blank">
+                    <img class="card-img" src="" alt="Card image" id="card_img_1">
+                </a>
+            </div>
+            <div class="card">
+                <a href="" id="card_href_2" target="_blank">
+                    <img class="card-img" src="" alt="Card image" id="card_img_2">
+                </a>
+            </div>
+            <div class="card">
+                <a href="" id="card_href_3" target="_blank">
+                    <img class="card-img" src="" alt="Card image" id="card_img_3">
+                </a>
+            </div>
+            <div class="card">
+                <a href="" id="card_href_4" target="_blank">
+                    <img class="card-img" src="" alt="Card image" id="card_img_4">
+                </a>
+            </div>
+            <div class="card">
+                <a href="" id="card_href_5" target="_blank">
+                    <img class="card-img" src="" alt="Card image" id="card_img_5">
+                </a>
+            </div>
+            <div class="card">
+                <a href="" id="card_href_6" target="_blank">
+                    <img class="card-img" src="" alt="Card image" id="card_img_6">
+                </a>
+            </div>
+            <div class="card">
+                <a href="" id="card_href_7" target="_blank">
+                    <img class="card-img" src="" alt="Card image" id="card_img_7">
+                </a>
+            </div>
+            <div class="card">
+                <a href="" id="card_href_8" target="_blank">
+                    <img class="card-img" src="" alt="Card image" id="card_img_8">
+                </a>
+            </div>
+            <div class="card">
+                <a href="" id="card_href_9" target="_blank">
+                    <img class="card-img" src="" alt="Card image" id="card_img_9">
+                </a>
+
+            </div>
+        </div>
+    </div>
+    <!--modal结束-->
 
 
     <!--编辑器部分-->
@@ -521,7 +677,7 @@
                         <div class="row">
 
                             <div class="col">
-                                <h1>Hape Editor</h1>
+                                <h1>DLArtist Editor</h1>
                             </div>
                         </div>
                         <div class="row mt-4">
@@ -708,6 +864,12 @@
     <script src="/smartcrop/js/smartcrop-debug.js"></script>
     <script src="/smartcrop/js/jquery.facedetection.min.js"></script>
 
+    <!--模型类别推断-->
+    <script src="/modelFile/mobilenet.js"></script>
+
+    <!--loading spinner js-->
+    <script src="/js/loadingView.js"></script>
+
     <!--external js file-->
     <!-- Include external JS libs. -->
     {{--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>--}}
@@ -728,11 +890,18 @@
         var shared = 0;
         //是否上传封面
         var uploadCover = 0;
+
+        var popularSearch = ['黑白', '笑容', '家居', '人群', '天空', '励志', '团队', '电子设备', '街区', '烹饪', '自然风景', '群星', '金融', '音乐', '工具', '时间', '夏日', '沙漠', '建筑', '旅行', '夜景', '城市', '河海', '运动'];
+        var psIndex = 1;
+
         /*****************/
+
+        $body = $("body");
 
 
         //加载进该页面时的初始化工作
         $(document).ready(function () {
+
             $.ajax({
                 type: "post",
                 url: "/article/getId",
@@ -749,11 +918,27 @@
                 }
 
             });
+
+            //设置toolbar的位置
+            $('.fr-toolbar').attr('style', 'z-index:0 !important;');
+
+
         });
 
         //保存文章
         $('#savePassage').click(function () {
             $('#edit').froalaEditor('save.save');
+
+        });
+
+        //换一换
+        $('#changeTagBtn').click(function () {
+            psIndex = (psIndex + 6) % popularSearch.length;
+            for (var i = 1; i <= 6; i++) {
+                psIndex = psIndex % popularSearch.length;
+                $('#c' + i).val(popularSearch[psIndex]);
+                $('#h' + i).text(popularSearch[psIndex++]);
+            }
 
         });
 
@@ -806,6 +991,57 @@
 
         }
 
+        //相似图片推荐
+        async function recommendImage(image) {
+            const img = image;
+            mobilenet.load().then(model => {
+                // Classify the image.
+                model.classify(img).then(predictions => {
+                    //predictions是一个对象数组
+                    //数组中的每一个对象的属性是className、probably ...
+                    //可使用 console控制台打印查看详细信息
+                    top0 = predictions[0];
+                    console.log(top0);
+                    var clas = top0.className;
+                    $.ajax({
+                        url: "/recomImage",
+                        method: "post",
+                        dataType: "json",
+                        data: {
+                            "query_item": clas,
+                            "_token": '{{csrf_token()}}',
+                        },
+                        beforeSend: function() { $('#loadingModal').show(); },
+                        complete: function() { $('#loadingModal').hide(); },
+                        success: function (response) {
+                            //console.log(response[0].src.small);
+                            for (var i = 0; i < 9; i++) {
+                                var thumb = response[i].src.small;
+                                var regular = response[i].src.medium;
+                                console.log(thumb);
+                                console.log(regular);
+                                $('#card_href_' + (i + 1)).attr('href', regular);
+                                $('#card_img_' + (i + 1)).attr('src', thumb);
+                            }
+                            $('.fr-toolbar').attr('style', 'z-index:0 !important;');
+                            $('.fr-buttons').parents().attr('style', 'z-index:0 !important;');
+                            $("#modal_recImage").modal({
+                                //fade效果
+                                fadeDuration: 300
+
+                            });
+
+                        },
+                        error: function (xhr) {
+                            console.log(xhr);
+                        }
+                    });
+
+                });
+            });
+
+        }
+
         /*****文章封面部分开始*****/
         //当选择封面之后，就取出封面的src，以便浏览更换后的封面
         function readURL(input) {
@@ -837,13 +1073,40 @@
         /*****modal部分开始*****/
         //next按钮点击事件，弹出modal窗口给用户进一步选择
         $('#next').click(function () {
-            $("#modal_next").modal({
-                //去除关闭按钮
-                showClose: false,
-                //fade效果
-                fadeDuration: 300
+
+            var content = jQuery($('#edit').froalaEditor('html.get')).text();
+            console.log(content);
+
+            $('#loader').show();
+
+            $.ajax({
+                url: "/genSummary",
+                method: "post",
+                beforeSend: function() { $('#loadingModal').show(); },
+                complete: function() { $('#loadingModal').hide(); },
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "content": content,
+                },
+                success: function (response) {
+                    console.log('summary' + response);
+                    $('#summary_text').val(response);
+
+                    $("#modal_next").modal({
+                        //去除关闭按钮
+                        showClose: false,
+                        //fade效果
+                        fadeDuration: 300
+
+                    });
+                },
+                error: function (xhr) {
+                    console.log('summary' + xhr);
+                },
 
             });
+
+
         });
 
         //NextModal的js部分
@@ -860,7 +1123,7 @@
                     e.preventDefault();
                 });
 
-                if (currentSectionIndex === 3) {
+                if (currentSectionIndex === 4) {
                     $(document).find(".form-wrapper .section").first().addClass("is-active");
                     $(document).find(".steps li").first().addClass("is-active");
                 }
@@ -870,12 +1133,83 @@
         /***************/
 
 
+        //圈字出图按钮
+        $.FroalaEditor.DefineIcon('genImage', {NAME: 'star'});
+        $.FroalaEditor.RegisterCommand('genImage', {
+            title: '圈字出图',
+            undo: false,
+            focus: false,
+            callback: function () {
+                var text = $('#edit').froalaEditor('selection.text');
+                console.log(text);
+                var imageName = Date.now();
+                $.ajax({
+                    url: "/generateImage",
+                    method: 'get',
+                    data: {
+                        'str': text,
+                        'name': imageName,
+                    },
+                    dataType: 'json',
+                    success: function (response) {
+                        console.log(response);
+
+                        $('#genImage_img').attr('src', '/image/gen/' + imageName + '.jpg');
+
+                        $('.fr-toolbar').attr('style', 'z-index:0 !important;');
+                        $('.fr-buttons').parents().attr('style', 'z-index:0 !important;');
+                        $("#modal_genImage").modal({
+
+                            //fade效果
+                            fadeDuration: 300
+
+                        });
+
+                    },
+                    error: function (xhr) {
+                        console.log(xhr);
+                        // $.ajax({
+                        //     url: '/image/saveAttn',
+                        //     method: 'get',
+                        //     data: 'a',
+                        //     success: function (response) {
+                        //         console.log(response);
+                        //         $('#attn_img').attr('src', response);
+                        //         $('#showAttn').trigger('click');
+                        //     },
+                        //     error: function (xhr) {
+                        //         console.log(xhr);
+                        //     }
+                        // });
+                    }
+                });
+            }
+        });
+
+        //相似图片推荐
+        $.FroalaEditor.DefineIcon('image_recommendation', {NAME: 'plus'});
+        $.FroalaEditor.RegisterCommand('image_recommendation', {
+            title: '相似图片推荐',
+            undo: false,
+            focus: false,
+            callback: function () {
+                var $img = this.image.get();
+                var src = $img.attr('src');
+                var image = new Image;
+                image.src = src;
+                recommendImage(image);
+
+            }
+        });
+
+
         //编辑器的js部分
         $('#edit').froalaEditor({
+            zIndex: -2,
             iframe: true,
-            toolbarButtons: ['myButton', 'fullscreen', '|', 'bold', 'italic', 'underline', 'strikeThrough', 'fontFamily', 'paragraphFormat', 'formatOL', 'formatUL', 'quote', 'insertLink', 'insertImage', '|', 'insertHR', 'clearFormatting', 'html', 'wirisEditor', 'wirisChemistry'],
+            toolbarButtons: ['fullscreen', '|', 'bold', 'fontFamily', 'paragraphFormat',  'insertLink', 'insertImage', 'genImage', '|', 'insertHR', 'clearFormatting', 'html', 'wirisEditor', 'wirisChemistry'],
 
-            imageEditButtons: ['imageReplace', 'imageAlign', 'imageCaption', 'imageRemove', 'imageLink', 'imageDisplay', 'imageStyle', 'imageAlt', 'imageSize', 'imageTUI', 'image_important', 'image_recommendation'],
+            imageEditButtons: ['imageReplace', 'imageAlign', 'imageCaption', 'imageRemove', 'imageLink', 'imageDisplay', 'imageStyle', 'imageAlt', 'imageSize', 'imageTUI', 'image_recommendation'],
             //documentReady: true,
             height: 600,
             language: 'zh_cn',
@@ -941,6 +1275,7 @@
                 //获取文章权限
                 shared = $('input[name=r1]:checked', '#shareDiv').val();
 
+
                 var cover_url;
 
                 //是否需要上传封面
@@ -963,7 +1298,7 @@
                             console.log(response);
 
                             //取得封面地址
-                            cover_url = response;
+                            cover_url = '/image/cover/'+response;
 
                         }
                     });
@@ -976,6 +1311,11 @@
                     needSummary = 1;
                 }
 
+                var addImage=0;
+                if($("#needPrettify").is(":checked")){
+                    addImage=1;
+                }
+
                 //添加文章一些其他属性
                 $.extend(editor.opts.saveParams, {
                     article_id: article_id,
@@ -984,7 +1324,9 @@
                     category: $("#category").val(),
                     cover_url: cover_url,
                     needSummary: needSummary,
+                    summary: $("#summary_text").val(),
                     shareStatus: shared,
+                    addImage: addImage,
 
                 });
 
@@ -999,87 +1341,236 @@
 
                 //当前保存的文章的id
                 var thisArticleId = article_id;
+                $('#result_href').attr('href','/article/'+thisArticleId);
 
                 //当文章保存成功时调用排版
                 if (response.status[0] !== 0) {
+                    var imageCategory;
+                    if ($('#imageCateText').val() != "") {
+                        imageCategory = $('#imageCateText').val();
+                    }
+                    else {
+                        imageCategory = $('input[name=c1]:checked').val();
+                        $('input[name=c1]:checked').prop('checked', false);
+                    }
 
+                    // alert(imageCategory);
                     $.ajax({
                         url: "/compose",
                         method: "post",
+                        beforeSend: function() { $('#loadingModal').show(); },
+
                         data: {
                             _token: "{{ csrf_token() }}",
                             article_id: thisArticleId,
+                            imageCategory: imageCategory,
                         },
                         dataType: "json",
                         success: function (response) {
                             console.log(response);
                             //选择的排版方案
-                            var chose=response.ans.chose;
+                            var chose = response.ans.chose;
                             //用到的图片路径
                             var images = response.image_path[1];
                             var image_para = response.ans.image;
                             var image_processed = [];
 
-                            var total_images=images.length;
-                            var current_images=0;
+                            var total_images = images.length;
+                            var current_images = 0;
+                            if(images.length===0){
+                                $.ajax({
+                                    url: "/inDesign",
+                                    method: "post",
+
+                                    data: {
+                                        "_token": '{{csrf_token()}}',
+                                        "images": image_processed,
+                                        "article_id": thisArticleId,
+                                        "chose": chose,
+                                    },
+
+                                    success: function (response) {
+                                        console.log('indesign_response:\t' + response);
+                                    },
+                                    error: function (xhr) {
+                                        console.log('indesign_error:\t' + xhr);
+
+                                    },
+                                    complete: function () {
+                                        $('#loadingModal').hide();
+                                    },
+                                });
+                            }
                             for (var i = 0; i < images.length; i++) {
+
+
                                 var image_src = images[i];
                                 var width = image_para[i][1];
                                 var height = image_para[i][0];
 
+
                                 var img = new Image();
-                                img.src = image_src;
-                                //裁剪图片
-                                smartcrop.crop(img, {width: width, height: height}).then(function (result) {
-                                    console.log("裁剪结果" + result.topCrop);
-                                    var xl, yl, widthl, heightl;
-                                    xl = result.topCrop.x;
-                                    yl = result.topCrop.y;
-                                    widthl = result.topCrop.width;
-                                    heightl = result.topCrop.height;
-                                    $.ajax({
-                                        url: "/model/crop",
-                                        type: 'post',
 
-                                        data: {
-                                            "_token": '{{csrf_token()}}',
-                                            'src': img.src,
-                                            'x': xl,
-                                            'y': yl,
-                                            'width': widthl,
-                                            'height': heightl
-                                        },
-                                        dataType: 'json',
-                                        success: function (response) {
-                                            image_processed.push(response.imageName);
-                                            current_images++;
-                                            if(current_images===total_images){
-                                                console.log('image_processed'+image_processed);
-                                                $.ajax({
-                                                    url: "/inDesign",
-                                                    method: "post",
+                                img.customData={i: i, ht: height, wh: width};
 
-                                                    data: {
-                                                        "_token": '{{csrf_token()}}',
-                                                        "images": image_processed,
-                                                        "article_id": thisArticleId,
-                                                        "chose": chose,
-                                                    },
+                                img.onload = function(){
 
-                                                    success: function (response) {
-                                                        console.log('indesign_response:\t'+response);
-                                                    },
-                                                    error: function(xhr){
-                                                        console.log('indesign_error:\t'+xhr);
-                                                    }
-                                                });
+                                    var img = this;
+                                    var height = this.ht;
+                                    var width = this.wh;
+                                    var i = this.i;
+
+                                    var image_pack = [];
+                                    image_pack[i] = img;
+                                    var realWidth = img.naturalWidth;
+                                    var realHeight = img.naturalHeight;
+
+                                    if ((realHeight / height) * width <= realWidth) {
+                                        width = (realHeight / height) * width;
+                                        height = realHeight;
+                                    }
+                                    else {
+                                        height = (realWidth / width) * height;
+                                        width = realWidth;
+                                    }
+
+                                    console.log(realWidth + '\t' + realHeight);
+                                    //裁剪图片
+                                    smartcrop.crop(img, {
+                                        width: width,
+                                        height: height,
+                                        src: img.src
+                                    }).then(function (result) {
+                                        //console.log("裁剪结果" + result.topCrop);
+                                        var xl, yl, widthl, heightl;
+                                        xl = result.topCrop.x;
+                                        yl = result.topCrop.y;
+                                        widthl = result.topCrop.width;
+                                        heightl = result.topCrop.height;
+                                        console.log('x:' + xl + '\ty:' + yl + '\twid:' + widthl + '\thei:' + heightl + '\tsrc:' + result.src);
+                                        $.ajax({
+                                            url: "/model/crop",
+                                            type: 'post',
+
+                                            data: {
+                                                "_token": '{{csrf_token()}}',
+                                                'src': result.src,
+                                                'x': xl,
+                                                'y': yl,
+                                                'width': widthl,
+                                                'height': heightl
+                                            },
+                                            dataType: 'json',
+                                            complete: function() { $('#loadingModal').hide(); },
+                                            success: function (response) {
+                                                image_processed.push(response.imageName);
+                                                current_images++;
+                                                if (current_images === total_images) {
+                                                    console.log('image_processed' + image_processed);
+                                                    $.ajax({
+                                                        url: "/inDesign",
+                                                        method: "post",
+
+                                                        data: {
+                                                            "_token": '{{csrf_token()}}',
+                                                            "images": image_processed,
+                                                            "article_id": thisArticleId,
+                                                            "chose": chose,
+                                                        },
+
+                                                        success: function (response) {
+                                                            console.log('indesign_response:\t' + response);
+                                                        },
+                                                        error: function (xhr) {
+                                                            console.log('indesign_error:\t' + xhr);
+
+                                                        }
+                                                    });
+                                                }
+                                            },
+                                            error: function (xhr) {
+                                                console.log(xhr);
                                             }
-                                        },
-                                        error: function (xhr) {
-                                            console.log(xhr);
-                                        }
+                                        })
                                     })
-                                })
+
+                                };
+
+                                img.src = image_src;
+
+
+                                {{--console.log("src" + image_src);--}}
+                                {{--var image_pack = [];--}}
+                                {{--image_pack[i] = img;--}}
+                                {{--var realWidth = img.naturalWidth;--}}
+                                {{--var realHeight = img.naturalHeight;--}}
+
+                                {{--if ((realHeight / height) * width <= realWidth) {--}}
+                                    {{--width = (realHeight / height) * width;--}}
+                                    {{--height = realHeight;--}}
+                                {{--}--}}
+                                {{--else {--}}
+                                    {{--height = (realWidth / width) * height;--}}
+                                    {{--width = realWidth;--}}
+                                {{--}--}}
+
+                                {{--console.log(realWidth + '\t' + realHeight);--}}
+                                {{--//裁剪图片--}}
+                                {{--smartcrop.crop(img, {--}}
+                                    {{--width: width,--}}
+                                    {{--height: height,--}}
+                                    {{--src: img.src--}}
+                                {{--}).then(function (result) {--}}
+                                    {{--//console.log("裁剪结果" + result.topCrop);--}}
+                                    {{--var xl, yl, widthl, heightl;--}}
+                                    {{--xl = result.topCrop.x;--}}
+                                    {{--yl = result.topCrop.y;--}}
+                                    {{--widthl = result.topCrop.width;--}}
+                                    {{--heightl = result.topCrop.height;--}}
+                                    {{--console.log('x:' + xl + '\ty:' + yl + '\twid:' + widthl + '\thei:' + heightl + '\tsrc:' + result.src);--}}
+                                    {{--$.ajax({--}}
+                                        {{--url: "/model/crop",--}}
+                                        {{--type: 'post',--}}
+
+                                        {{--data: {--}}
+                                            {{--"_token": '{{csrf_token()}}',--}}
+                                            {{--'src': result.src,--}}
+                                            {{--'x': xl,--}}
+                                            {{--'y': yl,--}}
+                                            {{--'width': widthl,--}}
+                                            {{--'height': heightl--}}
+                                        {{--},--}}
+                                        {{--dataType: 'json',--}}
+                                        {{--success: function (response) {--}}
+                                            {{--image_processed.push(response.imageName);--}}
+                                            {{--current_images++;--}}
+                                            {{--if (current_images === total_images) {--}}
+                                                {{--console.log('image_processed' + image_processed);--}}
+                                                {{--$.ajax({--}}
+                                                    {{--url: "/inDesign",--}}
+                                                    {{--method: "post",--}}
+
+                                                    {{--data: {--}}
+                                                        {{--"_token": '{{csrf_token()}}',--}}
+                                                        {{--"images": image_processed,--}}
+                                                        {{--"article_id": thisArticleId,--}}
+                                                        {{--"chose": chose,--}}
+                                                    {{--},--}}
+
+                                                    {{--success: function (response) {--}}
+                                                        {{--console.log('indesign_response:\t' + response);--}}
+                                                    {{--},--}}
+                                                    {{--error: function (xhr) {--}}
+                                                        {{--console.log('indesign_error:\t' + xhr);--}}
+                                                    {{--}--}}
+                                                {{--});--}}
+                                            {{--}--}}
+                                        {{--},--}}
+                                        {{--error: function (xhr) {--}}
+                                            {{--console.log(xhr);--}}
+                                        {{--}--}}
+                                    {{--})--}}
+                                {{--})--}}
 
                             }
 

@@ -403,7 +403,7 @@
     }
 
     result.topCrop = topCrop;
-
+    result.src = options.src;
     if (options.debug && topCrop) {
       result.crops = crops;
       result.debugOutput = output;

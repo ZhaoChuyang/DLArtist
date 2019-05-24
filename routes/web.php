@@ -13,28 +13,28 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 
-Route::any('/', function () {
-    return view('index');
-});
+Route::any('/', 'HomeController@index');
 
 Auth::routes(['verify' => true]);
 
-Route::any('/home', 'HomeController@index')->name('home');
+Route::any('/home', 'HomeController@index')->name('home')->middleware(['auth']);
 
-Route::get('/index', 'HomeController@index');
+Route::get('/index', 'HomeController@index')->middleware(['auth']);
 //分类
 Route::any('/categories', function(){
     return view('categories');
-});
+})->middleware(['auth']);;
 //具体分类
-Route::post('categories/sorter','CategoriesController@category');
+Route::post('categories/sorter','CategoriesController@category')->middleware(['auth']);
 
 //文章
-Route::get('/article/{id}','CategoriesController@article');
+Route::get('/article/{id}','CategoriesController@article')->middleware(['auth']);
 //编辑页面
-Route::get('/edit','ArticleController@edit')->middleware(['auth','verified']);
+Route::get('/edit','ArticleController@edit')->middleware(['auth']);
 //图片处理
 Route::post('/image','imageController@store');
 Route::delete('/image','imageController@destroy');
@@ -44,11 +44,11 @@ Route::post('/article', 'ArticleController@store');
 //账户信息
 Route::get('/account', function(){
     return view('account');
-})->middleware(['auth','verified']);
+})->middleware(['auth']);
 
 Route::get('/account/{info}',function($info){
     return View::make('ajax/account')->with('info', $info)->with('user_id', Auth::user()->id)->render();
-})->middleware(['auth','verified']);
+})->middleware(['auth']);
 
 Route::post('/accounts/avatar','accounts@storeAvatar');
 Route::post('/accounts/save','accounts@saveinfo');
@@ -66,25 +66,17 @@ Route::post('/send', 'EmailController@send');
 Route::post('/model/image','ModelController@BingImageSearch');
 Route::post('/model/crop','ModelController@crop_pic');
 
-Route::get('/format', function (){
-    return view('format');
-});
+Route::get('/compose_plan/{article_id}/{plan_id}', 'ModelController@sendArticle')->middleware(['auth']);
 
-Route::any('/mode-1',function (){
-    return view('article_mode1');
-});
+Route::get('/encrypt', 'ModelController@encrypt')->middleware(['auth']);
 
-Route::get('/compose_plan/{article_id}/{plan_id}', 'ModelController@sendArticle')->middleware(['auth','verified']);
+Route::post('/image/class', 'imageController@classify')->middleware(['auth']);
 
-Route::get('/encrypt', 'ModelController@encrypt')->middleware(['auth','verified']);
+Route::post('/image/image_management', 'imageController@imageManagement')->middleware(['auth']);
 
-Route::post('/image/class', 'imageController@classify')->middleware(['auth','verified']);
+Route::get('/generateImage','ModelController@attnGan')->middleware(['auth']);
 
-Route::post('/image/image_management', 'imageController@imageManagement')->middleware(['auth','verified']);
-
-Route::get('/generateImage','ModelController@attnGan')->middleware(['auth','verified']);
-
-Route::get('/image/saveAttn', 'imageController@saveAttn')->middleware(['auth','verified']);
+Route::get('/image/saveAttn', 'imageController@saveAttn')->middleware(['auth']);
 
 Route::get('/test', function(){
     return view('test');
@@ -107,6 +99,33 @@ Route::get('/image/raw/{filename}', function ($filename)
 
 //    $file = File::get($path);
 //    $type = File::mimeType($path);
+
+    return response()->file($path);
+});
+
+Route::get('/image/cover/{filename}', function ($filename)
+{
+
+    $path = storage_path().'/app/image/cover/'.$filename;
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+//    $file = File::get($path);
+//    $type = File::mimeType($path);
+
+    return response()->file($path);
+});
+
+Route::get('/image/gen/{filename}', function ($filename)
+{
+
+    $path = resource_path().'/AttnGAN/'.$filename;
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
 
     return response()->file($path);
 });
@@ -136,11 +155,32 @@ Route::get('/image/classify', 'imageController@imageClassify');
 
 Route::post('/inDesign', 'typeSettingController@connectIndesign');
 
-Route::get('index1', function(){
-    return view('index1');
+Route::post('/genSummary', 'ModelController@genSummary');
+
+Route::post('/recomImage', 'imageController@recommendImage');
+
+Route::get('/calcColor', 'ModelController@calcColor');
+
+Route::get('/edit_2', function(){
+    return view('edit_2');
+});
+Route::get('/fanyi', 'typeSettingController@testfanyi');
+
+Route::get('/pdf/{id}', function($id){
+
+    if(Storage::disk('local')->exists("pdf/$id.pdf")){
+        return response()->file(storage_path().'/app/pdf/'.$id.'.pdf');
+    }else{
+        $file_ftp = Storage::disk('ftp')->get("pdf/$id.pdf");
+        $file_local = Storage::disk('local')->put("pdf/$id.pdf", $file_ftp);
+        return response()->file(storage_path().'/app/pdf/'.$id.'.pdf');
+    }
+
+
+
 });
 
-Route::get('csv', 'HomeController@showArticle');
+Route::post('/compose_pro', 'TypeSettingController@compose_pro');
 
 
 

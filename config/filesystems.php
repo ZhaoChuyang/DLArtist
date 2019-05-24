@@ -66,7 +66,7 @@ return [
 
         'ftp' => [
             'driver'   => 'ftp',
-            'host'     => '101.76.253.145',
+            'host'     => '192.168.43.6',
             'username' => 'Administrator',
             'password' => 'Aa123456.',
 

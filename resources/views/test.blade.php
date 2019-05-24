@@ -35,27 +35,28 @@
             </ol>
             <div class="carousel-inner" role="listbox">
                 <!-- Slide One - Set the background image for this slide in the line below -->
-                <div class="carousel-item active" style="background-image: url('https://source.unsplash.com/LAaSoL0LrYs/1920x1080')">
+                <div class="carousel-item active" style="background-image: url('images/test_1.jpeg')">
                     <div class="carousel-caption d-none d-md-block">
-                        <h2 class="display-4" style="color:white">First Slide</h2>
-                        <p class="lead">This is a description for the first slide.</p>
+                        <h2 class="display-4" style="color:white">智能排版</h2>
+                        <p class="lead">Tidy and elegant typesetting solution.</p>
 
                         <a href="/edit_1" class="btn btn-outline-light ">See details</a>
 
                     </div>
                 </div>
                 <!-- Slide Two - Set the background image for this slide in the line below -->
-                <div class="carousel-item" style="background-image: url('https://source.unsplash.com/bF2vsubyHcQ/1920x1080')">
+                <div class="carousel-item" style="background-image: url('images/test_2.jpeg')">
                     <div class="carousel-caption d-none d-md-block">
-                        <h2 class="display-4" style="color:white">Second Slide</h2>
-                        <p class="lead">This is a description for the second slide.</p>
-                        <a href="#" class="btn btn-outline-light ">See details</a>
+                        <h2 class="display-4" style="color:white">专业排版</h2>
+                        <p class="lead">Powerful and professional typesetting solution.</p>
+
+                        <a href="/edit_2" class="btn btn-outline-light ">See details</a>
                     </div>
                 </div>
                 <!-- Slide Three - Set the background image for this slide in the line below -->
-                <div class="carousel-item" style="background-image: url('https://source.unsplash.com/szFUQoyvrxM/1920x1080')">
+                <div class="carousel-item" style="background-image: url('/images/test_3.jpeg')">
                     <div class="carousel-caption d-none d-md-block">
-                        <h2 class="display-4" style="color:white">Third Slide</h2>
+                        <h2 class="display-4" style="color:white">即将上线</h2>
                         <p class="lead">This is a description for the third slide.</p>
                         <a href="#" class="btn btn-outline-light ">See details</a>
                     </div>

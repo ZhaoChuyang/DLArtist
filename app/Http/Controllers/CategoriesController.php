@@ -9,12 +9,14 @@ use DLArtist\DB\Article;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
+
 class CategoriesController extends Controller
 {
     //
     public function categories1(){
 //文娱
-        $category = '文娱点评';
+        $category = '1';
         $current=(int)$_GET['page'];
         $perpage_num=6;
         $article = new Article();
@@ -61,7 +63,7 @@ class CategoriesController extends Controller
 
     public function categories2(){
 //军事
-        $category = '军事分析';
+        $category = '2';
         $current=(int)$_GET['page'];
         $perpage_num=6;
         $article = new Article();
@@ -106,7 +108,7 @@ class CategoriesController extends Controller
     }
     public function categories3(){
 //时事
-        $category = '时事评论';
+        $category = '3';
         $current=(int)$_GET['page'];
         $perpage_num=6;
         $article = new Article();
@@ -151,7 +153,7 @@ class CategoriesController extends Controller
     }
     public function categories4(){
 //技术
-        $category = '技术博客';
+        $category = '4';
         $current=(int)$_GET['page'];
         $perpage_num=6;
         $article = new Article();
@@ -196,7 +198,7 @@ class CategoriesController extends Controller
     }
     public function categories5(){
 //教育
-        $category = '教育文化';
+        $category = '5';
         $current=(int)$_GET['page'];
         $perpage_num=6;
         $article = new Article();
@@ -331,7 +333,7 @@ class CategoriesController extends Controller
                 return response()->json(['pre_page'=>$pre_page, 'next_page'=>$next_page, 'data'=>$data,'user_num'=>$user_num,'article_num'=>$article_num,'new_article'=>$new_article]);            }
         }
         else if($category_val==5){
-            $category = '教育文化';
+            $category = '5';
             $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
                 $query->where('share','1')->orwhere('user_id',$user_id);})->get()->count('id');
             $last=ceil($num/$perpage_num);
@@ -374,7 +376,7 @@ class CategoriesController extends Controller
             }
         }
         else if($category_val==4){
-            $category = '技术博客';
+            $category = '4';
             $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
                 $query->where('share','1')->orwhere('user_id',$user_id);})->get()->count('id');
             $last=ceil($num/$perpage_num);
@@ -417,7 +419,7 @@ class CategoriesController extends Controller
             }
         }
         else if($category_val==3){
-            $category = '时事评论';
+            $category = '3';
             $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
                 $query->where('share','1')->orwhere('user_id',$user_id);})->get()->count('id');
             $last=ceil($num/$perpage_num);
@@ -460,7 +462,7 @@ class CategoriesController extends Controller
             }
         }
         else if($category_val==2){
-            $category = '军事分析';
+            $category = '2';
             $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
                 $query->where('share','1')->orwhere('user_id',$user_id);})->get()->count('id');
             $last=ceil($num/$perpage_num);
@@ -503,7 +505,7 @@ class CategoriesController extends Controller
             }
         }
         else{
-            $category = '文娱点评';
+            $category = '1';
             $num=$article->where('category',$category)->where('valid',1)->where(function ($query)use($user_id){
                 $query->where('share','1')->orwhere('user_id',$user_id);})->get()->count('id');
             $last=ceil($num/$perpage_num);
@@ -556,16 +558,19 @@ class CategoriesController extends Controller
         $article->where('id',$id)->increment('click_num');
 
         $cate=DB::table('articles')->find($id)->category;
+        if(Auth::check()){
+            if(Cache::has('user:'.auth()->user()->id.':cate:'.$cate)){
+                Cache::increment('user:'.auth()->user()->id.':cate:'.$cate);
+            }
+            else{
+                $csv = array_map('str_getcsv', file(resource_path().'/recommendation/data/data.csv'));
+                $thisRecord = ((int)(auth()->user()->id)-1)*6+(int)$cate;
+                $click_num = $csv[$thisRecord][2];
+                $click_num = (int)$click_num;
+                Cache::put('user:'.auth()->user()->id.':cate:'.$cate, $click_num+1, 1440);
+            }
+        }
 
-        if(Cache::has('user:'.auth()->user()->id.':cate:'.$cate)){
-            Cache::increment('user:'.auth()->user()->id.':cate:'.$cate);
-        }
-        else{
-            $csv = array_map('str_getcsv', file(resource_path().'/recommendation/data/data.csv'));
-            $thisRecord = (auth()->user()->id-1)*6+$cate;
-            $click_num = $csv[$thisRecord][2];
-            Cache::put('user:'.auth()->user()->id.':cate:'.$cate, $click_num+1, 1440);
-        }
 
         $title=$article->where('id',$id)->select('title')->get();
         if(auth()->user())
@@ -578,6 +583,7 @@ class CategoriesController extends Controller
         $comment_num=$comment->where('article_id',$id)->where('valid',1)->get()->count();
         $comments=DB::table('comments')->join('users','users.id','=','user_id')->where('article_id',$id)->where('valid',1)->select('comments.id','name','update','content','avatar_url')->limit(5)->offset(0)->orderby('comments.id','desc')->get();
         $reply=DB::table('reply')->join('users','users.id','=','user_id')->where('article_id',$id)->where('valid',1)->select('pid','reply.id','name','update','content','avatar_url','reply_name')->orderby('pid','desc')->get();
-        return view('article',compact('title','content','time','user_name','comment_num','comments','id','user_id','reply'));
+        $article_id=$id;
+        return view('article',compact('title','content','time','user_name','comment_num','comments','id','user_id','reply','article_id'));
     }
 }

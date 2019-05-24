@@ -43,14 +43,10 @@
             <!-- Post Content -->
             <div class="container">
                 <div class="row no-margin wrap-text padding-bottom-null padding-onlytop-lg">
-                    <div class="col-md-8 col-md-offset-2 padding-leftright-null">
-                        <div class="text small padding-topbottom-null">
-                            <span class="dropcap" data-dropcap="DLartist"></span>
-                            {{--//文章内容（无需dom标签）--}}
-                            @foreach($content as $t)
-                                {!! $t->content !!}
-                            @endforeach
-                        </div>
+
+                    <div class="col-md-10 col-md-offset-1 padding-leftright-null">
+                        <embed src="/pdf/{{$article_id}}" style="width: 100%; height: 1000px;"
+                               type="application/pdf">
                     </div>
                 </div>
             </div>
@@ -224,7 +220,7 @@
         $("#submit-contact").click(function () {
             if(!reply){
                 $.ajax({
-                    url: 'ArticleController/comment',
+                    url: '/ArticleController/comment',
                     type: 'post',
                     data: {
                         "_token": '{{csrf_token()}}',
@@ -247,7 +243,7 @@
             }
             else {
                 $.ajax({
-                    url: 'ArticleController/comment_reply',
+                    url: '/ArticleController/comment_reply',
                     type: 'post',
                     data: {
                         "_token": '{{csrf_token()}}',

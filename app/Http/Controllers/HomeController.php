@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -20,35 +21,35 @@ class HomeController extends Controller
         $articles=null;
         if(Cache::has('articlesToAll')){
             $articles=Cache::get('articlesToAll');
-
         }
         else{
             $articles=DB::table('articles')->where('share', 1)->orderBy('click_num')->limit(6)->get();
             //每半天更新一次推荐列表文章
             Cache::put('articlesToAll', $articles, 720);
-
         }
         //若是用户已经登录
         if(Auth::check()){
-            $user_id=auth()->user()->id;
-            //Apache的指令，换成Swoole需要更改
-
-            for($i=1; $i<=6; $i++){
-                if(Cache::has('user:'.$user_id.':cate:'.$i)){
-                    $click_num=Cache::get('user:'.$user_id.':cate:'.$i);
-                    $fp = fopen(resource_path().'/recommendation/data/data.csv', 'w');
-
-                    fclose($fp);
-                }
+            if(!Cache::has('user:'.auth()->user()->id.':recommend')){
+                $user_id=auth()->user()->id;
+                //Apache的指令，换成Swoole需要更改
+                $output=shell_exec("cd ../resources/recommendation/recommend && python cf_run.py $user_id");
+                Log::info("out".$output);
+                //Swoole
+//                $output=shell_exec("cd ../resources/recommendation/recommend && python cf_run.py $user_id");
+                $articles_you=array();
+                array_push($articles_you, DB::table('articles')->where('share', 1)->where('category', $output[0])->first());
+                array_push($articles_you, DB::table('articles')->where('share', 1)->where('category', $output[1])->first());
+                array_push($articles_you, DB::table('articles')->where('share', 1)->where('category', $output[2])->first());
+                Cache::put('user:'.auth()->user()->id.':recommend', $articles_you, 30);
             }
-
-            $output=shell_exec("cd ../resources/recommendation/recommend && python cf_run.py $user_id");
-
+            else{
+                $articles_you=Cache::get('user:'.auth()->user()->id.':recommend');
+            }
         }
         else{
-
+            $articles_you = DB::table('articles')->where('share', 1)->orderBy('click_num')->limit(3)->get();
         }
-        return view('index1');
+        return view('index1')->with('articlesForAll', $articles)->with('articlesForYou', $articles_you);
     }
 
     public function showArticle(){
@@ -74,18 +75,20 @@ class HomeController extends Controller
         //$output=passthru("source activate attngan && cd public/AttnGAN/code && python fine.py --str $str");
         //return $output;
         //laravel
-        $output=$output = passthru("source activate attngan && cd ../resources/AttnGAN/code && python fine.py --str $str --name $str " );
-        //$output = passthru("source activate attngan && cd /resources/AttnGAN/code && python fine.py --str $str --name 123");
+        $output=$output = shell_exec("source activate attngan && cd ../resources/AttnGAN/code && python fine.py --str $str --name $str " );
+        //$output = passthru("source activate attngan && cd resources/AttnGAN/code && python fine.py --str $str --name 123");
         //$newName=time().'.png';
         //rename(public_path().'/AttnGAN/0_s_0_g2.png', public_path().'/images/a.png');
         return $output;
         //return response()->json(['output'=>$output]);
     }
 
-    public function ftp(){
-        $file = file_get_contents(storage_path().'/app/public/avatar/default_avatar.jpg');
-        Storage::disk('ftp')->put('sample.jpg', $file);
-        //echo $path;
+    public function mysql(){
+        $query=DB::table('users')->where('id', 1)->get();
+    }
+
+    public function redis(){
+        if(Cache::has('aaa')) return 0;
     }
 }
 
