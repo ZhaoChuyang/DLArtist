@@ -84,7 +84,7 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 1. clone该项目到你的本地目录下
 2. 在你的终端中用`cd`进入到项目文件夹下
 3. 在你的终端中运行`composer install`
-4. 将`.env.emample`文件复制到项目主目录下的`.env`文件
+4. 将`.env.example`文件复制到项目主目录下的`.env`文件
 5. 打开`.env`文件，并将DB_DATABASE改成你相应的数据库名称，DB_USERNAME改成相应的数据库用户名, DB_PASSWORD改成相应的用户密码
 6. 运行 `php artisan key:generate`
 7. 运行 `php artisan migrate`
