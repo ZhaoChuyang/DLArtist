@@ -15,7 +15,7 @@
         "gumlet/php-image-resize": "1.9.*",
         "guzzlehttp/guzzle": "^6.3",
         "kub-at/php-simple-html-dom-parser": "^1.7",
-        "laravel/framework": "5.7.*",
+        "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "sunra/php-simple-html-dom-parser": "1.5.2",
         "swooletw/laravel-swoole": "v2.6.5.4",
