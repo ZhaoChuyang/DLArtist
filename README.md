@@ -103,4 +103,9 @@ Sample 1
 
 More samples can be found in `assets`.
 
-Please contact chuyangzhao@126.com for more information.
+## Contributors
+[Chuyang Zhao](https://github.com/ZhaoChuyang), [Runzhen Xue](https://github.com/RzHsueh), [Hao Wu](https://github.com/pyjnqd)
+
+## Contact
+
+Please contact my email chuyangzhao@126.com for more information.
