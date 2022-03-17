@@ -1,14 +1,16 @@
-# DLArtist
+# DLArtiset - An Intelligent Typesetting System
 
-DLArtist是一个基于人工智能的，对用户输入的文章进行自动排版，图片进行智能裁剪，并且提供插图自动生成的排版设计网站。
+🏆 The second prize of the 12th National College Student Software Innovation Competition (12th Intel Cup)
 
-## 开始部署
+## Introduction
 
-这些说明将为您提供在本地计算机上启动和运行的项目副本，以进行开发和测试。有关如何在实时系统上部署项目的说明，请参阅部署。
+DLArtist is an artificial intelligence-based typesetting website that automatically typeset articles entered by users, intelligently crop images, and provide automatic generation of illustrations.
 
-### 配置要求
+Read this in other languages: [English](README.md), [中文](README-CN.md)
 
-布置该项目前需要安装好这些环境
+## Deployment
+
+### Requirements
 
 ```
 1. Ubuntu 16.04+
@@ -21,9 +23,10 @@ DLArtist是一个基于人工智能的，对用户输入的文章进行自动排
 8. python 2.7 & python 3.6
 ```
 
-### 修改cron文件
-```
-用该命令打开cron目录
+### CRON Configuration
+
+```sh
+# open cron directory
 crontab -e
 
 Here is the only Cron entry you need to add to your server:
@@ -33,7 +36,7 @@ Here is the only Cron entry you need to add to your server:
 This Cron will call the Laravel command scheduler every minute. Then, Laravel evaluates your scheduled tasks and runs the tasks that are due.
 ```
 
-### .env配置
+### .env configuration
 ```
 APP_NAME=DLArtist
 APP_ENV=local
@@ -79,15 +82,25 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
 ```
 
-### 安装
+### Install
 
-1. clone该项目到你的本地目录下
-2. 在你的终端中用`cd`进入到项目文件夹下
-3. 在你的终端中运行`composer install`
-4. 将`.env.example`文件复制到项目主目录下的`.env`文件
-5. 打开`.env`文件，并将DB_DATABASE改成你相应的数据库名称，DB_USERNAME改成相应的数据库用户名, DB_PASSWORD改成相应的用户密码
-6. 运行 `php artisan key:generate`
-7. 运行 `php artisan migrate`
-8. 运行 `php artisan serve`
-9. 浏览器访问`localost:8000`
+1. Clone the project to your local directory
+2. Use `cd` to go to the project folder in your terminal
+3. Run `composer install` in your terminal
+4. Copy the `.env.example` file to the `.env` file in the project home directory
+5. Open the `.env` file and change DB_DATABASE to your corresponding database name, DB_USERNAME to the corresponding database user name, DB_PASSWORD to the corresponding user password
+6. Run `php artisan key:generate`
+7. Run `php artisan migrate`
+8. Run `php artisan serve`
+9. Browser access `localost:8000`
 
+## Results
+Sample 1
+![](./assets/sample1-1.jpg)
+![](./assets/sample1-2.jpg)
+![](./assets/sample1-3.jpg)
+![](./assets/sample1-4.jpg)
+
+More samples can be found in `assets`.
+
+Please contact chuyangzhao@126.com for more information.
